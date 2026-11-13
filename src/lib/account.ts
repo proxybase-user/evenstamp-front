@@ -2,8 +2,9 @@ import { cache } from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export const ENGINE_URL =
-  process.env.RUST_BACKEND_INTERNAL_URL ?? 'http://127.0.0.1:8080';
+export const ENGINE_URL = (
+  process.env.RUST_BACKEND_INTERNAL_URL ?? 'http://127.0.0.1:8080'
+).replace(/\/+$/, '');
 
 export const SESSION_COOKIE = 'es_session';
 const INTERNAL_SECRET = process.env.EVENSTAMP_INTERNAL_SECRET ?? '';

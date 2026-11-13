@@ -1,8 +1,9 @@
 import { timingSafeEqual } from 'node:crypto';
 import { NextResponse, type NextRequest } from 'next/server';
 
-export const ENGINE_URL =
-  process.env.RUST_BACKEND_INTERNAL_URL ?? 'http://127.0.0.1:8080';
+export const ENGINE_URL = (
+  process.env.RUST_BACKEND_INTERNAL_URL ?? 'http://127.0.0.1:8080'
+).replace(/\/+$/, '');
 
 const MAX_BODY_BYTES = 1_048_576;
 const EDGE_SECRET_HEADER = 'x-evenstamp-edge-secret';
