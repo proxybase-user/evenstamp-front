@@ -5,7 +5,6 @@ const nextConfig = {
   // The Docker image sets NEXT_OUTPUT=standalone at build time. Local
   // `next build`/`next start` stays in the default mode.
   output: process.env.NEXT_OUTPUT === 'standalone' ? 'standalone' : undefined,
-  transpilePackages: ['@fingerprint/frontend-sdk'],
   async headers() {
     return [
       {

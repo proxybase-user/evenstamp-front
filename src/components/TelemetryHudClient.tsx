@@ -9,21 +9,21 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { collectWebGLSignals } from '@fingerprint/frontend-sdk/collectors/webgl';
-import { collectWebGpuSignals } from '@fingerprint/frontend-sdk/collectors/webgpu';
+import { collectWebGLSignals } from '@/lib/collectors/webgl';
+import { collectWebGpuSignals } from '@/lib/collectors/webgpu';
 import {
   runCanvasForensicTraps,
   emptyCanvasIntegrity,
-} from '@fingerprint/frontend-sdk/collectors/canvasTrap';
+} from '@/lib/collectors/canvasTrap';
 import {
   detectActiveCDPSession,
   emptyCdpIntegrity,
-} from '@fingerprint/frontend-sdk/collectors/cdpTrap';
+} from '@/lib/collectors/cdpTrap';
 import {
   collectHostOsSignals,
   emptyHostOsSignals,
   type HostOsSignals,
-} from '@fingerprint/frontend-sdk/collectors/hostOs';
+} from '@/lib/collectors/hostOs';
 
 type SimulationMode = 'genuine' | 'antidetect_proxy' | 'playwright_cdp';
 
