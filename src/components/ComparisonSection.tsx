@@ -31,18 +31,18 @@ export default function ComparisonSection() {
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Better protection, fairer pricing</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Stop overpaying $99+ a month just to let abusers slip through in another browser.
+          Stop paying $99+ a month to let abusers slip through in another browser.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          Legacy fingerprinting tools charge steep monthly minimums and still get fooled when a user
-          switches from Chrome to Edge. Free open-source scripts break the moment someone opens Incognito.
-          Evenstamp gives you hardware-level accuracy at a fraction of the cost.
+          Legacy fingerprinting tools charge monthly minimums and still get fooled when a user
+          switches from Chrome to Edge. Free open-source scripts break when someone opens Incognito.
+          Evenstamp starts at $29/mo and identifies the hardware itself.
         </p>
       </div>
 
       <div className="mt-8">
         <div className="mb-2 text-right md:hidden font-mono text-[11px] text-accent-blue flex items-center justify-end gap-1">
-          <span>Swipe to compare &rarr;</span>
+          <span>Swipe to compare</span>
         </div>
         <div className="overflow-x-auto rounded-[8px] border border-hairline bg-surface-1 scrollbar-thin">
           <table className="w-full min-w-[720px] border-collapse text-left text-sm">
@@ -93,11 +93,11 @@ export default function ComparisonSection() {
             Cost per 1,000 identifications
           </div>
           <h3 className="text-xl font-semibold text-ink">
-            Up to 96% lower cost per call.
+            Up to 96% lower cost per 1,000 checks.
           </h3>
           <p className="max-w-[46ch] text-sm leading-relaxed text-ink-body">
-            Published list pricing, normalized to the same unit. Evenstamp starts at
-            just $29/mo with predictable overage rates and zero punitive platform fees.
+            Published list prices, normalized to the same unit. Evenstamp starts at
+            $29/mo with published overage rates and no platform fee.
           </p>
           <p className="font-mono text-[11px] text-ink-muted">
             Comparison reflects public pricing and documented capabilities as of Q4 2026.
@@ -110,7 +110,7 @@ export default function ComparisonSection() {
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 font-mono text-xs">
                 <span className="font-medium text-ink">{bar.label}</span>
                 <span className="text-ink-muted">
-                  {bar.detail} (${bar.value.toFixed(3)}/call)
+                  {bar.detail} (${bar.value.toFixed(3)}/1k checks)
                 </span>
               </div>
               <div className="h-3 w-full rounded-[4px] bg-surface-3 overflow-hidden">

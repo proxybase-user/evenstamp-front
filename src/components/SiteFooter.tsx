@@ -19,7 +19,7 @@ export default function SiteFooter() {
               </span>
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-ink-body">
-              Stop multi-accounting, free-trial abuse, and bot fraud with cross-browser hardware identification. Fast, private, and 100% under your control.
+              Stop multi-accounting, free-trial abuse, and bot fraud with cross-browser hardware identification. Available as managed cloud or a private single file.
             </p>
             <p className="font-mono text-[11px] text-ink-muted">
               Engine v2.4 · Enterprise fraud &amp; abuse defense

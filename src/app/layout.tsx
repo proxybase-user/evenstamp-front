@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default:
-      'Evenstamp — Cross-Browser Fraud & Abuse Protection',
+      'Evenstamp: Cross-Browser Fraud & Abuse Protection',
     template: '%s · Evenstamp',
   },
   description:
-    'Recognize every visitor—even when they clear cookies, switch browsers, or use a VPN. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
+    'Recognize every visitor, even when they clear cookies, switch browsers, or use a VPN. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
   keywords: [
     'fraud prevention',
     'stop multi-accounting',
@@ -41,15 +41,15 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Evenstamp',
-    title: 'Evenstamp — Stop Multi-Accounting & Bot Abuse',
+    title: 'Evenstamp: Stop Multi-Accounting & Bot Abuse',
     description:
-      'Recognize every visitor—even when they try to hide. Instant fraud risk score and cross-browser hardware ID.',
+      'Recognize every visitor, even when they try to hide. Get a fraud risk score and a cross-browser hardware ID.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Evenstamp — Stop Multi-Accounting & Bot Abuse',
+    title: 'Evenstamp: Stop Multi-Accounting & Bot Abuse',
     description:
-      'Recognize every visitor—even when they try to hide. Instant fraud risk score and cross-browser hardware ID.',
+      'Recognize every visitor, even when they try to hide. Get a fraud risk score and a cross-browser hardware ID.',
   },
   robots: {
     index: true,

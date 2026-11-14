@@ -11,11 +11,11 @@ const CATEGORY_CARDS = [
   {
     category: 'category-card-purple',
     badge: 'CHECK 1 · THE CONNECTION',
-    title: 'Sees right through VPNs and residential proxies',
-    subtitle: 'Catches hidden tunnels before the page even finishes loading',
+    title: 'Detects VPNs and residential proxies',
+    subtitle: 'Flags the tunnel while the page loads',
     description:
-      'Fraudsters pay for "residential proxies" to make it look like they are browsing from a normal home Wi-Fi connection. Evenstamp measures subtle timing delays in their internet connection to expose hidden VPNs and proxy servers instantly.',
-    tech: 'Connection Timing → VPN & Proxy Unmasking',
+      'Fraudsters buy "residential proxies" so their traffic looks like it comes from a home Wi-Fi connection. Evenstamp measures timing gaps between the network and browser handshakes; a proxy adds delays that a direct connection does not have.',
+    tech: 'Connection timing -> VPN & proxy detection',
     icon: Network,
     textClass: 'text-white',
     badgeClass: 'bg-white/20 text-white',
@@ -24,11 +24,11 @@ const CATEGORY_CARDS = [
   {
     category: 'category-card-pink',
     badge: 'CHECK 2 · THE HARDWARE',
-    title: 'Reads the physical graphics chip inside the device',
-    subtitle: 'Identifies the real machine across different browsers',
+    title: 'Identifies the physical graphics chip',
+    subtitle: 'Same machine across Chrome, Safari, and Firefox',
     description:
-      'A user can switch from Chrome to Firefox or open an Incognito window, but they can\'t swap out the physical graphics card soldered to their motherboard. We test how their chip renders tiny invisible graphics to recognize the exact same computer every time.',
-    tech: 'Hardware Speed Test → Same Device ID Across Browsers',
+      'A user can switch from Chrome to Firefox or open an Incognito window, but they can\'t swap the graphics card soldered to the motherboard. We test how the chip renders invisible graphics to recognize the same computer.',
+    tech: 'Hardware speed test -> same Device ID across browsers',
     icon: Cpu,
     textClass: 'text-white',
     badgeClass: 'bg-white/20 text-white',
@@ -40,8 +40,8 @@ const CATEGORY_CARDS = [
     title: 'Exposes "anti-detect" browsers built for fraud',
     subtitle: 'Catches tools like Multilogin, Dolphin{anty}, and GoLogin',
     description:
-      'Professional bonus abusers and multi-accounters use special software to fake hundreds of different laptops. Evenstamp sets invisible traps in the browser\'s rendering engine that force these disguise tools to reveal themselves.',
-    tech: 'Invisible Rendering Traps → Fake Browser Caught',
+      'Bonus abusers and multi-accounters use software to fake hundreds of laptops. Evenstamp sets traps in the browser\'s rendering engine that make these disguise tools contradict themselves.',
+    tech: 'Invisible rendering traps -> fake profile caught',
     icon: Eye,
     textClass: 'text-white',
     badgeClass: 'bg-white/20 text-white',
@@ -50,11 +50,11 @@ const CATEGORY_CARDS = [
   {
     category: 'category-card-orange',
     badge: 'CHECK 4 · HUMAN BEHAVIOR',
-    title: 'Tells real human hands apart from automated scripts',
+    title: 'Separates human input from automated scripts',
     subtitle: 'Natural mouse movement, scrolling, and typing rhythm',
     description:
-      'Humans don\'t move a mouse in dead-straight lines or scroll at robotic intervals. Evenstamp analyzes how a visitor moves, clicks, and scrolls in real time—blocking automated bots even when they use stolen residential IPs.',
-    tech: 'Mouse, Scroll & Touch Rhythm → Bots Blocked',
+      'Humans don\'t move a mouse in dead-straight lines or scroll at fixed intervals. Evenstamp measures how a visitor moves, clicks, and scrolls, so a scripted session stands out even when it comes from a residential IP.',
+    tech: 'Mouse, scroll & touch rhythm -> bots blocked',
     icon: Activity,
     textClass: 'text-white',
     badgeClass: 'bg-white/20 text-white',
@@ -63,11 +63,11 @@ const CATEGORY_CARDS = [
   {
     category: 'category-card-green',
     badge: 'CHECK 5 · PRIVACY & SPEED',
-    title: 'Fast, private, and 100% under your control',
-    subtitle: 'Encrypted end-to-end with zero third-party data sharing',
+    title: 'Fast, private, and under your control',
+    subtitle: 'Encrypted in transit, with no third-party sharing',
     description:
-      'Unlike legacy trackers that pool your visitors\' data into massive ad-tech databases, Evenstamp keeps your customer identity graph completely isolated, encrypted, and GDPR-friendly—available as instant cloud hosting or a single private install.',
-    tech: 'Bank-Grade Encryption → GDPR Ready → Instant Verdicts',
+      'Legacy trackers pool visitor data into ad-tech databases. Evenstamp keeps your identity graph isolated and encrypted, and you can run it as managed cloud hosting or a single private install.',
+    tech: 'AES-256-GCM envelopes -> GDPR-ready -> instant verdicts',
     icon: Lock,
     textClass: 'text-ink',
     badgeClass: 'bg-black/15 text-ink',
@@ -89,12 +89,12 @@ export default function ArchitectureSection() {
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Why scammers can&apos;t fool it</div>
         <h2 className="text-3xl font-semibold leading-[1.12] tracking-normal sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Faking a browser takes seconds. Faking a physical computer is nearly impossible.
+          Faking a browser takes seconds. Faking the hardware underneath it is much harder.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body sm:text-lg">
-          Basic tracking relies on cookies and IP addresses—which anyone can reset in two clicks.
-          Evenstamp checks five physical realities of a visitor&apos;s device at the exact same time.
-          If a fraudster tries to fake one, the others give them away.
+          Basic tracking relies on cookies and IP addresses, which anyone can reset in two clicks.
+          Evenstamp checks five physical properties of a device at once.
+          If a fraudster fakes one, the others give them away.
         </p>
       </div>
 
@@ -154,15 +154,15 @@ export default function ArchitectureSection() {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-2">
             <div className="eyebrow-sm text-ink-muted">
-              Smart Risk Scoring
+              Risk scoring
             </div>
             <h3 className="text-xl font-semibold text-ink">
-              One clear score from 0 to 100. You decide who gets blocked.
+              One score from 0 to 100. You decide who gets blocked.
             </h3>
             <p className="max-w-xl text-sm leading-relaxed text-ink-body">
-              Instead of dumping confusing technical logs on your team, Evenstamp combines
-              every check into a single risk score. Let normal customers breeze through
-              while automatically stopping repeat abusers at signup or checkout.
+              Evenstamp combines every check into one risk score, so your team doesn&apos;t
+              have to read raw telemetry. Normal customers pass; repeat abusers get blocked
+              at signup or checkout.
             </p>
           </div>
 

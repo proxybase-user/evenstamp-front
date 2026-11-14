@@ -70,8 +70,7 @@ export default function SiteHeader() {
             href="/pricing"
             className="button-primary hidden !min-h-0 !px-3.5 sm:!px-4 !py-1.5 !text-xs sm:inline-flex"
           >
-            <span className="hidden lg:inline">Start Protecting Revenue</span>
-            <span className="lg:hidden">Start Protecting</span>
+            <span>Start Free Trial</span>
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
 
@@ -118,7 +117,7 @@ export default function SiteHeader() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-primary w-full justify-center text-sm"
               >
-                Start Protecting Revenue
+                Start Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>

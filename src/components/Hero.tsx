@@ -7,7 +7,7 @@ const SDK_SNIPPET = `import { EvenstampAgent } from '@evenstamp/sdk';
 // 1. Add Evenstamp to your signup, login, or checkout page
 const stamp = await EvenstampAgent.load({ endpoint: '/api/v1' });
 
-// 2. Instantly know if this device has been here before
+// 2. Check if this device has been here before
 const verdict = await stamp.identify();
 // => { deviceId: "dev_7c44a912", riskScore: 3, verdict: "Safe Customer" }`;
 
@@ -44,15 +44,15 @@ export default function Hero() {
 
               {/* Headline */}
               <h1 className="text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.5px] sm:text-5xl sm:leading-[1.05] sm:tracking-[-0.8px] lg:text-[62px] xl:text-[70px] break-words">
-                Know when it&apos;s the same person—even if they clear cookies, switch browsers, or use a VPN.
+                Know when it&apos;s the same person, even if they clear cookies, switch browsers, or use a VPN.
               </h1>
 
               {/* Sub-headline / lead paragraph */}
               <p className="max-w-xl text-base leading-relaxed text-ink-body sm:text-lg">
-                Scammers and bots hide behind Incognito mode, VPNs, and specialized
-                &ldquo;anti-detect&rdquo; browsers to drain your free trials, abuse promo codes,
+                Scammers and bots hide behind Incognito mode, VPNs, and
+                &quot;anti-detect&quot; browsers to burn through free trials, abuse promo codes,
                 and create fake accounts. Evenstamp looks past the browser to identify the
-                actual computer or phone—so one person can&apos;t pretend to be a hundred.
+                actual computer or phone, so one person can&apos;t pretend to be a hundred.
               </p>
 
               {/* Buttons */}
@@ -61,7 +61,7 @@ export default function Hero() {
                   href="#pricing"
                   className="button-primary justify-center text-center w-full sm:w-auto"
                 >
-                  View Plans &amp; Start Protecting
+                  View Plans
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
                 <a
@@ -80,7 +80,7 @@ export default function Hero() {
                     className="status-dot bg-accent-green"
                     aria-hidden="true"
                   />
-                  2-minute setup
+                  5-minute setup
                 </span>
                 <span>Works across Chrome, Safari &amp; Firefox</span>
                 <span>GDPR &amp; privacy compliant</span>

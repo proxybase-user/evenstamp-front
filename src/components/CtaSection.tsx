@@ -23,7 +23,7 @@ export default function CtaSection() {
                 Stop paying for fraudsters to use your product.
               </h2>
               <p className="max-w-[56ch] text-base leading-relaxed text-ink-body">
-                Join teams cutting free-trial abuse, multi-accounting, and bot scraping by over 90% in their first week.
+                Catch repeat devices before they get a second free trial.
               </p>
               <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-xs text-ink-body">
                 {ASSURANCES.map((item) => (
@@ -43,11 +43,11 @@ export default function CtaSection() {
                 href="/pricing"
                 className="button-primary justify-center text-center !py-3 !text-sm"
               >
-                Protect My Website Now — Start Free Trial
+                Start Your 14-Day Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <div className="text-center font-mono text-[11px] text-ink-muted pt-1">
-                Setup takes 5 minutes · Works with any website or framework · Cancel anytime
+                Works with any website or framework
               </div>
             </div>
           </div>

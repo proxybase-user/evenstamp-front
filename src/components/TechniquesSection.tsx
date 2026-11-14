@@ -30,16 +30,16 @@ export default function TechniquesSection() {
         <div className="max-w-3xl space-y-4">
           <div className="eyebrow">// Real-world protection</div>
           <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-            Eight ways abusers try to cheat your business—and how we catch them.
+            Eight ways abusers cheat your business, and how Evenstamp catches them.
           </h2>
           <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-            Whether you&apos;re dealing with teenagers farming free AI credits or organized rings using
-            stealth browsers, any mismatch between what a device claims to be and what it actually is
-            raises the risk score automatically.
+            Teenagers farming free AI credits and organized rings using stealth browsers both leave
+            mismatches between what a device claims to be and what it is. Each mismatch raises the
+            risk score.
           </p>
         </div>
         <div className="card-feature shrink-0 !p-4 font-mono text-[11px] text-ink-muted">
-          <div className="text-accent-blue font-semibold">INSTANT RISK VERDICT</div>
+          <div className="text-accent-blue font-semibold">RISK VERDICT</div>
           <div className="mt-1">Score 0–100 returned in milliseconds</div>
         </div>
       </div>

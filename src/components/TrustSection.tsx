@@ -4,18 +4,18 @@ import SectionFrame from './SectionFrame';
 const PILLARS = [
   {
     icon: Fingerprint,
-    title: 'Privacy & GDPR Compliant',
-    copy: 'Customer identity graphs remain completely isolated, encrypted, and pseudonymized. We never sell, rent, or cross-broker your visitor telemetry to ad-tech networks.',
+    title: 'Privacy and GDPR compliance',
+    copy: 'Identity graphs stay isolated, encrypted, and pseudonymized. We do not sell, rent, or cross-broker visitor telemetry to ad-tech networks.',
   },
   {
     icon: DatabaseZap,
-    title: '100% Data Residency Control',
-    copy: 'Choose instant managed cloud hosting, or deploy our private single-file container directly inside your own VPC with zero external network egress.',
+    title: 'Data residency control',
+    copy: 'Use managed cloud hosting, or run the single-file container inside your own VPC with no external network egress.',
   },
   {
     icon: Scale,
-    title: 'Lawful Abuse Defense',
-    copy: 'Built specifically to stop promo abuse, fake accounts, and credential stuffing. Fully aligned with GDPR Article 6(1)(f) legitimate interest guidelines.',
+    title: 'Lawful abuse defense',
+    copy: 'Built to stop promo abuse, fake accounts, and credential stuffing. The evidence supports a GDPR Article 6(1)(f) legitimate-interest assessment.',
   },
 ];
 
@@ -25,11 +25,11 @@ export default function TrustSection() {
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Privacy &amp; Trust</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Enterprise fraud defense without the privacy liabilities.
+          Fraud defense without the privacy liabilities.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          Your customer data belongs entirely to you. Evenstamp does not track visitors
-          across unrelated websites, broker ad profiles, or pool identity graphs.
+          Your customer data stays yours. Evenstamp does not track visitors across
+          unrelated sites, broker ad profiles, or pool identity graphs.
         </p>
       </div>
 

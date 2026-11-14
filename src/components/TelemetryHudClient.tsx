@@ -503,7 +503,7 @@ export default function TelemetryHudClient() {
               aria-hidden="true"
             />
             <span className="truncate font-mono text-xs uppercase tracking-[0.08em] text-ink">
-              LIVE DEVICE CHECK (YOUR CURRENT DEVICE)
+              LIVE DEVICE CHECK
             </span>
           </div>
           <span
@@ -646,7 +646,7 @@ export default function TelemetryHudClient() {
               }`}
             >
               {probe.edgeOnline
-                ? 'Connection verified · zero proxy latency'
+                ? 'Connection verified · direct path'
                 : 'Connection handshake verified'}
             </div>
           </HudCard>
@@ -722,14 +722,14 @@ export default function TelemetryHudClient() {
             <div className="flex items-center gap-2 text-xs text-accent-green">
               <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
               <span>
-                This looks like a real person on a genuine device—not a bot or disguised browser.
+                This looks like a real person on a genuine device, not a bot or disguised browser.
               </span>
             </div>
           ) : (
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-xs text-accent-red font-medium">
                 <ShieldAlert className="h-4 w-4 shrink-0" aria-hidden="true" />
-                <span>Abuse detected: Mismatches identified between claimed and real device.</span>
+                <span>Abuse detected: the claimed device and the real device disagree.</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {telemetry.anomalies.map((flag) => (
@@ -747,7 +747,7 @@ export default function TelemetryHudClient() {
 
         {/* Footnote below HUD */}
         <p className="text-[11px] leading-relaxed text-ink-muted">
-          Right now, Evenstamp is scanning your device in real time. Try opening this page in Incognito mode or another browser—we&apos;ll still recognize your machine.
+          Evenstamp is scanning this device now. Open this page in Incognito or another browser; we&apos;ll still recognize the same machine.
         </p>
       </div>
     </div>

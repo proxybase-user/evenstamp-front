@@ -7,23 +7,23 @@ const STEPS = [
     step: '01',
     title: 'Paste the snippet',
     description:
-      'Drop our lightweight script onto your signup, login, or checkout page—or install via npm.',
+      'Add the script to your signup, login, or checkout page, or install it from npm.',
   },
   {
     step: '02',
     title: 'Get the Device ID & Risk Score',
     description:
-      'Before you grant a free trial, apply a coupon, or process a payment, Evenstamp tells you if the device is legitimate or a repeat abuser.',
+      'Before you grant a trial, apply a coupon, or take a payment, Evenstamp tells you whether the device is new or a repeat abuser.',
   },
   {
     step: '03',
     title: 'Block or challenge automatically',
     description:
-      'If the risk score is over 70, block the signup, deny the promo code, or ask for phone verification. Real customers never notice a thing.',
+      'If the risk score is over 70, block the signup, deny the promo code, or ask for phone verification. Real customers do not notice.',
   },
 ];
 
-const PROXY_CODE = `// app/api/v1/ingest/route.ts — first-party proxy (runs on your domain)
+const PROXY_CODE = `// app/api/v1/ingest/route.ts - first-party proxy (runs on your domain)
 import { NextRequest, NextResponse } from 'next/server';
 
 const ENGINE = process.env.RUST_BACKEND_INTERNAL_URL!;
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 }`;
 
 const SELF_HOST_CODE = `# Self-hosted private deployment (Scale & Sovereign plan)
-# One binary, one SQLite file, zero external network dependencies.
+# One binary, one SQLite file, no external network dependencies.
 export FP_MASTER_SECRET="$(openssl rand -base64 32)"
 
 docker run -p 8080:8080 \\
@@ -73,11 +73,11 @@ export default function IntegrationSection() {
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Live in under 5 minutes</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          No security team required. Plug it into your signup or checkout flow today.
+          No security team required. Add it to your signup or checkout flow.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          Whether you use our managed cloud API or self-host the private binary, installation
-          is simple, lightweight, and requires only a few lines of code.
+          Use the managed cloud API or self-host the binary. Both install with a few
+          lines of code.
         </p>
       </div>
 
@@ -116,14 +116,14 @@ export default function IntegrationSection() {
                 Managed cloud · first-party proxy
               </h3>
               <p className="font-mono text-[11px] text-ink-muted">
-                Next.js route handler → Evenstamp Cloud
+                Next.js route handler -&gt; Evenstamp Cloud
               </p>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-ink-body">
             Privacy extensions block third-party fingerprinting domains. Routing
-            through your own origin bypasses those blocklists without weakening
-            security or slowing down legitimate users.
+            through your own origin avoids those blocklists and keeps the check
+            on your domain.
           </p>
           <CodeBlock
             title="app/api/v1/ingest/route.ts"
@@ -147,9 +147,9 @@ export default function IntegrationSection() {
             </div>
           </div>
           <p className="text-sm leading-relaxed text-ink-body">
-            Strict compliance requirements or zero-telemetry policies? Run our
-            single-file container directly on your own infrastructure with zero
-            per-call fees and zero external egress.
+            If you have strict compliance or zero-telemetry requirements, run
+            the single-file container on your own infrastructure. No per-call
+            fees, no external egress.
           </p>
           <CodeBlock
             title="docker run"
@@ -167,14 +167,14 @@ export default function IntegrationSection() {
             Edge header contract
           </div>
           <h3 className="text-xl font-semibold text-ink">
-            The proxy supplies wire facts. The engine supplies the verdict.
+            The proxy supplies wire facts. The engine makes the call.
           </h3>
           <p className="text-sm leading-relaxed text-ink-body">
-            Headers are honored only when the TCP peer is inside{' '}
+            The engine honors headers only when the TCP peer is inside{' '}
             <span className="font-mono font-medium text-ink">
               FP_TRUSTED_PROXIES
             </span>
-            . Untrusted headers are ignored.
+            . It ignores headers from anywhere else.
           </p>
         </div>
 

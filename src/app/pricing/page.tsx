@@ -9,7 +9,7 @@ import SiteHeader from '@/components/SiteHeader';
 export const metadata: Metadata = {
   title: 'Pricing · Fraud & Abuse Protection',
   description:
-    'Simple, ROI-positive Evenstamp pricing: Starter at $29/mo, Growth at $79/mo, and Scale / Sovereign at $199/mo. 14-day free trial on all plans.',
+    'Simple Evenstamp pricing: Starter at $29/mo, Growth at $79/mo, and Scale / Sovereign at $199/mo. 14-day free trial on all plans.',
   keywords: [
     'fraud protection pricing',
     'bot detection pricing',
@@ -29,7 +29,7 @@ const TIER_MATRIX = [
     included: '50,000 / month',
     overage: '$0.80 / 10k',
     capabilities:
-      'Cross-browser hardware Device ID, instant 0–100 Fraud Risk Score, VPN & proxy unmasking, first-party proxy, webhooks',
+      'Cross-browser hardware Device ID, 0-100 fraud risk score, VPN and proxy unmasking, first-party proxy, webhooks',
   },
   {
     tier: 'Growth',
@@ -38,7 +38,7 @@ const TIER_MATRIX = [
     included: '250,000 / month',
     overage: '$0.50 / 10k',
     capabilities:
-      'Everything in Starter + full 8-layer anti-detect traps, live behavioral biometrics (mouse, scroll, touch), cloud VM detection, custom score thresholds, priority support',
+      'Everything in Starter, plus full 8-layer anti-detect traps, behavioral biometrics (mouse, scroll, touch), cloud VM detection, custom score thresholds, priority support',
   },
   {
     tier: 'Scale / Sovereign',
@@ -47,7 +47,7 @@ const TIER_MATRIX = [
     included: '1,000,000 Cloud or Unlimited Self-Hosted',
     overage: '$0.30 / 10k Cloud overage',
     capabilities:
-      'Everything in Growth + dedicated single-file private Docker deployment, raw signal weights, zero external telemetry egress, SLA & onboarding',
+      'Everything in Growth, plus a dedicated single-file private Docker deployment, raw signal weights, no external telemetry egress, SLA and onboarding',
   },
   {
     tier: 'Sandbox (Dev)',
@@ -64,17 +64,17 @@ const PRICING_FAQ = [
   {
     question: 'How does the 14-day free trial work?',
     answer:
-      'Every paid plan comes with a full-featured 14-day free trial. You get instant access to live device checks, risk scoring, and dashboard analytics. Cancel anytime in one click before the trial ends and you will not be billed.',
+      'Every paid plan includes a 14-day trial with live device checks, risk scoring, and dashboard analytics. Cancel in one click before the trial ends and you will not be billed.',
   },
   {
     question: 'How do you charge less than Fingerprint Pro ($99+/mo)?',
     answer:
-      'Our engine is built in high-performance Rust backed by embedded SQLite and vectorized in-memory analytics. We do not need massive, costly multi-tenant database clusters, and we pass those infrastructure savings directly to you.',
+      'The engine is written in Rust, backed by embedded SQLite and in-memory analytics. We do not run large multi-tenant database clusters, so the infrastructure savings go into the price.',
   },
   {
     question: 'How does the Self-Hosted Sovereign option work?',
     answer:
-      'Included in the $199/mo Scale plan, you can run our single-binary Docker container directly inside your own VPC or bare metal server. Telemetry never leaves your infrastructure, satisfying strict GDPR, HIPAA, and PCI compliance requirements.',
+      'The $199/mo Scale plan includes a single-binary Docker container you can run inside your own VPC or on bare metal. Telemetry stays on your infrastructure, which helps with GDPR, HIPAA, and PCI requirements.',
   },
   {
     question: 'What payment methods do you accept?',
@@ -89,14 +89,14 @@ const BILLING_PATHS = [
     title: 'Card subscription',
     provider: 'Airwallex Hosted Checkout',
     detail:
-      'Secure recurring monthly or annual billing. Automatic invoicing with instant receipts and simple one-click plan management.',
+      'Recurring monthly or annual billing. Automatic invoices, receipts, and one-click plan management.',
   },
   {
     icon: Bitcoin,
     title: 'Crypto prepaid term',
     provider: 'NOWPayments Invoice',
     detail:
-      'Prepay monthly or annually with BTC, ETH, USDT, USDC, or other major cryptocurrencies with zero recurring wallet debit.',
+      'Prepay monthly or annually in BTC, ETH, USDT, USDC, or other major cryptocurrencies. No recurring wallet debit.',
   },
 ];
 
@@ -107,12 +107,12 @@ export default function PricingPage() {
       <main>
         <SectionFrame id="pricing-hero">
           <div className="max-w-3xl space-y-5">
-            <div className="eyebrow">// Simple, ROI-Positive Pricing</div>
+            <div className="eyebrow">// Simple pricing</div>
             <h1 className="text-3xl font-semibold leading-[1.1] sm:text-5xl lg:text-[56px] text-ink">
-              If Evenstamp blocks just two fake trials or one chargeback a month, it pays for itself.
+              If Evenstamp blocks two fake trials or one chargeback a month, it pays for itself.
             </h1>
             <p className="text-base leading-relaxed text-ink-body">
-              Start with a 14-day full-featured trial. Protect your signups, checkout flows, and promo codes from multi-accounters and automated bot farms with zero surprise platform penalties.
+              Start with a 14-day trial. Protect your signups, checkout flows, and promo codes from multi-accounters and bot farms, with published overage rates and no platform penalties.
             </p>
             <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-body">
               {[
@@ -139,13 +139,13 @@ export default function PricingPage() {
               Every plan, in one table.
             </h2>
             <p className="text-sm leading-relaxed text-ink-body">
-              All plans include cross-browser hardware correlation, instant fraud risk scores, and AdBlocker-proof first-party domain routing.
+              All plans include cross-browser hardware matching, fraud risk scores, and first-party routing that survives adblockers.
             </p>
           </div>
 
           <div className="mt-8">
             <div className="mb-2 text-right md:hidden font-mono text-[11px] text-accent-blue flex items-center justify-end gap-1">
-              <span>Swipe to compare &rarr;</span>
+              <span>Swipe to compare</span>
             </div>
             <div className="overflow-x-auto rounded-[8px] border border-hairline bg-surface-1">
               <table className="w-full min-w-[900px] text-left text-xs">
@@ -196,7 +196,7 @@ export default function PricingPage() {
               Card subscription or crypto prepaid term.
             </h2>
             <p className="text-sm leading-relaxed text-ink-body">
-              Simple, transparent billing with no hidden fees or surprise lock-ins.
+              Billing is monthly or annual, with no setup fee and no lock-in.
             </p>
           </div>
 

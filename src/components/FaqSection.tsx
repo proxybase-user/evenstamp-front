@@ -12,14 +12,14 @@ export default function FaqSection() {
             Frequently asked questions.
           </h2>
           <p className="max-w-[42ch] text-sm leading-relaxed text-ink-body">
-            Have questions about fraud prevention, setup, or volume pricing? Contact{' '}
+            For questions about fraud prevention, setup, or volume pricing, email{' '}
             <a
               href="mailto:engineering@evenstamp.com"
               className="text-accent-blue underline underline-offset-4 transition hover:opacity-80"
             >
               engineering@evenstamp.com
             </a>
-            {' '}and our team will answer directly.
+            .
           </p>
         </div>
 

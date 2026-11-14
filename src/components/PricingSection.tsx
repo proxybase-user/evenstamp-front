@@ -37,12 +37,12 @@ export default function PricingSection() {
     <SectionFrame id="pricing">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl space-y-4">
-          <div className="eyebrow">// Simple, ROI-Positive Pricing</div>
+          <div className="eyebrow">// Simple pricing</div>
           <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-            If Evenstamp blocks just two fake trials or one chargeback a month, it pays for itself.
+            If Evenstamp blocks two fake trials or one chargeback a month, it pays for itself.
           </h2>
           <p className="max-w-[60ch] text-base leading-relaxed text-ink-body">
-            Start with a 14-day full-featured trial. Cancel in one click anytime.
+            Start with a 14-day trial. Cancel in one click.
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export default function PricingSection() {
           href="/login?next=/dashboard"
           className="inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted hover:text-accent-blue transition-colors"
         >
-          Just testing locally? Grab a free Sandbox API key (1,000 checks/mo, development domains only) &rarr;
+          Local development: get a free Sandbox API key (1,000 checks/mo, development domains only).
         </Link>
       </div>
 
@@ -221,8 +221,8 @@ export default function PricingSection() {
               <span>{numberFormat.format(MONTHLY_EVENT_MAX)}</span>
             </div>
             <p className="mt-4 text-xs leading-relaxed text-ink-muted">
-              All plans include cross-browser hardware correlation, instant fraud scoring,
-              first-party domain routing, and automatic 14-day full trials.
+              All plans include cross-browser hardware matching, instant fraud scoring,
+              first-party routing, and a 14-day trial.
             </p>
           </div>
 
