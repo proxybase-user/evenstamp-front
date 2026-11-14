@@ -30,13 +30,6 @@ export default function SiteHeader() {
               <span className="font-mono text-sm text-accent-green">.com</span>
             </span>
           </Link>
-          <span className="ml-2 hidden items-center gap-1.5 rounded-[4px] border border-hairline bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] text-ink-secondary xl:inline-flex">
-            <span
-              className="status-dot animate-pulse-dot bg-accent-green"
-              aria-hidden="true"
-            />
-            STOP MULTI-ACCOUNTING &amp; BOT ABUSE
-          </span>
         </div>
 
         {/* Desktop Navigation */}

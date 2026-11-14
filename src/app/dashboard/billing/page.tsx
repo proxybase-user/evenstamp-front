@@ -125,8 +125,8 @@ export default async function BillingPage({
             <div className="mt-4 flex items-start gap-2 rounded-[4px] border border-hairline bg-surface-2 px-3 py-2 text-xs leading-relaxed text-ink-muted">
               <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent-blue" aria-hidden="true" />
               <p>
-                The Developer tier hard-caps at 25,000 identifications per UTC
-                month. Upgrade to Growth or Scale for linear overage.
+                The Sandbox tier hard-caps at 1,000 identifications per UTC
+                month. Upgrade to Starter, Growth, or Scale for paid volume.
               </p>
             </div>
           ) : null}

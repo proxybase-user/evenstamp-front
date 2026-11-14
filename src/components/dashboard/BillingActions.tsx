@@ -12,18 +12,25 @@ import { formatMoney, formatNumber } from '@/lib/format';
 const INITIAL: CheckoutActionState = {};
 
 const FEATURES: Record<string, string[]> = {
+  starter: [
+    '50,000 identifications / month',
+    'Cross-browser hardware Device ID',
+    '0-100 fraud risk score',
+    'VPN, proxy, and Incognito detection',
+    'Dashboard and webhook alerts',
+  ],
   growth: [
-    '100,000 identifications / month',
-    'WASM steal-time + GPU shader benchmarks',
-    'Cross-realm and worker-spoof checks',
-    'Canvas farbling + WebGL bridge traps',
-    '30-day identity graph retention',
+    '250,000 identifications / month',
+    'Full 8-layer anti-detect browser checks',
+    'Behavioral biometrics (mouse, scroll, touch)',
+    'Cloud VM and residential proxy detection',
+    'Custom auto-block score thresholds',
   ],
   scale: [
     '1,000,000 identifications / month',
+    'Unlimited self-hosted option',
     'Rust kinematic biometrics engine',
     'TCP SYN TTL + MSS wire verification',
-    'WebGPU subgroup + atomic contention probe',
     '1-year identity graph retention',
   ],
 };
@@ -168,7 +175,8 @@ export default function BillingActions({
   );
 
   const purchasable = plans.filter(
-    (plan) => plan.key === 'growth' || plan.key === 'scale',
+    (plan) =>
+      plan.key === 'starter' || plan.key === 'growth' || plan.key === 'scale',
   );
 
   return (
@@ -224,7 +232,7 @@ export default function BillingActions({
         </p>
       ) : null}
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {purchasable.map((plan) => (
           <PlanCard
             key={plan.key}
@@ -232,7 +240,7 @@ export default function BillingActions({
             interval={interval}
             providers={providers}
             pending={pending}
-            highlighted={plan.key === 'scale'}
+            highlighted={plan.key === 'growth'}
             formAction={formAction}
           />
         ))}
