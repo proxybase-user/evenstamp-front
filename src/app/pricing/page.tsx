@@ -143,8 +143,12 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div className="mt-8 overflow-x-auto rounded-[8px] border border-hairline bg-surface-1">
-            <table className="w-full min-w-[900px] text-left text-xs">
+          <div className="mt-8">
+            <div className="mb-2 text-right md:hidden font-mono text-[11px] text-accent-blue flex items-center justify-end gap-1">
+              <span>Swipe to compare &rarr;</span>
+            </div>
+            <div className="overflow-x-auto rounded-[8px] border border-hairline bg-surface-1">
+              <table className="w-full min-w-[900px] text-left text-xs">
               <thead className="border-b border-hairline bg-surface-2 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-muted">
                 <tr>
                   <th className="px-5 py-3.5 font-medium">Tier</th>
@@ -182,7 +186,8 @@ export default function PricingPage() {
               </tbody>
             </table>
           </div>
-        </SectionFrame>
+        </div>
+      </SectionFrame>
 
         <SectionFrame id="billing">
           <div className="max-w-3xl space-y-4">

@@ -71,7 +71,7 @@ const CATEGORY_CARDS = [
     icon: Lock,
     textClass: 'text-ink',
     badgeClass: 'bg-black/15 text-ink',
-    colSpan: 'lg:col-span-4',
+    colSpan: 'md:col-span-2 lg:col-span-4',
   },
 ];
 
@@ -166,12 +166,12 @@ export default function ArchitectureSection() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 min-w-[280px]">
+          <div className="flex flex-col gap-3 w-full lg:w-[320px] lg:shrink-0">
             {RISK_PROGRESS_BARS.map((bar) => (
               <div key={bar.label} className="space-y-1">
                 <div className="flex justify-between font-mono text-xs text-ink">
-                  <span>{bar.label}</span>
-                  <span className="font-semibold">{Math.round(bar.value * 100)}%</span>
+                  <span className="truncate pr-2">{bar.label}</span>
+                  <span className="font-semibold shrink-0">{Math.round(bar.value * 100)}%</span>
                 </div>
                 <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden">
                   <div

@@ -40,46 +40,51 @@ export default function ComparisonSection() {
         </p>
       </div>
 
-      <div className="mt-12 overflow-x-auto rounded-[8px] border border-hairline bg-surface-1 scrollbar-thin">
-        <table className="w-full min-w-[720px] border-collapse text-left text-sm">
-          <thead>
-            <tr className="border-b border-hairline bg-surface-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-muted">
-              <th scope="col" className="px-6 py-4 font-normal">
-                What Matters to Your Business
-              </th>
-              <th scope="col" className="px-6 py-4 font-semibold text-accent-green">
-                Evenstamp
-              </th>
-              <th scope="col" className="px-6 py-4 font-normal">
-                Fingerprint Pro ($99+/mo)
-              </th>
-              <th scope="col" className="px-6 py-4 font-normal">
-                Free Open-Source Scripts
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-hairline">
-            {COMPARISON_ROWS.map((row) => (
-              <tr key={row.capability} className="transition-colors hover:bg-surface-2/60">
-                <th
-                  scope="row"
-                  className="px-6 py-4 text-left font-medium text-ink"
-                >
-                  {row.capability}
+      <div className="mt-8">
+        <div className="mb-2 text-right md:hidden font-mono text-[11px] text-accent-blue flex items-center justify-end gap-1">
+          <span>Swipe to compare &rarr;</span>
+        </div>
+        <div className="overflow-x-auto rounded-[8px] border border-hairline bg-surface-1 scrollbar-thin">
+          <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-b border-hairline bg-surface-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-muted">
+                <th scope="col" className="px-6 py-4 font-normal">
+                  What Matters to Your Business
                 </th>
-                <td className="px-6 py-4 font-mono text-[13px] font-semibold text-accent-green">
-                  {row.evenstamp}
-                </td>
-                <td className="px-6 py-4 text-[14px] text-ink-body">
-                  {row.fingerprint}
-                </td>
-                <td className="px-6 py-4 text-[14px] text-ink-muted">
-                  {row.openSource}
-                </td>
+                <th scope="col" className="px-6 py-4 font-semibold text-accent-green">
+                  Evenstamp
+                </th>
+                <th scope="col" className="px-6 py-4 font-normal">
+                  Fingerprint Pro ($99+/mo)
+                </th>
+                <th scope="col" className="px-6 py-4 font-normal">
+                  Free Open-Source Scripts
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-hairline">
+              {COMPARISON_ROWS.map((row) => (
+                <tr key={row.capability} className="transition-colors hover:bg-surface-2/60">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 text-left font-medium text-ink"
+                  >
+                    {row.capability}
+                  </th>
+                  <td className="px-6 py-4 font-mono text-[13px] font-semibold text-accent-green">
+                    {row.evenstamp}
+                  </td>
+                  <td className="px-6 py-4 text-[14px] text-ink-body">
+                    {row.fingerprint}
+                  </td>
+                  <td className="px-6 py-4 text-[14px] text-ink-muted">
+                    {row.openSource}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="card-feature mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.2fr] lg:p-8">
@@ -102,7 +107,7 @@ export default function ComparisonSection() {
         <div className="flex flex-col justify-center space-y-4">
           {COST_BARS.map((bar) => (
             <div key={bar.label} className="space-y-1.5">
-              <div className="flex justify-between font-mono text-xs">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-0.5 font-mono text-xs">
                 <span className="font-medium text-ink">{bar.label}</span>
                 <span className="text-ink-muted">
                   {bar.detail} (${bar.value.toFixed(3)}/call)

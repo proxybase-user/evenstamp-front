@@ -188,7 +188,7 @@ export default function PricingSection() {
       </div>
 
       {/* Volume planner */}
-      <div className="card-feature mt-12 !p-8">
+      <div className="card-feature mt-12 !p-5 sm:!p-8">
         <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
           <div className="min-w-0">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -226,12 +226,12 @@ export default function PricingSection() {
             </p>
           </div>
 
-          <div className="grid min-w-0 grid-cols-3 gap-3 rounded-[8px] border border-hairline bg-surface-2 p-4">
+          <div className="grid min-w-0 grid-cols-3 gap-2 sm:gap-3 rounded-[8px] border border-hairline bg-surface-2 p-3 sm:p-4">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
                 Best Plan
               </div>
-              <div className="mt-1 text-sm font-semibold text-ink">
+              <div className="mt-1 text-xs sm:text-sm font-semibold text-ink truncate">
                 {estimate.tier.name}
               </div>
             </div>
@@ -239,22 +239,19 @@ export default function PricingSection() {
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
                 Invoice
               </div>
-              <div className="metric mt-1 text-xl font-semibold text-accent-green">
+              <div className="metric mt-1 text-base sm:text-xl font-semibold text-accent-green">
                 ${numberFormat.format(Math.round(estimate.total))}
-                <span className="ml-1 text-[10px] font-normal text-ink-muted">
+                <span className="ml-0.5 text-[10px] font-normal text-ink-muted">
                   /mo
                 </span>
               </div>
             </div>
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
-                Per 1k checks
+                Per 1k
               </div>
-              <div className="metric mt-1 text-xl font-semibold text-accent-blue">
+              <div className="metric mt-1 text-base sm:text-xl font-semibold text-accent-blue">
                 ${estimate.perThousand.toFixed(2)}
-                <span className="ml-1 text-[10px] font-normal text-ink-muted">
-                  /1k
-                </span>
               </div>
             </div>
             <div className="col-span-3 border-t border-hairline pt-3 font-mono text-[11px] leading-relaxed text-ink-muted">

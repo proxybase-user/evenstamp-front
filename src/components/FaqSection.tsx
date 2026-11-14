@@ -7,19 +7,19 @@ export default function FaqSection() {
     <SectionFrame id="faq">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="space-y-4">
-          <div className="eyebrow">// Operator questions</div>
+          <div className="eyebrow">// Common questions</div>
           <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl text-ink">
-            The questions engineers ask first.
+            Frequently asked questions.
           </h2>
           <p className="max-w-[42ch] text-sm leading-relaxed text-ink-body">
-            If yours is not here, send it to{' '}
+            Have questions about fraud prevention, setup, or volume pricing? Contact{' '}
             <a
               href="mailto:engineering@evenstamp.com"
               className="text-accent-blue underline underline-offset-4 transition hover:opacity-80"
             >
               engineering@evenstamp.com
             </a>
-            . A systems engineer answers, not a sales sequence.
+            {' '}and our team will answer directly.
           </p>
         </div>
 

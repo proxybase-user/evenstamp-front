@@ -119,6 +119,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
+    overflow-x: clip;
   }
 
   body {
@@ -130,6 +131,8 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transition: background-color 200ms ease, color 200ms ease;
+    overflow-x: clip;
+    max-width: 100vw;
   }
 
   /* Weight ceiling at 600 per DESIGN.md */
@@ -194,18 +197,25 @@
     gap: 8px;
     background-color: var(--colors-primary);
     color: var(--colors-on-primary);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 25.6px;
+    line-height: 1.4;
     letter-spacing: -0.16px;
-    padding: 12px 20px;
+    padding: 11px 18px;
     border-radius: 4px;
     border: 1px solid transparent;
     transition: background-color 150ms ease, opacity 150ms ease, transform 100ms ease;
     cursor: pointer;
     text-decoration: none;
-    white-space: nowrap;
+    max-width: 100%;
     min-height: 44px;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .button-primary {
+      font-size: 16px;
+      padding: 12px 20px;
+    }
   }
   .button-primary:hover {
     opacity: 0.92;
@@ -225,18 +235,25 @@
     gap: 8px;
     background-color: var(--colors-canvas);
     color: var(--colors-ink);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 25.6px;
+    line-height: 1.4;
     letter-spacing: -0.16px;
-    padding: 12px 20px;
+    padding: 11px 18px;
     border-radius: 4px;
     border: 1px solid var(--colors-hairline);
     transition: background-color 150ms ease, border-color 150ms ease;
     cursor: pointer;
     text-decoration: none;
-    white-space: nowrap;
+    max-width: 100%;
     min-height: 44px;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .button-secondary {
+      font-size: 16px;
+      padding: 12px 20px;
+    }
   }
   .button-secondary:hover {
     background-color: var(--colors-surface-2);
@@ -280,14 +297,19 @@
     background-color: var(--colors-surface-2);
   }
 
-  /* Canonical Cards per DESIGN.md (rounded-md 8px, interior padding 32px) */
+  /* Canonical Cards per DESIGN.md (rounded-md 8px, interior responsive padding) */
   .card-feature {
     background-color: var(--colors-canvas);
     color: var(--colors-ink);
     border: 1px solid var(--colors-hairline);
     border-radius: 8px;
-    padding: 32px;
+    padding: 20px;
     transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  @media (min-width: 640px) {
+    .card-feature {
+      padding: 32px;
+    }
   }
 
   .card-feature-dark {
@@ -295,7 +317,12 @@
     color: #ffffff;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    padding: 32px;
+    padding: 20px;
+  }
+  @media (min-width: 640px) {
+    .card-feature-dark {
+      padding: 32px;
+    }
   }
 
   .card-pricing {
@@ -303,44 +330,57 @@
     color: var(--colors-ink);
     border: 1px solid var(--colors-hairline);
     border-radius: 8px;
-    padding: 32px;
+    padding: 20px;
     transition: box-shadow 200ms ease, border-color 200ms ease;
+  }
+  @media (min-width: 640px) {
+    .card-pricing {
+      padding: 32px;
+    }
   }
 
   /* Five-stop Chromatic Category Cards */
+  .category-card-purple,
+  .category-card-pink,
+  .category-card-blue,
+  .category-card-orange,
+  .category-card-green {
+    border-radius: 8px;
+    padding: 20px;
+  }
+  @media (min-width: 640px) {
+    .category-card-purple,
+    .category-card-pink,
+    .category-card-blue,
+    .category-card-orange,
+    .category-card-green {
+      padding: 32px;
+    }
+  }
+
   .category-card-purple {
     background-color: #7a3dff;
     color: #ffffff;
-    border-radius: 8px;
-    padding: 32px;
   }
 
   .category-card-pink {
     background-color: #ed52cb;
     color: #ffffff;
-    border-radius: 8px;
-    padding: 32px;
   }
 
   .category-card-blue {
     background-color: #3b89ff;
     color: #ffffff;
-    border-radius: 8px;
-    padding: 32px;
   }
 
   .category-card-orange {
     background-color: #ff6b00;
     color: #ffffff;
-    border-radius: 8px;
-    padding: 32px;
   }
 
   .category-card-green {
     background-color: #00d722;
     color: #080808; /* Ink text for legibility per DESIGN.md */
-    border-radius: 8px;
-    padding: 32px;
   }
 
   /* Canonical Badges */

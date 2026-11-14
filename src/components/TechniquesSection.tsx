@@ -75,7 +75,7 @@ export default function TechniquesSection() {
                     {technique.flags.map((flag) => (
                       <span
                         key={flag}
-                        className="rounded-[4px] border border-accent-red/20 bg-accent-red/10 px-2 py-0.5 font-mono text-[10px] text-accent-red"
+                        className="rounded-[4px] border border-accent-red/20 bg-accent-red/10 px-2 py-0.5 font-mono text-[10px] text-accent-red break-all sm:break-normal"
                       >
                         {flag}
                       </span>

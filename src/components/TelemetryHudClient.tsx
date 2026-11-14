@@ -527,15 +527,18 @@ export default function TelemetryHudClient() {
             type="button"
             onClick={() => setSimMode('genuine')}
             aria-pressed={simMode === 'genuine'}
-            className={`rounded-[4px] px-2.5 py-2 text-center transition ${
+            className={`rounded-[4px] px-2 py-2 text-center transition ${
               simMode === 'genuine'
                 ? 'border border-accent-green/40 bg-accent-green/10 text-accent-green font-semibold shadow-sm'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-2'
             }`}
           >
-            <span className="flex items-center justify-center gap-1.5">
-              <span>🟢</span>
-              <span className="truncate">My Real Device (Score: 3)</span>
+            <span className="flex flex-col items-center justify-center leading-tight">
+              <span className="flex items-center gap-1 font-semibold text-accent-green">
+                <span>🟢</span>
+                <span>Real Device</span>
+              </span>
+              <span className="text-[10px] opacity-80 font-normal mt-0.5">Score: 3 · Clean</span>
             </span>
           </button>
 
@@ -543,15 +546,18 @@ export default function TelemetryHudClient() {
             type="button"
             onClick={() => setSimMode('antidetect_proxy')}
             aria-pressed={simMode === 'antidetect_proxy'}
-            className={`rounded-[4px] px-2.5 py-2 text-center transition ${
+            className={`rounded-[4px] px-2 py-2 text-center transition ${
               simMode === 'antidetect_proxy'
                 ? 'border border-accent-red/40 bg-accent-red/10 text-accent-red font-semibold shadow-sm'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-2'
             }`}
           >
-            <span className="flex items-center justify-center gap-1.5">
-              <span>🔴</span>
-              <span className="truncate">VPN + Incognito (84 - BLOCKED)</span>
+            <span className="flex flex-col items-center justify-center leading-tight">
+              <span className="flex items-center gap-1 font-semibold text-accent-red">
+                <span>🔴</span>
+                <span>VPN + Incognito</span>
+              </span>
+              <span className="text-[10px] font-medium text-accent-red mt-0.5">Score: 84 · BLOCKED</span>
             </span>
           </button>
 
@@ -559,15 +565,18 @@ export default function TelemetryHudClient() {
             type="button"
             onClick={() => setSimMode('playwright_cdp')}
             aria-pressed={simMode === 'playwright_cdp'}
-            className={`rounded-[4px] px-2.5 py-2 text-center transition ${
+            className={`rounded-[4px] px-2 py-2 text-center transition ${
               simMode === 'playwright_cdp'
                 ? 'border border-accent-red/40 bg-accent-red/10 text-accent-red font-semibold shadow-sm'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-2'
             }`}
           >
-            <span className="flex items-center justify-center gap-1.5">
-              <span>🔴</span>
-              <span className="truncate">Anti-Detect Bot (96 - BLOCKED)</span>
+            <span className="flex flex-col items-center justify-center leading-tight">
+              <span className="flex items-center gap-1 font-semibold text-accent-red">
+                <span>🔴</span>
+                <span>Anti-Detect Bot</span>
+              </span>
+              <span className="text-[10px] font-medium text-accent-red mt-0.5">Score: 96 · BLOCKED</span>
             </span>
           </button>
         </div>
@@ -757,7 +766,7 @@ function HudCard({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-1 rounded-[8px] border border-hairline bg-surface-2 p-3">
+    <div className="space-y-1 rounded-[8px] border border-hairline bg-surface-2 p-3 min-w-0 overflow-hidden">
       <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.04em] text-accent-blue">
         {icon}
         <span className="truncate">{label}</span>
@@ -767,7 +776,7 @@ function HudCard({
           {subtext}
         </div>
       )}
-      <div className="pt-0.5">{children}</div>
+      <div className="pt-0.5 min-w-0 overflow-hidden">{children}</div>
     </div>
   );
 }

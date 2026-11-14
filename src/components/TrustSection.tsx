@@ -4,18 +4,18 @@ import SectionFrame from './SectionFrame';
 const PILLARS = [
   {
     icon: Fingerprint,
-    title: 'Privacy by default',
-    copy: 'The identity database stores only a /24 or /48 network prefix, never the full client IP; ephemeral challenges bind to a one-way HMAC of the IP. Raw keystrokes are never collected; behavior uses key classes and timing. Full payload retention is off unless you explicitly enable it.',
+    title: 'Privacy & GDPR Compliant',
+    copy: 'Customer identity graphs remain completely isolated, encrypted, and pseudonymized. We never sell, rent, or cross-broker your visitor telemetry to ad-tech networks.',
   },
   {
     icon: DatabaseZap,
-    title: 'Data residency',
-    copy: 'The sovereign binary runs inside your VPC with zero telemetry egress. SQLite is a local file. You control backups, retention windows, and deletion. Managed cloud is available when you want no operations burden.',
+    title: '100% Data Residency Control',
+    copy: 'Choose instant managed cloud hosting, or deploy our private single-file container directly inside your own VPC with zero external network egress.',
   },
   {
     icon: Scale,
-    title: 'Responsible use',
-    copy: 'Evenstamp is built for fraud prevention, account security, and bot mitigation. Deploy it with a lawful basis, a privacy notice, and a deletion path. It is not a tool for surveillance or discriminatory pricing.',
+    title: 'Lawful Abuse Defense',
+    copy: 'Built specifically to stop promo abuse, fake accounts, and credential stuffing. Fully aligned with GDPR Article 6(1)(f) legitimate interest guidelines.',
   },
 ];
 
@@ -23,13 +23,13 @@ export default function TrustSection() {
   return (
     <SectionFrame id="trust">
       <div className="max-w-3xl space-y-4">
-        <div className="eyebrow">// Trust &amp; operations</div>
+        <div className="eyebrow">// Privacy &amp; Trust</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Forensic capability without an uncontrolled data footprint.
+          Enterprise fraud defense without the privacy liabilities.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          Device fingerprinting is personal data in most jurisdictions. The
-          architecture treats that as a design constraint, not an afterthought.
+          Your customer data belongs entirely to you. Evenstamp does not track visitors
+          across unrelated websites, broker ad profiles, or pool identity graphs.
         </p>
       </div>
 

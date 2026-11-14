@@ -9,9 +9,9 @@ const ASSURANCES = [
 
 export default function CtaSection() {
   return (
-    <section id="get-started" className="border-t border-hairline py-20 bg-canvas transition-colors">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[8px] border border-hairline bg-surface-1 p-8 shadow-level-3 sm:p-12 transition-colors">
+    <section id="get-started" className="border-t border-hairline py-16 sm:py-20 bg-canvas transition-colors">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative overflow-hidden rounded-[8px] border border-hairline bg-surface-1 p-6 sm:p-10 lg:p-12 shadow-level-3 transition-colors">
           <div
             className="grid-backdrop pointer-events-none absolute inset-0 opacity-40"
             aria-hidden="true"

@@ -27,23 +27,23 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="hairline-frame relative">
           <span className="crosshair -left-[5px] -top-[5px]" aria-hidden="true" />
           <span className="crosshair -right-[5px] -top-[5px]" aria-hidden="true" />
 
-          <div className="grid grid-cols-1 items-start gap-10 px-5 py-14 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:py-20">
+          <div className="grid grid-cols-1 items-start gap-10 px-4 py-10 sm:px-8 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-20">
             <div className="min-w-0 space-y-6 lg:col-span-6">
               {/* Eyebrow badge */}
               <div className="flex items-center gap-2">
-                <span className="eyebrow flex items-center gap-2 text-ink-secondary">
-                  <Shield className="h-4 w-4 text-accent-blue" aria-hidden="true" />
-                  STOP FAKE ACCOUNTS · PROMO ABUSE · BOTS
+                <span className="eyebrow flex items-center gap-2 text-ink-secondary text-xs sm:text-[15px]">
+                  <Shield className="h-4 w-4 text-accent-blue shrink-0" aria-hidden="true" />
+                  <span>STOP FAKE ACCOUNTS · PROMO ABUSE · BOTS</span>
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.8px] sm:text-6xl lg:text-[68px] xl:text-[72px]">
+              <h1 className="text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.5px] sm:text-5xl sm:leading-[1.05] sm:tracking-[-0.8px] lg:text-[62px] xl:text-[70px] break-words">
                 Know when it&apos;s the same person—even if they clear cookies, switch browsers, or use a VPN.
               </h1>
 
@@ -56,17 +56,17 @@ export default function Hero() {
               </p>
 
               {/* Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <a
                   href="#pricing"
-                  className="button-primary"
+                  className="button-primary justify-center text-center w-full sm:w-auto"
                 >
                   View Plans &amp; Start Protecting
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
                 <a
                   href="#detection"
-                  className="button-secondary"
+                  className="button-secondary justify-center text-center w-full sm:w-auto"
                 >
                   <ShieldCheck className="h-4 w-4 text-accent-blue" aria-hidden="true" />
                   See What We Catch

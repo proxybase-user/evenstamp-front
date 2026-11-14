@@ -3,7 +3,7 @@ import { ShieldCheck } from 'lucide-react';
 export default function SiteFooter() {
   return (
     <footer className="border-t border-hairline bg-canvas py-12 transition-colors">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">

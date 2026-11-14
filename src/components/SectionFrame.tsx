@@ -15,7 +15,7 @@ export default function SectionFrame({
   id,
   children,
   className = '',
-  contentClassName = 'px-5 py-16 sm:px-8 sm:py-20 lg:py-24',
+  contentClassName = 'px-4 py-12 sm:px-8 sm:py-20 lg:py-24',
 }: {
   id?: string;
   children: ReactNode;
@@ -24,7 +24,7 @@ export default function SectionFrame({
 }) {
   return (
     <section id={id} className={`relative bg-canvas transition-colors ${className}`}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="hairline-frame relative">
           <Crosshairs />
           <div className={contentClassName}>{children}</div>

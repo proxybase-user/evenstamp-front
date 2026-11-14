@@ -16,7 +16,7 @@ export default function SiteHeader() {
         <div className="flex min-w-0 items-center gap-3">
           <Link
             href="/"
-            className="flex items-center gap-2.5"
+            className="flex items-center gap-2.5 shrink-0"
             aria-label="Evenstamp home"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-hairline bg-surface-2">
@@ -25,12 +25,12 @@ export default function SiteHeader() {
                 aria-hidden="true"
               />
             </span>
-            <span className="text-[18px] font-semibold tracking-tight text-ink">
+            <span className="text-[17px] sm:text-[18px] font-semibold tracking-tight text-ink">
               evenstamp
               <span className="font-mono text-sm text-accent-green">.com</span>
             </span>
           </Link>
-          <span className="ml-2 hidden items-center gap-1.5 rounded-[4px] border border-hairline bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] text-ink-secondary lg:inline-flex">
+          <span className="ml-2 hidden items-center gap-1.5 rounded-[4px] border border-hairline bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] text-ink-secondary xl:inline-flex">
             <span
               className="status-dot animate-pulse-dot bg-accent-green"
               aria-hidden="true"
@@ -41,14 +41,14 @@ export default function SiteHeader() {
 
         {/* Desktop Navigation */}
         <nav
-          className="hidden items-center gap-7 text-[14px] font-medium text-ink-secondary md:flex"
+          className="hidden items-center gap-4 lg:gap-6 xl:gap-7 text-[13px] lg:text-[14px] font-medium text-ink-secondary md:flex"
           aria-label="Main"
         >
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="transition-colors hover:text-ink"
+              className="transition-colors hover:text-ink whitespace-nowrap"
             >
               {link.label}
             </a>
@@ -56,21 +56,22 @@ export default function SiteHeader() {
         </nav>
 
         {/* Actions & Theme Switcher */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <ThemeToggle />
 
           <Link
             href="/login"
-            className="hidden rounded-[4px] border border-hairline bg-surface-1 px-3.5 py-1.5 font-mono text-xs text-ink transition hover:bg-surface-2 sm:inline-flex"
+            className="hidden rounded-[4px] border border-hairline bg-surface-1 px-3 py-1.5 font-mono text-xs text-ink transition hover:bg-surface-2 sm:inline-flex"
           >
             Log in
           </Link>
 
           <Link
             href="/pricing"
-            className="button-primary hidden !min-h-0 !px-4 !py-1.5 !text-xs sm:inline-flex"
+            className="button-primary hidden !min-h-0 !px-3.5 sm:!px-4 !py-1.5 !text-xs sm:inline-flex"
           >
-            Start Protecting Revenue
+            <span className="hidden lg:inline">Start Protecting Revenue</span>
+            <span className="lg:hidden">Start Protecting</span>
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
 
