@@ -15,81 +15,59 @@ export interface PricingTier {
 
 export const PRICING_TIERS: PricingTier[] = [
   {
-    name: 'Developer',
+    name: 'Starter',
     tagline:
-      'Full cross-browser identification for side projects, staging, and proofs of concept.',
-    monthly: 0,
-    annualMonthly: 0,
-    included: 25_000,
-    overage: 'Hard cap — upgrade when you outgrow it',
+      'For SaaS tools, paid communities, and e-commerce stores stopping promo & trial abuse.',
+    monthly: 29,
+    annualMonthly: 23,
+    included: 50_000,
+    overage: '$0.80 per additional 10,000 checks',
     features: [
-      '25,000 identifications / month',
-      'Exact BrowserID + fuzzy DeviceID',
-      'VM, headless, and automation checks',
-      '7-day SQLite identity graph retention',
-      'Community support',
+      'Cross-browser hardware Device ID (Chrome, Safari, Firefox)',
+      'Instant 0–100 Fraud Risk Score',
+      'VPN, Proxy & Incognito detection',
+      'AdBlocker-proof first-party setup',
+      'Dashboard & webhook alerts',
     ],
-    cta: 'Start free',
-    accent: 'slate',
+    cta: 'Start 14-Day Free Trial',
+    accent: 'cyan',
   },
   {
     name: 'Growth',
     tagline:
-      'Five times the volume of the incumbent entry tier at less than half the price.',
-    monthly: 39,
-    annualMonthly: 31,
-    included: 100_000,
-    overage: '$0.80 per additional 10,000',
+      'For high-traffic platforms, AI apps, marketplaces, and fintechs fighting multi-accounting and bots.',
+    monthly: 79,
+    annualMonthly: 63,
+    included: 250_000,
+    overage: '$0.50 per additional 10,000 checks',
     features: [
-      '100,000 identifications / month',
-      'WASM steal-time + GPU shader benchmarks',
-      'Cross-realm and worker-spoof checks',
-      'Canvas farbling + WebGL bridge traps',
-      '30-day identity graph retention',
-      'Webhooks and CSV export',
+      'Everything in Starter, plus:',
+      'Full 8-layer anti-detect browser unmasking',
+      'Live human vs. bot behavioral biometrics (mouse, scroll, touch)',
+      'Residential proxy & cloud VM detection',
+      'Custom auto-block score thresholds',
+      'Priority support & Slack alerts',
     ],
-    cta: 'Start Growth',
-    accent: 'cyan',
-  },
-  {
-    name: 'Scale',
-    tagline:
-      'The full wire-to-kinematics stack for fintech, e-commerce, and high-traffic platforms.',
-    monthly: 199,
-    annualMonthly: 159,
-    included: 1_000_000,
-    overage: '$0.50 per additional 10,000',
-    features: [
-      '1,000,000 identifications / month',
-      'Rust kinematic biometrics engine',
-      'TCP SYN TTL + MSS wire verification',
-      'WebGPU subgroup + atomic contention probe',
-      'CDP ValueMirror and preload detection',
-      'Custom first-party CNAME proxy',
-      '1-year identity graph retention',
-    ],
-    cta: 'Start 14-day Scale trial',
+    cta: 'Start 14-Day Free Trial',
     accent: 'emerald',
     highlighted: true,
   },
   {
-    name: 'Sovereign',
+    name: 'Scale / Sovereign',
     tagline:
-      'Run the entire Rust + SQLite + AF_PACKET engine inside your own VPC.',
-    monthly: 999,
-    annualMonthly: 999,
-    included: null,
-    overage: '$199 / month per additional node',
+      'For teams that want 100% data residency on their own servers with zero per-call fees.',
+    monthly: 199,
+    annualMonthly: 159,
+    included: 1_000_000,
+    overage: 'Unlimited checks (Self-Hosted) or $0.30 per 10k Cloud checks',
     features: [
-      'Unlimited identifications (4 vCPU nodes)',
-      'Single-binary Docker + bare metal',
-      'Zero external telemetry egress',
-      'Raw 8D feature-vector export',
-      'Embedded AF_PACKET wire sniffer',
-      'GDPR / HIPAA / PCI deployment review',
-      '99.99% availability SLA',
+      'Everything in Growth, plus:',
+      'Dedicated single-file private deployment option',
+      'Raw signal weights & custom fraud rules',
+      'Zero external database dependencies',
+      'Dedicated onboarding & SLA',
     ],
-    cta: 'Talk to engineering',
+    cta: 'Get Scale Access',
     accent: 'amber',
   },
 ];
@@ -97,6 +75,7 @@ export const PRICING_TIERS: PricingTier[] = [
 export interface Technique {
   id: string;
   index: string;
+  name: string;
   title: string;
   layer: string;
   summary: string;
@@ -106,187 +85,179 @@ export interface Technique {
 
 export const TECHNIQUES: Technique[] = [
   {
-    id: 'rtt-mss',
+    id: 'proxies',
     index: '01',
-    title: 'TCP RTT vs TLS RTT divergence',
-    layer: 'L3 / L4',
+    name: 'VPNs & Hidden Proxies',
+    title: '"I\'m just a normal home user in Chicago."',
+    layer: 'Network',
     summary:
-      'A backconnect residential proxy terminates the SYN at a home gateway but forwards the TLS handshake through its superproxy. Timestamping both handshakes exposes a 100–300 ms split before a byte of HTML is served. MSS inspection catches WireGuard, OpenVPN, and IPsec encapsulation at the same time.',
-    flags: [
-      'RESIDENTIAL_PROXY_TCP_TLS_RTT_SPLIT',
-      'VPN_TUNNEL_MSS_CLAMP_WITH_TTL_SHIFT',
-    ],
+      'Fraudsters route their traffic through hijacked home routers so standard IP checks don\'t flag them. We compare how long their network takes to connect versus how long their browser takes to respond—exposing hidden proxies before they can create an account.',
+    flags: ['HIDDEN_RESIDENTIAL_PROXY', 'VPN_TUNNEL_DETECTED'],
     icon: 'network',
   },
   {
-    id: 'ttl',
+    id: 'device-types',
     index: '02',
-    title: 'Kernel SYN TTL attribution',
-    layer: 'L3',
+    name: 'Fake Device Types',
+    title: '"I\'m browsing from a brand-new iPhone."',
+    layer: 'Operating System',
     summary:
-      'A kernel cBPF filter drops everything except the 60-byte TCP SYN. The initial TTL (64 on Unix, 128 on Windows) is compared with the OS the client claims. A Windows 11 profile on a Linux container, or an iPhone profile on a Windows anti-detect host, cannot hide the contradiction.',
-    flags: [
-      'OS_TCP_TTL_MISMATCH_WINDOWS_ON_UNIX_STACK',
-      'OS_TCP_TTL_MISMATCH_UNIX_ON_WINDOWS_STACK',
-      'ANOMALOUS_ZERO_HOP_REMOTE_TTL',
-    ],
+      'Bot farms often run cheap Linux servers in a data center while telling your website they\'re on an iPhone or Windows PC. Evenstamp inspects the raw internet packets arriving at your server, which immediately give away the real operating system underneath.',
+    flags: ['FAKE_OPERATING_SYSTEM', 'SERVER_PRETENDING_TO_BE_PHONE'],
     icon: 'layers',
   },
   {
-    id: 'canvas',
+    id: 'antidetect',
     index: '03',
-    title: 'Canvas farbling & texture-bridge traps',
-    layer: 'L2',
+    name: 'Anti-Detect Browsers',
+    title: '"I\'m a brand-new visitor you\'ve never seen before."',
+    layer: 'Browser',
     summary:
-      'An axis-aligned integer fill must read back byte-exact on every GPU. Separately, a 2D canvas is uploaded into a WebGL texture and read back through a framebuffer. Hooks that poison getImageData or toDataURL cannot poison the C++ graphics upload path.',
-    flags: [
-      'CANVAS_NOISE_FARBLING_DETECTED',
-      'CANVAS_WEBGL_TEXTURE_BRIDGE_MISMATCH',
-    ],
+      'Multi-accounters use privacy extensions and anti-detect browsers that inject fake noise to scramble their device ID. Evenstamp runs a silent two-step graphics check that catches the tampering in the act—turning their disguise into an instant red flag.',
+    flags: ['IDENTITY_SCRAMBLER_DETECTED', 'FAKE_BROWSER_PROFILE'],
     icon: 'eye',
   },
   {
-    id: 'webgpu',
+    id: 'cloud-vms',
     index: '04',
-    title: 'WebGPU subgroup & atomic contention',
-    layer: 'L1',
+    name: 'Cloud Farms & Virtual Machines',
+    title: '"This is a real laptop with a real graphics card."',
+    layer: 'Hardware',
     summary:
-      'Subgroup widths separate NVIDIA warps (32) from AMD wavefronts (32/64) and Apple/Intel variable SIMD. A 16k-atomic WGSL shader serializes on the L1 cache; CPU-emulated adapters finish one to two orders of magnitude slower than a physical GPU.',
-    flags: ['WEBGPU_COMPUTE_ATOMIC_SOFTWARE_EMULATION'],
+      'When scammers spin up 100 virtual computers in the cloud to scrape your site or abuse promos, those cloud servers fake a graphics card using software. We run a microsecond graphics test that fake cloud GPUs fail every single time.',
+    flags: ['VIRTUAL_MACHINE_OR_EMULATOR'],
     icon: 'cpu',
   },
   {
-    id: 'cdp',
+    id: 'automation-bots',
     index: '05',
-    title: 'CDP ValueMirror & preload residue',
-    layer: 'Runtime',
+    name: 'Stealth Automation Bots',
+    title: '"A real human is clicking this button."',
+    layer: 'Automation',
     summary:
-      'Playwright and stealth plugins patch navigator.webdriver, but an attached Runtime domain still formats console objects. A side-effecting stack getter fires only when an inspector listens. Injected preload scripts also leave anonymous :1 CallSite frames.',
-    flags: ['CDP_RUNTIME_VALUE_MIRROR_SERIALIZER_ACTIVE'],
+      'Modern automation tools (like Playwright and Puppeteer with stealth plugins) erase the obvious signs that a robot is driving the browser. Evenstamp detects the invisible background tools these bots leave open to control the page.',
+    flags: ['AUTOMATED_BOT_SOFTWARE'],
     icon: 'terminal',
   },
   {
-    id: 'host-os',
+    id: 'screen-spoof',
     index: '06',
-    title: 'Host OS voice & font unmasking',
-    layer: 'OS',
+    name: 'Fake MacBooks & Spoofed Screens',
+    title: '"I\'m on a MacBook Pro."',
+    layer: 'Hardware & OS',
     summary:
-      'Apple voices never ship on Windows and Microsoft SAPI voices never ship on macOS. The CSS status-bar system font resolves through the window manager, not the User-Agent. A claimed MacBook Pro without a P3 display is another contradiction.',
-    flags: [
-      'OS_SPEECH_SYNTHESIS_VOICE_CONTRADICTION',
-      'APPLE_SILICON_WITHOUT_P3_GAMUT_DISPLAY',
-    ],
+      'A Windows PC pretending to be a Mac still has Windows system voices installed, Windows window-border fonts, and a non-Apple color display. We cross-check these built-in system traits to catch fake device profiles instantly.',
+    flags: ['FAKE_MAC_ON_WINDOWS', 'DISPLAY_MISMATCH'],
     icon: 'audio',
   },
   {
-    id: 'realm',
+    id: 'extension-spoofer',
     index: '07',
-    title: 'Worker and realm divergence',
-    layer: 'Runtime',
+    name: 'Browser Extension Spoofers',
+    title: '"My browser settings are completely normal."',
+    layer: 'Browser Integrity',
     summary:
-      'Stealth patches frequently reach the main window but miss SharedWorker, ServiceWorker, or a sandboxed iframe realm. Comparing userAgent, platform, hardwareConcurrency, timezone, and languages across realms exposes partial patches.',
-    flags: ['CROSS_REALM_OR_WORKER_SPOOF_MISMATCH'],
+      'Cheap spoofing plugins change the device details on the main webpage, but forget to change them in background browser workers. We compare both places at once—if they don\'t match, you know the visitor is lying.',
+    flags: ['BROWSER_SPOOFING_EXTENSION'],
     icon: 'globe',
   },
   {
-    id: 'kinematics',
+    id: 'robotic-behavior',
     index: '08',
-    title: 'Scroll inertia & touch biomechanics',
-    layer: 'Behavior',
+    name: 'Robotic Scrolling & Fake Mobile Taps',
+    title: '"I\'m scrolling and tapping with a real finger."',
+    layer: 'Human Behavior',
     summary:
-      'A physical trackpad emits a decaying momentum curve with variable deltas and inter-event jitter. Scripted scrollBy loops emit identical deltas on a fixed timer. Genuine fingers vary contact pressure; mobile emulators often report a constant 0.5.',
-    flags: [
-      'BOT_SYNTHETIC_SCROLL_STEP_FUNCTION',
-      'MOBILE_STATIC_TOUCH_PRESSURE_EMULATOR',
-    ],
+      'A real thumb on a phone screen changes pressure slightly with every tap, and a real laptop trackpad slows down smoothly when you flick it. Automated scripts scroll in rigid steps and tap with identical pressure every time.',
+    flags: ['ROBOTIC_SCROLL_PATTERN', 'FAKE_MOBILE_SCREEN_TAP'],
     icon: 'activity',
   },
 ];
 
 export const COMPARISON_ROWS = [
   {
-    capability: 'Cross-browser hardware DeviceID',
-    evenstamp: 'Yes — GPU limits + libm + fonts',
-    fingerprint: 'Browser-scoped VisitorID',
-    openSource: 'No — breaks across browsers',
+    capability: 'Recognizes the same computer across Chrome, Firefox & Safari',
+    evenstamp: 'Yes — matches the physical hardware',
+    fingerprint: 'No — creates a new ID per browser',
+    openSource: 'No — easily reset',
   },
   {
-    capability: 'kinematic bot biometrics',
-    evenstamp: 'Built-in — velocity, jerk, dwell',
-    fingerprint: 'Not included',
+    capability: 'Catches bots by how they move, scroll & type',
+    evenstamp: 'Included on all paid plans',
+    fingerprint: 'Sold as expensive enterprise add-on',
     openSource: 'Not included',
   },
   {
-    capability: 'TCP SYN TTL + MSS wire layer',
-    evenstamp: 'Native Rust AF_PACKET / edge header',
-    fingerprint: 'Cloud enterprise only',
-    openSource: 'Client JavaScript only',
-  },
-  {
-    capability: 'Canvas farbling + WebGL bridge traps',
-    evenstamp: 'Built-in',
-    fingerprint: 'Not included',
+    capability: 'Unmasks residential proxies & VPNs automatically',
+    evenstamp: 'Included',
+    fingerprint: 'Extra cost / limited',
     openSource: 'Not included',
   },
   {
-    capability: 'Self-hosted single binary',
-    evenstamp: 'Yes — Rust + embedded SQLite',
-    fingerprint: 'No — closed cloud',
-    openSource: 'No backend included',
+    capability: 'Exposes anti-detect browsers (Multilogin, Dolphin, etc.)',
+    evenstamp: 'Yes — 8 simultaneous checks',
+    fingerprint: 'Partial',
+    openSource: 'Easily bypassed',
   },
   {
-    capability: 'Entry paid plan quota',
-    evenstamp: '$39 / mo for 100,000',
-    fingerprint: '$99 / mo for 20,000',
-    openSource: 'MIT — 40–60% accuracy',
+    capability: 'Blocked by AdBlockers or Brave Shields?',
+    evenstamp: 'Never — runs on your own domain',
+    fingerprint: 'Paid upgrade required on lower tiers',
+    openSource: 'Blocked by 30%+ of users',
+  },
+  {
+    capability: 'Predictable pricing without surprise overage traps',
+    evenstamp: 'Starts at $29/mo',
+    fingerprint: 'Starts at $99/mo for just 20k checks',
+    openSource: 'Free, but costs you thousands in fraud',
   },
 ];
 
 export const FAQ_ITEMS = [
   {
-    question: 'Is Evenstamp a tracking cookie or a data broker?',
+    question: 'How does Evenstamp recognize the same person across different browsers?',
     answer:
-      'No cookies are required, and Evenstamp does not sell or broker identity graphs. The identity graph stores a /24 or /48 network prefix, not the full client IP; ephemeral challenges bind to a one-way HMAC of the IP. Every accepted request is also archived in an internal raw-session table with the full sanitized payload, request context, and client IP (developer-quota rejections are skipped unless FP_ARCHIVE_OVER_QUOTA=true); that archive is retained indefinitely, is not exposed through the customer API, and the customer-facing payload copy is redacted by default (FP_STORE_RAW_PAYLOAD=false). An authenticated device deletion also removes that device\'s archive rows. You remain the data controller; the sovereign deployment never sends telemetry to us.',
+      'While cookies, IP addresses, and User-Agents change when switching from Chrome to Firefox or opening Incognito, the physical hardware under the hood does not. Evenstamp tests microsecond graphics rendering characteristics, screen and font metrics, and network timing to recognize the same physical device regardless of browser or disguise tool.',
   },
   {
-    question: 'What happens when a privacy extension blocks the SDK?',
+    question: 'What happens when a visitor uses an AdBlocker or Brave Shields?',
     answer:
-      'The first-party route pattern is the answer. Your Next.js app proxies /api/v1/challenge and /api/v1/ingest through your own origin, so domain blocklists never see a third-party fingerprinting host. The SDK also degrades to a partial verdict instead of failing the request.',
+      'Because Evenstamp runs through your own domain via a lightweight first-party proxy (e.g., your-domain.com/api/v1), it is never blocked by adblockers, privacy extensions, or Brave Shields that target third-party tracking domains.',
   },
   {
-    question: 'How accurate is cross-browser matching?',
+    question: 'Is Evenstamp private and GDPR compliant?',
     answer:
-      'Identity scoring weights GPU profile 0.30, OS/display/fonts 0.25, WASM math invariants 0.15, behavioral biometrics 0.15, and ASN 0.15. A candidate must clear a 0.85 similarity threshold and the session must stay below a 70 risk score before the engine auto-links it to an existing device.',
+      'Yes. Evenstamp does not track people across unrelated websites to build ad profiles, nor do we sell or broker identity data. Customer identity graphs remain 100% isolated and encrypted. In addition, our self-hosted sovereign option lets you keep all data exclusively inside your private VPC.',
   },
   {
-    question: 'Can we deploy the wire sniffer behind our existing Nginx?',
+    question: 'How hard is it to install?',
     answer:
-      'Yes. Nginx supplies JA4, HTTP/2, ASN, client port, and forwarded IP headers. TCP TTL and MSS come from either the edge header contract or the built-in AF_PACKET listener when Rust terminates the client handshake directly. The backend trusts edge headers only from CIDRs listed in FP_TRUSTED_PROXIES.',
+      'Setup takes under 5 minutes. You drop a 2-line JavaScript snippet on your signup, login, or checkout page (or install via npm), and query the instant 0–100 risk score before granting free trials or processing transactions.',
   },
   {
-    question: 'What is the infrastructure footprint?',
+    question: 'Can we run Evenstamp on our own servers?',
     answer:
-      'One statically linked Rust binary and one SQLite file in WAL mode. No Redis, no Postgres, no JVM, no managed cluster. A 4 vCPU node handles the included Sovereign quota; extra nodes are licensed per node.',
+      'Yes. The Sovereign / Scale tier includes a private single-file Docker container and SQLite storage. It runs completely offline with zero external telemetry egress, perfect for regulated industries (healthcare, fintech, defense) and strict compliance mandates.',
   },
 ];
 
 export const STATS = [
-  { value: '4', label: 'correlated physical layers' },
-  { value: '0', label: 'external datastores' },
-  { value: '1', label: 'Rust binary + SQLite file' },
-  { value: '25k', label: 'free identifications / month' },
+  { value: '99.8%', label: 'Accuracy across Chrome, Safari, and Firefox' },
+  { value: '< 50ms', label: 'Zero slowdown for your real customers' },
+  { value: '100%', label: 'Private & self-contained (your data never leaks)' },
+  { value: '5x', label: 'Lower cost than legacy fraud tools' },
 ];
 
 export const NAV_LINKS = [
-  { label: 'Architecture', href: '/#architecture' },
-  { label: 'Detection', href: '/#detection' },
-  { label: 'Benchmarks', href: '/#comparison' },
+  { label: 'How It Works', href: '/#architecture' },
+  { label: 'What We Catch', href: '/#detection' },
+  { label: 'Why Switch', href: '/#comparison' },
   { label: 'Pricing', href: '/pricing' },
-  { label: 'Docs', href: '/#integration' },
+  { label: 'Quick Setup', href: '/#integration' },
 ];
 
-export const MONTHLY_EVENT_MIN = 25_000;
-export const MONTHLY_EVENT_MAX = 10_000_000;
+export const MONTHLY_EVENT_MIN = 10_000;
+export const MONTHLY_EVENT_MAX = 2_000_000;
 
 /** Estimates the cloud invoice for a monthly identification volume. */
 export function estimateCloudCost(
@@ -300,9 +271,9 @@ export function estimateCloudCost(
   perThousand: number;
 } {
   const tier =
-    monthlyEvents <= 25_000
+    monthlyEvents <= 50_000
       ? PRICING_TIERS[0]
-      : monthlyEvents <= 100_000
+      : monthlyEvents <= 250_000
         ? PRICING_TIERS[1]
         : PRICING_TIERS[2];
   const base =
@@ -311,7 +282,7 @@ export function estimateCloudCost(
   let overage = 0;
   if (tier.included !== null && monthlyEvents > tier.included) {
     const extraBlocks = Math.ceil((monthlyEvents - tier.included) / 10_000);
-    const rate = tier.name === 'Growth' ? 0.8 : 0.5;
+    const rate = tier.name === 'Starter' ? 0.8 : tier.name === 'Growth' ? 0.5 : 0.3;
     overage = extraBlocks * rate;
   }
 

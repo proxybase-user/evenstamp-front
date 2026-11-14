@@ -4,21 +4,21 @@ import { COMPARISON_ROWS } from '@/lib/site-data';
 const COST_BARS = [
   {
     label: 'Evenstamp Scale',
-    detail: '$199 / 1M',
+    detail: '$199 / 1M checks',
     value: 0.199,
     width: 4,
     tone: 'bg-accent-green',
   },
   {
-    label: 'Evenstamp Growth',
-    detail: '$39 / 100k',
-    value: 0.39,
-    width: 8,
+    label: 'Evenstamp Starter',
+    detail: '$29 / 50k checks',
+    value: 0.58,
+    width: 12,
     tone: 'bg-accent-blue',
   },
   {
-    label: 'Fingerprint Pro Plus',
-    detail: '$99 / 20k',
+    label: 'Fingerprint Pro',
+    detail: '$99 / 20k checks',
     value: 4.95,
     width: 100,
     tone: 'bg-accent-red/70',
@@ -29,13 +29,14 @@ export default function ComparisonSection() {
   return (
     <SectionFrame id="comparison">
       <div className="max-w-3xl space-y-4">
-        <div className="eyebrow">// Benchmarks &amp; unit economics</div>
+        <div className="eyebrow">// Better protection, fairer pricing</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Built for teams tired of cloud lock-in and $99 / 20k quotas.
+          Stop overpaying $99+ a month just to let abusers slip through in another browser.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          A single compiled Rust binary backed by SQLite and in-memory behavior engine
-          removes the managed-cluster overhead that incumbent SaaS pricing carries.
+          Legacy fingerprinting tools charge steep monthly minimums and still get fooled when a user
+          switches from Chrome to Edge. Free open-source scripts break the moment someone opens Incognito.
+          Evenstamp gives you hardware-level accuracy at a fraction of the cost.
         </p>
       </div>
 
@@ -44,16 +45,16 @@ export default function ComparisonSection() {
           <thead>
             <tr className="border-b border-hairline bg-surface-2 font-mono text-[12px] uppercase tracking-[0.06em] text-ink-muted">
               <th scope="col" className="px-6 py-4 font-normal">
-                Capability
+                What Matters to Your Business
               </th>
-              <th scope="col" className="px-6 py-4 font-medium text-accent-green">
+              <th scope="col" className="px-6 py-4 font-semibold text-accent-green">
                 Evenstamp
               </th>
               <th scope="col" className="px-6 py-4 font-normal">
-                Fingerprint Pro
+                Fingerprint Pro ($99+/mo)
               </th>
               <th scope="col" className="px-6 py-4 font-normal">
-                Open-source FPJS
+                Free Open-Source Scripts
               </th>
             </tr>
           </thead>
@@ -66,7 +67,7 @@ export default function ComparisonSection() {
                 >
                   {row.capability}
                 </th>
-                <td className="px-6 py-4 font-mono text-[13px] font-medium text-accent-green">
+                <td className="px-6 py-4 font-mono text-[13px] font-semibold text-accent-green">
                   {row.evenstamp}
                 </td>
                 <td className="px-6 py-4 text-[14px] text-ink-body">
@@ -90,13 +91,11 @@ export default function ComparisonSection() {
             Up to 96% lower cost per call.
           </h3>
           <p className="max-w-[46ch] text-sm leading-relaxed text-ink-body">
-            Published list pricing, normalized to the same unit. Evenstamp
-            overage is $0.50 per 10k on Scale and $0.80 per 10k on Growth, with
-            no punitive platform fee.
+            Published list pricing, normalized to the same unit. Evenstamp starts at
+            just $29/mo with predictable overage rates and zero punitive platform fees.
           </p>
           <p className="font-mono text-[11px] text-ink-muted">
-            Comparison reflects public pricing and documented capabilities as
-            of Q4 2026. Verify with each vendor.
+            Comparison reflects public pricing and documented capabilities as of Q4 2026.
           </p>
         </div>
 

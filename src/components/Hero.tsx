@@ -1,24 +1,22 @@
-import { ArrowRight, Server, Shield } from 'lucide-react';
+import { ArrowRight, Shield, ShieldCheck } from 'lucide-react';
 import CodeBlock from './CodeBlock';
 import TelemetryHudClient from './TelemetryHudClient';
 
 const SDK_SNIPPET = `import { EvenstampAgent } from '@evenstamp/sdk';
 
-// 1. Load the WASM + behavioral collectors.
-const stamp = await EvenstampAgent.load({
-  endpoint: '/api/v1', // first-party proxy, not a blocked third party
-});
+// 1. Add Evenstamp to your signup, login, or checkout page
+const stamp = await EvenstampAgent.load({ endpoint: '/api/v1' });
 
-// 2. Resolve the cross-browser device and risk verdict.
+// 2. Instantly know if this device has been here before
 const verdict = await stamp.identify();
-// => { deviceId: "dev_7c44a912-…", riskScore: 3, anomalies: [] }`;
+// => { deviceId: "dev_7c44a912", riskScore: 3, verdict: "Safe Customer" }`;
 
-const LAYERS = [
-  { name: 'TCP TTL', color: 'bg-accent-purple text-white' },
-  { name: 'JA4', color: 'bg-accent-pink text-white' },
-  { name: 'WebGPU', color: 'bg-accent-blue text-white' },
-  { name: 'Canvas', color: 'bg-accent-orange text-white' },
-  { name: 'Rust', color: 'bg-accent-green text-ink' },
+const VALUE_PILLS = [
+  { name: 'Stops Free-Trial Abuse', color: 'bg-accent-purple text-white' },
+  { name: 'Blocks Multi-Accounting', color: 'bg-accent-pink text-white' },
+  { name: 'Unmasks VPNs & Proxies', color: 'bg-accent-blue text-white' },
+  { name: 'Catches Scraping Bots', color: 'bg-accent-orange text-white' },
+  { name: 'Prevents Chargebacks', color: 'bg-accent-green text-ink' },
 ];
 
 export default function Hero() {
@@ -36,89 +34,75 @@ export default function Hero() {
 
           <div className="grid grid-cols-1 items-start gap-10 px-5 py-14 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:py-20">
             <div className="min-w-0 space-y-6 lg:col-span-6">
-              {/* Eyebrow per DESIGN.md: 15px / 500 / 1.5px tracking / uppercase */}
+              {/* Eyebrow badge */}
               <div className="flex items-center gap-2">
                 <span className="eyebrow flex items-center gap-2 text-ink-secondary">
                   <Shield className="h-4 w-4 text-accent-blue" aria-hidden="true" />
-                  FORENSIC TELEMETRY &amp; HARDWARE CORRELATION
+                  STOP FAKE ACCOUNTS · PROMO ABUSE · BOTS
                 </span>
               </div>
 
-              {/* Headline per DESIGN.md: display-xxl 80px / 600 / -0.8px tracking */}
-              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.8px] sm:text-6xl lg:text-[76px] xl:text-[80px]">
-                Identify the physical machine.
+              {/* Headline */}
+              <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.8px] sm:text-6xl lg:text-[68px] xl:text-[72px]">
+                Know when it&apos;s the same person—even if they clear cookies, switch browsers, or use a VPN.
               </h1>
 
               {/* Sub-headline / lead paragraph */}
               <p className="max-w-xl text-base leading-relaxed text-ink-body sm:text-lg">
-                Anti-detect browsers fake a User-Agent in milliseconds. Evenstamp
-                correlates{' '}
-                <strong className="font-semibold text-ink">
-                  TCP SYN TTL and MSS wire telemetry
-                </strong>
-                ,{' '}
-                <strong className="font-semibold text-ink">
-                  WebGPU silicon and shader timing
-                </strong>
-                ,{' '}
-                <strong className="font-semibold text-ink">
-                  canvas integrity traps
-                </strong>
-                , and{' '}
-                <strong className="font-semibold text-ink">
-                  Rust kinematic biometrics
-                </strong>{' '}
-                into one deterministic device identity across Chrome, Firefox, and Safari.
+                Scammers and bots hide behind Incognito mode, VPNs, and specialized
+                &ldquo;anti-detect&rdquo; browsers to drain your free trials, abuse promo codes,
+                and create fake accounts. Evenstamp looks past the browser to identify the
+                actual computer or phone—so one person can&apos;t pretend to be a hundred.
               </p>
 
-              {/* Buttons per DESIGN.md: 4px radius (rounded-sm), 16px 500 */}
+              {/* Buttons */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <a
                   href="#pricing"
                   className="button-primary"
                 >
-                  Start free — 25,000 calls / mo
+                  View Plans &amp; Start Protecting
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
                 <a
-                  href="#architecture"
+                  href="#detection"
                   className="button-secondary"
                 >
-                  <Server className="h-4 w-4 text-accent-blue" aria-hidden="true" />
-                  Deploy sovereign binary
+                  <ShieldCheck className="h-4 w-4 text-accent-blue" aria-hidden="true" />
+                  See What We Catch
                 </a>
               </div>
 
-              {/* Metadata */}
+              {/* Trust micro-copy */}
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[12px] text-ink-muted">
                 <span className="flex items-center gap-1.5">
                   <span
                     className="status-dot bg-accent-green"
                     aria-hidden="true"
                   />
-                  No credit card required
+                  2-minute setup
                 </span>
-                <span>Single SQLite WAL storage</span>
-                <span>GDPR &amp; ePrivacy ready</span>
+                <span>Works across Chrome, Safari &amp; Firefox</span>
+                <span>GDPR &amp; privacy compliant</span>
               </div>
 
               {/* Code Snippet */}
               <div className="pt-2">
                 <CodeBlock
-                  title="npm i @evenstamp/sdk"
+                  title="2-Line Website Setup"
                   language="TypeScript"
                   code={SDK_SNIPPET}
                 />
               </div>
 
-              {/* Five chromatic layer tags */}
+              {/* Five outcome pill tags */}
               <div className="flex flex-wrap gap-2 pt-1">
-                {LAYERS.map((layer) => (
+                {VALUE_PILLS.map((pill) => (
                   <span
-                    key={layer.name}
-                    className={`rounded-[4px] px-2.5 py-1 font-mono text-[11px] font-medium tracking-[0.04em] ${layer.color}`}
+                    key={pill.name}
+                    className={`rounded-[4px] px-2.5 py-1 font-mono text-[11px] font-medium tracking-[0.04em] ${pill.color}`}
                   >
-                    {layer.name}
+                    {pill.name}
                   </span>
                 ))}
               </div>

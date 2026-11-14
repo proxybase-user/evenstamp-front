@@ -19,32 +19,31 @@ export default function SiteFooter() {
               </span>
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-ink-body">
-              Cryptographic precision and forensic telemetry. One Rust binary,
-              one sovereign SQLite file, four physical layers.
+              Stop multi-accounting, free-trial abuse, and bot fraud with cross-browser hardware identification. Fast, private, and 100% under your control.
             </p>
             <p className="font-mono text-[11px] text-ink-muted">
-              Engine v2.4 · MIT reference implementation
+              Engine v2.4 · Enterprise fraud &amp; abuse defense
             </p>
           </div>
 
           <FooterColumn
             title="Product"
             links={[
-              { label: 'Architecture', href: '/#architecture' },
-              { label: 'Detection layers', href: '/#detection' },
+              { label: 'How It Works', href: '/#architecture' },
+              { label: 'What We Catch', href: '/#detection' },
+              { label: 'Why Switch', href: '/#comparison' },
               { label: 'Pricing', href: '/pricing' },
-              { label: 'Integration', href: '/#integration' },
-              { label: 'Sign in', href: '/login' },
+              { label: 'Quick Setup', href: '/#integration' },
             ]}
           />
           <FooterColumn
-            title="Engineering"
+            title="Solutions"
             links={[
-              { label: 'Live playground', href: 'https://m.evenstamp.com' },
-              { label: 'Self-hosted binary', href: '/pricing' },
-              { label: 'Edge header contract', href: '/#integration' },
-              { label: 'Identity weights', href: '/#architecture' },
-              { label: 'Anomaly taxonomy', href: '/#detection' },
+              { label: 'Stop Multi-Accounting', href: '/#detection' },
+              { label: 'Block Promo Abuse', href: '/#detection' },
+              { label: 'Unmask Stealth VPNs', href: '/#architecture' },
+              { label: 'Bot Biometrics', href: '/#architecture' },
+              { label: 'Self-Hosted Sovereign', href: '/pricing' },
             ]}
           />
           <FooterColumn
@@ -60,15 +59,14 @@ export default function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-hairline pt-6 font-mono text-[11px] text-ink-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} Evenstamp Inc. Cryptographic device
-            and kinematic intelligence.
+            © {new Date().getFullYear()} Evenstamp Inc. Fraud prevention and device intelligence.
           </p>
           <p className="flex items-center gap-2">
             <span
               className="status-dot animate-pulse-dot bg-accent-green"
               aria-hidden="true"
             />
-            Built for lawful abuse prevention
+            Built for revenue &amp; abuse protection
           </p>
         </div>
       </div>

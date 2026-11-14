@@ -1,8 +1,29 @@
-import { Cloud, Container, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Cloud, Container, ShieldCheck } from 'lucide-react';
 import CodeBlock from './CodeBlock';
 import SectionFrame from './SectionFrame';
 
-const PROXY_CODE = `// app/api/v1/ingest/route.ts — first-party, not a blocked third party
+const STEPS = [
+  {
+    step: '01',
+    title: 'Paste the snippet',
+    description:
+      'Drop our lightweight script onto your signup, login, or checkout page—or install via npm.',
+  },
+  {
+    step: '02',
+    title: 'Get the Device ID & Risk Score',
+    description:
+      'Before you grant a free trial, apply a coupon, or process a payment, Evenstamp tells you if the device is legitimate or a repeat abuser.',
+  },
+  {
+    step: '03',
+    title: 'Block or challenge automatically',
+    description:
+      'If the risk score is over 70, block the signup, deny the promo code, or ask for phone verification. Real customers never notice a thing.',
+  },
+];
+
+const PROXY_CODE = `// app/api/v1/ingest/route.ts — first-party proxy (runs on your domain)
 import { NextRequest, NextResponse } from 'next/server';
 
 const ENGINE = process.env.RUST_BACKEND_INTERNAL_URL!;
@@ -13,7 +34,6 @@ export async function POST(req: NextRequest) {
     headers: {
       'content-type': 'application/json',
       'x-forwarded-for': req.headers.get('x-forwarded-for') ?? '',
-      // Wire headers are forwarded only when a trusted edge sets them.
     },
     body: await req.text(),
     cache: 'no-store',
@@ -24,7 +44,8 @@ export async function POST(req: NextRequest) {
   });
 }`;
 
-const SELF_HOST_CODE = `# One binary, one SQLite file, no external services.
+const SELF_HOST_CODE = `# Self-hosted private deployment (Scale & Sovereign plan)
+# One binary, one SQLite file, zero external network dependencies.
 export FP_MASTER_SECRET="$(openssl rand -base64 32)"
 
 docker run -p 8080:8080 \\
@@ -50,17 +71,40 @@ export default function IntegrationSection() {
   return (
     <SectionFrame id="integration">
       <div className="max-w-3xl space-y-4">
-        <div className="eyebrow">// Deployment paths</div>
+        <div className="eyebrow">// Live in under 5 minutes</div>
         <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-          Two paths into production. One engine.
+          No security team required. Plug it into your signup or checkout flow today.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          Run the managed edge, or put the entire Rust binary inside your own
-          VPC. The wire contract, anomaly engine, and identity graph are
-          identical in both.
+          Whether you use our managed cloud API or self-host the private binary, installation
+          is simple, lightweight, and requires only a few lines of code.
         </p>
       </div>
 
+      {/* 3 Simple Steps */}
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+        {STEPS.map((s) => (
+          <div
+            key={s.step}
+            className="card-feature space-y-3 relative border-l-2 border-l-accent-green"
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-2xl font-bold text-accent-green">
+                {s.step}
+              </span>
+              <CheckCircle2 className="h-5 w-5 text-accent-green/80" aria-hidden="true" />
+            </div>
+            <h3 className="text-lg font-semibold text-ink">
+              {s.title}
+            </h3>
+            <p className="text-sm leading-relaxed text-ink-body">
+              {s.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Deployment paths: Cloud vs Sovereign */}
       <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="card-feature space-y-4">
           <div className="flex items-center gap-3">
@@ -72,14 +116,14 @@ export default function IntegrationSection() {
                 Managed cloud · first-party proxy
               </h3>
               <p className="font-mono text-[11px] text-ink-muted">
-                Next.js route handler → Rust engine
+                Next.js route handler → Evenstamp Cloud
               </p>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-ink-body">
             Privacy extensions block third-party fingerprinting domains. Routing
             through your own origin bypasses those blocklists without weakening
-            the ECDH envelope or the single-use nonce.
+            security or slowing down legitimate users.
           </p>
           <CodeBlock
             title="app/api/v1/ingest/route.ts"
@@ -95,17 +139,17 @@ export default function IntegrationSection() {
             </div>
             <div>
               <h3 className="text-base font-semibold text-ink">
-                Sovereign · single binary
+                Sovereign · single private binary
               </h3>
               <p className="font-mono text-[11px] text-ink-muted">
-                Docker, bare metal, or your own VPC
+                Docker, bare metal, or your own private VPC
               </p>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-ink-body">
-            Regulated environments cannot egress device telemetry. One sovereign
-            container with zero external dependencies satisfies strict residency
-            and GDPR Article 28 data processor obligations.
+            Strict compliance requirements or zero-telemetry policies? Run our
+            single-file container directly on your own infrastructure with zero
+            per-call fees and zero external egress.
           </p>
           <CodeBlock
             title="docker run"

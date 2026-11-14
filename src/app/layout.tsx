@@ -21,21 +21,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default:
-      'Evenstamp — Cryptographic Precision & Forensic Telemetry',
+      'Evenstamp — Cross-Browser Fraud & Abuse Protection',
     template: '%s · Evenstamp',
   },
   description:
-    'Identify the physical machine across Chrome, Firefox, and Safari. Evenstamp fuses TCP SYN TTL and MSS wire telemetry, WebGPU silicon probes, canvas integrity traps, and Rust kinematic biometrics into one cryptographic device verdict.',
+    'Recognize every visitor—even when they clear cookies, switch browsers, or use a VPN. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
   keywords: [
-    'device fingerprinting',
+    'fraud prevention',
+    'stop multi-accounting',
+    'promo abuse prevention',
     'cross-browser device identity',
-    'TCP TTL fingerprint',
-    'JA4 fingerprint',
-    'WebGPU fingerprint',
-    'behavioral biometrics',
     'anti-detect browser detection',
     'bot detection',
-    'account takeover prevention',
+    'chargeback prevention',
   ],
   authors: [{ name: 'Evenstamp' }],
   creator: 'Evenstamp',
@@ -43,15 +41,15 @@ export const metadata: Metadata = {
     type: 'website',
     url: siteUrl,
     siteName: 'Evenstamp',
-    title: 'Evenstamp — Identify the physical machine',
+    title: 'Evenstamp — Stop Multi-Accounting & Bot Abuse',
     description:
-      'Four orthogonal physical layers. One device identity. Cloud API or sovereign self-hosted Rust binary.',
+      'Recognize every visitor—even when they try to hide. Instant fraud risk score and cross-browser hardware ID.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Evenstamp — Identify the physical machine',
+    title: 'Evenstamp — Stop Multi-Accounting & Bot Abuse',
     description:
-      'TCP wire telemetry, WebGPU silicon probes, canvas integrity traps, and Rust kinematic biometrics in one Rust binary.',
+      'Recognize every visitor—even when they try to hide. Instant fraud risk score and cross-browser hardware ID.',
   },
   robots: {
     index: true,

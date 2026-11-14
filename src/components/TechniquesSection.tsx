@@ -28,20 +28,19 @@ export default function TechniquesSection() {
     <SectionFrame id="detection">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl space-y-4">
-          <div className="eyebrow">// Detection surface</div>
+          <div className="eyebrow">// Real-world protection</div>
           <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-            Eight forensic layers. Any contradiction raises the score.
+            Eight ways abusers try to cheat your business—and how we catch them.
           </h2>
           <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-            Anti-detect browsers patch surface APIs. These probes target the
-            subsystems underneath: kernel packet headers, GPU scheduling,
-            graphics readback paths, inspector serializers, OS voice
-            inventories, and human motor control.
+            Whether you&apos;re dealing with teenagers farming free AI credits or organized rings using
+            stealth browsers, any mismatch between what a device claims to be and what it actually is
+            raises the risk score automatically.
           </p>
         </div>
         <div className="card-feature shrink-0 !p-4 font-mono text-[11px] text-ink-muted">
-          <div className="text-accent-blue font-semibold">DETERMINISTIC RULES</div>
-          <div className="mt-1">score = Σ signal weights · clamp 0–100</div>
+          <div className="text-accent-blue font-semibold">INSTANT RISK VERDICT</div>
+          <div className="mt-1">Score 0–100 returned in milliseconds</div>
         </div>
       </div>
 
@@ -62,8 +61,8 @@ export default function TechniquesSection() {
                     <span className="font-mono text-[11px] text-ink-muted">
                       {technique.index}
                     </span>
-                    <span className="rounded-[4px] border border-hairline bg-surface-2 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
-                      {technique.layer}
+                    <span className="rounded-[4px] border border-hairline bg-surface-2 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em] text-ink font-semibold">
+                      {technique.name}
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold tracking-[-0.01em] text-ink">

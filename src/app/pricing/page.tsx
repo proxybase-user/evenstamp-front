@@ -7,79 +7,79 @@ import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: 'Pricing · Fraud & Abuse Protection',
   description:
-    'Transparent Evenstamp pricing: a free Developer tier with 25,000 identifications, Growth at $39/month, Scale at $199/month, and a sovereign self-hosted license. Card subscriptions via Airwallex, crypto via NOWPayments.',
+    'Simple, ROI-positive Evenstamp pricing: Starter at $29/mo, Growth at $79/mo, and Scale / Sovereign at $199/mo. 14-day free trial on all plans.',
   keywords: [
-    'device fingerprinting pricing',
+    'fraud protection pricing',
     'bot detection pricing',
-    'fraud prevention pricing',
-    'Airwallex subscription',
-    'crypto payments',
-    'self-hosted fingerprinting',
+    'device fingerprinting pricing',
+    'stop multi-accounting',
+    'promo abuse prevention',
+    'self-hosted fraud engine',
   ],
   alternates: { canonical: 'https://evenstamp.com/pricing' },
 };
 
 const TIER_MATRIX = [
   {
-    tier: 'Developer',
-    target: 'Indie, POC, staging',
-    price: '$0',
-    included: '25,000 / month',
-    overage: 'Hard cap',
+    tier: 'Starter',
+    target: 'SaaS tools, indie apps, e-commerce',
+    price: '$29/mo · $23/mo annual',
+    included: '50,000 / month',
+    overage: '$0.80 / 10k',
     capabilities:
-      'BrowserID, fuzzy DeviceID, VM/headless checks, 7-day retention',
+      'Cross-browser hardware Device ID, instant 0–100 Fraud Risk Score, VPN & proxy unmasking, first-party proxy, webhooks',
   },
   {
     tier: 'Growth',
-    target: 'Startups, SaaS',
-    price: '$39/mo · $31/mo annual',
-    included: '100,000 / month',
-    overage: '$0.80 / 10k',
-    capabilities:
-      'WASM steal-time, shader benchmarks, cross-realm checks, canvas traps, 30-day retention, webhooks',
-  },
-  {
-    tier: 'Scale',
-    target: 'Fintech, e-commerce, high traffic',
-    price: '$199/mo · $159/mo annual',
-    included: '1,000,000 / month',
+    target: 'High-traffic platforms, AI apps, marketplaces',
+    price: '$79/mo · $63/mo annual',
+    included: '250,000 / month',
     overage: '$0.50 / 10k',
     capabilities:
-      'kinematic biometrics, TCP TTL/MSS wire verification, WebGPU probes, CDP traps, first-party CNAME, 1-year retention',
+      'Everything in Starter + full 8-layer anti-detect traps, live behavioral biometrics (mouse, scroll, touch), cloud VM detection, custom score thresholds, priority support',
   },
   {
-    tier: 'Sovereign',
-    target: 'Regulated enterprise, crypto, iGaming',
-    price: '$999/mo billed annually',
-    included: 'Unlimited (4 vCPU nodes)',
-    overage: '$199/mo per extra node',
+    tier: 'Scale / Sovereign',
+    target: 'Strict compliance, high volume, enterprise',
+    price: '$199/mo · $159/mo annual',
+    included: '1,000,000 Cloud or Unlimited Self-Hosted',
+    overage: '$0.30 / 10k Cloud overage',
     capabilities:
-      'Single-binary Rust + SQLite, AF_PACKET sniffer, zero telemetry egress, raw 8D vector export, 99.99% SLA',
+      'Everything in Growth + dedicated single-file private Docker deployment, raw signal weights, zero external telemetry egress, SLA & onboarding',
+  },
+  {
+    tier: 'Sandbox (Dev)',
+    target: 'Localhost testing & development',
+    price: '$0',
+    included: '1,000 / month',
+    overage: 'Hard cap on dev domains',
+    capabilities:
+      'Test API keys for local environment, staging proofs of concept, sample anomaly payloads',
   },
 ];
 
 const PRICING_FAQ = [
   {
-    question: 'How do you charge less than Fingerprint Pro?',
+    question: 'How does the 14-day free trial work?',
     answer:
-      'We run one Rust binary backed by SQLite and in-memory behavior engine. There is no Kafka, no Cassandra, and no multi-tenant Elasticsearch cluster to maintain. Those architectural choices remove 80%+ of the operational overhead incumbent pricing must amortize.',
+      'Every paid plan comes with a full-featured 14-day free trial. You get instant access to live device checks, risk scoring, and dashboard analytics. Cancel anytime in one click before the trial ends and you will not be billed.',
   },
   {
-    question: 'What happens when I hit the Developer limit?',
+    question: 'How do you charge less than Fingerprint Pro ($99+/mo)?',
     answer:
-      'The engine returns a 429 HardCapExceeded error and rejects new challenges until the first of the next UTC month. Paid plans never hard-cap: overage is billed linearly at the published per-10k rate.',
+      'Our engine is built in high-performance Rust backed by embedded SQLite and vectorized in-memory analytics. We do not need massive, costly multi-tenant database clusters, and we pass those infrastructure savings directly to you.',
   },
   {
-    question: 'How does sovereign licensing work?',
+    question: 'How does the Self-Hosted Sovereign option work?',
     answer:
-      'You receive access to the ghcr.io/evenstamp/engine container images, license verification keys, and architecture reviews. The binary runs entirely inside your infrastructure with zero telemetry egress. You can run SQLite locally or mount a network volume.',
+      'Included in the $199/mo Scale plan, you can run our single-binary Docker container directly inside your own VPC or bare metal server. Telemetry never leaves your infrastructure, satisfying strict GDPR, HIPAA, and PCI compliance requirements.',
   },
   {
     question: 'What payment methods do you accept?',
     answer:
-      'Card subscriptions (Visa, Mastercard, Amex) run through Airwallex in compliant recurring subscription mode. Prepaid terms (monthly or annual) can also be settled via NOWPayments in BTC, ETH, USDT, USDC, and other major cryptocurrencies.',
+      'Credit cards (Visa, Mastercard, Amex) run securely through Airwallex recurring subscriptions. We also support prepaid terms via NOWPayments in BTC, ETH, USDT, USDC, and other major cryptocurrencies.',
   },
 ];
 
@@ -87,16 +87,16 @@ const BILLING_PATHS = [
   {
     icon: CreditCard,
     title: 'Card subscription',
-    provider: 'Airwallex',
+    provider: 'Airwallex Hosted Checkout',
     detail:
-      'Hosted checkout in SUBSCRIPTION mode. The card is stored by Airwallex, renews automatically, and the engine receives a signed billing_checkout.completed webhook before activating the plan.',
+      'Secure recurring monthly or annual billing. Automatic invoicing with instant receipts and simple one-click plan management.',
   },
   {
     icon: Bitcoin,
     title: 'Crypto prepaid term',
-    provider: 'NOWPayments',
+    provider: 'NOWPayments Invoice',
     detail:
-      'Hosted invoice for one monthly or annual term. A confirmed payment extends the plan period; renewal is a fresh invoice, so there is no recurring crypto debit or stored wallet consent.',
+      'Prepay monthly or annually with BTC, ETH, USDT, USDC, or other major cryptocurrencies with zero recurring wallet debit.',
   },
 ];
 
@@ -107,22 +107,19 @@ export default function PricingPage() {
       <main>
         <SectionFrame id="pricing-hero">
           <div className="max-w-3xl space-y-5">
-            <div className="eyebrow">// Pricing</div>
+            <div className="eyebrow">// Simple, ROI-Positive Pricing</div>
             <h1 className="text-3xl font-semibold leading-[1.1] sm:text-5xl lg:text-[56px] text-ink">
-              Transparent unit economics, no procurement cliff.
+              If Evenstamp blocks just two fake trials or one chargeback a month, it pays for itself.
             </h1>
             <p className="text-base leading-relaxed text-ink-body">
-              Evenstamp runs as one compiled Rust binary with embedded SQLite
-              and in-memory behavior engine. That footprint supports 85–94% gross margins
-              while pricing 60%+ below incumbent list prices. Start free at
-              25,000 identifications; upgrade when the free cap actually binds.
+              Start with a 14-day full-featured trial. Protect your signups, checkout flows, and promo codes from multi-accounters and automated bot farms with zero surprise platform penalties.
             </p>
             <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-body">
               {[
-                'No credit card on Developer',
-                'Linear, legible overage',
-                'Annual saves 20%',
-                'Self-hosted option',
+                '14-day free trial on all plans',
+                'Cancel anytime in one click',
+                'Annual billing saves 20%',
+                'Self-hosted VPC option included',
               ].map((item) => (
                 <span key={item} className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-accent-green" aria-hidden="true" />
@@ -142,9 +139,7 @@ export default function PricingPage() {
               Every plan, in one table.
             </h2>
             <p className="text-sm leading-relaxed text-ink-body">
-              Cloud plans include first-party proxy routes, ECDH P-256
-              envelopes, single-use nonces, and 99.9% availability. Sovereign
-              adds a 99.99% SLA and a deployment review.
+              All plans include cross-browser hardware correlation, instant fraud risk scores, and AdBlocker-proof first-party domain routing.
             </p>
           </div>
 
@@ -196,8 +191,7 @@ export default function PricingPage() {
               Card subscription or crypto prepaid term.
             </h2>
             <p className="text-sm leading-relaxed text-ink-body">
-              Provider credentials stay in the Rust engine. The browser only
-              receives a hosted checkout URL.
+              Simple, transparent billing with no hidden fees or surprise lock-ins.
             </p>
           </div>
 
@@ -247,14 +241,14 @@ export default function PricingPage() {
               href="/login?next=/dashboard/billing"
               className="button-primary"
             >
-              Start free, upgrade later
+              Start 14-Day Free Trial
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
             <a
               href="mailto:engineering@evenstamp.com?subject=Evenstamp%20Sovereign%20license"
               className="button-secondary"
             >
-              Talk to engineering about Sovereign
+              Talk to us about Sovereign VPC
             </a>
           </div>
         </SectionFrame>

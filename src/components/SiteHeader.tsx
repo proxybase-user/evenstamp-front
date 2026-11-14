@@ -35,7 +35,7 @@ export default function SiteHeader() {
               className="status-dot animate-pulse-dot bg-accent-green"
               aria-hidden="true"
             />
-            RUST + WASM + SQLITE
+            STOP MULTI-ACCOUNTING &amp; BOT ABUSE
           </span>
         </div>
 
@@ -63,14 +63,14 @@ export default function SiteHeader() {
             href="/login"
             className="hidden rounded-[4px] border border-hairline bg-surface-1 px-3.5 py-1.5 font-mono text-xs text-ink transition hover:bg-surface-2 sm:inline-flex"
           >
-            Sign in
+            Log in
           </Link>
 
           <Link
-            href="/login?next=/dashboard"
+            href="/pricing"
             className="button-primary hidden !min-h-0 !px-4 !py-1.5 !text-xs sm:inline-flex"
           >
-            Get started
+            Start Protecting Revenue
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
           </Link>
 
@@ -110,14 +110,14 @@ export default function SiteHeader() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-secondary w-full justify-center text-sm"
               >
-                Sign in
+                Log in
               </Link>
               <Link
-                href="/login?next=/dashboard"
+                href="/pricing"
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-primary w-full justify-center text-sm"
               >
-                Get started
+                Start Protecting Revenue
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>

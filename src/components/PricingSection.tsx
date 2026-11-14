@@ -1,6 +1,7 @@
 'use client';
 
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
+import Link from 'next/link';
 import { useId, useState } from 'react';
 import SectionFrame from './SectionFrame';
 import {
@@ -9,7 +10,6 @@ import {
   MONTHLY_EVENT_MIN,
   PRICING_TIERS,
   type BillingCycle,
-  type PricingTier,
 } from '@/lib/site-data';
 
 const LOG_MIN = Math.log10(MONTHLY_EVENT_MIN);
@@ -27,7 +27,7 @@ const numberFormat = new Intl.NumberFormat('en-US');
 
 export default function PricingSection() {
   const [billing, setBilling] = useState<BillingCycle>('annual');
-  const [slider, setSlider] = useState(50);
+  const [slider, setSlider] = useState(40);
   const sliderId = useId();
 
   const monthlyEvents = sliderToEvents(slider);
@@ -37,18 +37,16 @@ export default function PricingSection() {
     <SectionFrame id="pricing">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl space-y-4">
-          <div className="eyebrow">// Transparent unit economics</div>
+          <div className="eyebrow">// Simple, ROI-Positive Pricing</div>
           <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
-            Cloud API or sovereign self-hosted binary.
+            If Evenstamp blocks just two fake trials or one chargeback a month, it pays for itself.
           </h2>
           <p className="max-w-[60ch] text-base leading-relaxed text-ink-body">
-            Start free at 25,000 identifications. Scale without a platform fee.
-            Move the entire engine into your own VPC when regulatory or
-            residency requirements demand it.
+            Start with a 14-day full-featured trial. Cancel in one click anytime.
           </p>
         </div>
 
-        {/* Billing cycle toggle per DESIGN.md: tight 4px radius buttons */}
+        {/* Billing cycle toggle */}
         <div
           className="inline-flex shrink-0 items-center rounded-[4px] border border-hairline bg-surface-2 p-1 font-mono text-xs"
           role="group"
@@ -84,6 +82,111 @@ export default function PricingSection() {
         </div>
       </div>
 
+      {/* 3 Main Pricing Cards */}
+      <div
+        className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3"
+        style={{ fontVariantNumeric: 'tabular-nums' }}
+      >
+        {PRICING_TIERS.map((tier) => {
+          const price =
+            billing === 'annual'
+              ? tier.annualMonthly
+              : tier.monthly;
+          const isFeatured = tier.highlighted;
+
+          return (
+            <article
+              key={tier.name}
+              className={`card-pricing flex flex-col justify-between gap-6 transition-all ${
+                isFeatured
+                  ? 'border-accent-green/50 shadow-level-2 ring-1 ring-accent-green/30 relative bg-surface-1'
+                  : 'bg-surface-1 border-hairline'
+              }`}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-[13px] font-semibold uppercase tracking-[0.08em] text-ink">
+                    {tier.name}
+                  </span>
+                  {isFeatured ? (
+                    <span className="rounded-[4px] border border-accent-green/40 bg-accent-green/15 px-2 py-0.5 font-mono text-[10px] font-semibold text-accent-green">
+                      MOST POPULAR
+                    </span>
+                  ) : null}
+                </div>
+
+                <div>
+                  <div className="metric text-3xl font-semibold text-ink">
+                    ${price}
+                    <span className="ml-1 text-sm font-normal text-ink-muted">
+                      / month
+                    </span>
+                  </div>
+                  <div className="mt-1 font-mono text-[11px] text-ink-muted">
+                    {billing === 'annual'
+                      ? 'billed annually · save 20%'
+                      : 'billed monthly'}
+                  </div>
+                </div>
+
+                <div className="rounded-[4px] border border-hairline bg-surface-2 px-3 py-1.5 font-mono text-xs font-medium text-ink">
+                  {tier.name === 'Starter'
+                    ? 'Up to 50,000 device checks / mo'
+                    : tier.name === 'Growth'
+                      ? 'Up to 250,000 device checks / mo'
+                      : 'Unlimited checks (Self-Hosted) or 1M+ Cloud'}
+                </div>
+
+                <p className="min-h-[2.75rem] text-sm leading-relaxed text-ink-body">
+                  {tier.tagline}
+                </p>
+
+                <div className="border-t border-hairline pt-3">
+                  <div className="text-[11px] font-mono text-ink-muted mb-2">
+                    {tier.overage}
+                  </div>
+                  <ul className="space-y-2.5 text-sm text-ink-body">
+                    {tier.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2">
+                        <Check
+                          className="mt-0.5 h-4 w-4 shrink-0 text-accent-green"
+                          aria-hidden="true"
+                        />
+                        <span className="leading-relaxed">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <a
+                  href="/login?next=/dashboard/billing"
+                  className={
+                    isFeatured
+                      ? 'button-primary w-full text-center justify-center'
+                      : 'button-secondary w-full text-center justify-center'
+                  }
+                >
+                  {tier.cta}
+                  <ArrowRight className="h-4 w-4 ml-1" aria-hidden="true" />
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {/* Small Sandbox Subtext Underneath Cards */}
+      <div className="mt-8 text-center">
+        <Link
+          href="/login?next=/dashboard"
+          className="inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted hover:text-accent-blue transition-colors"
+        >
+          Just testing locally? Grab a free Sandbox API key (1,000 checks/mo, development domains only) &rarr;
+        </Link>
+      </div>
+
       {/* Volume planner */}
       <div className="card-feature mt-12 !p-8">
         <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
@@ -93,7 +196,7 @@ export default function PricingSection() {
                 htmlFor={sliderId}
                 className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-muted"
               >
-                Monthly identifications
+                Estimate by monthly checks
               </label>
               <output
                 htmlFor={sliderId}
@@ -111,22 +214,22 @@ export default function PricingSection() {
               value={slider}
               onChange={(event) => setSlider(Number(event.target.value))}
               className="mt-4 h-1.5 w-full cursor-pointer appearance-none rounded-full bg-surface-3 accent-primary"
-              aria-valuetext={`${numberFormat.format(monthlyEvents)} identifications per month`}
+              aria-valuetext={`${numberFormat.format(monthlyEvents)} checks per month`}
             />
             <div className="mt-2 flex justify-between font-mono text-[11px] text-ink-muted">
               <span>{numberFormat.format(MONTHLY_EVENT_MIN)}</span>
               <span>{numberFormat.format(MONTHLY_EVENT_MAX)}</span>
             </div>
             <p className="mt-4 text-xs leading-relaxed text-ink-muted">
-              Estimates use published overage rates. Annual billing discounts
-              the base plan; overage remains usage-based. Taxes excluded.
+              All plans include cross-browser hardware correlation, instant fraud scoring,
+              first-party domain routing, and automatic 14-day full trials.
             </p>
           </div>
 
           <div className="grid min-w-0 grid-cols-3 gap-3 rounded-[8px] border border-hairline bg-surface-2 p-4">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
-                Plan
+                Best Plan
               </div>
               <div className="mt-1 text-sm font-semibold text-ink">
                 {estimate.tier.name}
@@ -145,7 +248,7 @@ export default function PricingSection() {
             </div>
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
-                Effective
+                Per 1k checks
               </div>
               <div className="metric mt-1 text-xl font-semibold text-accent-blue">
                 ${estimate.perThousand.toFixed(2)}
@@ -158,115 +261,14 @@ export default function PricingSection() {
               {estimate.overage > 0
                 ? `Includes $${numberFormat.format(
                     Math.round(estimate.overage),
-                  )} overage beyond ${numberFormat.format(
+                  )} estimated overage beyond ${numberFormat.format(
                     estimate.tier.included ?? 0,
-                  )} included identifications.`
-                : 'No overage at this volume.'}
+                  )} base checks.`
+                : 'Fully covered within base plan quota.'}
             </div>
           </div>
         </div>
       </div>
-
-      {/* Tier cards per DESIGN.md: card-pricing 8px, 32px padding, Level 2 shadow on featured */}
-      <div
-        className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4"
-        style={{ fontVariantNumeric: 'tabular-nums' }}
-      >
-        {PRICING_TIERS.map((tier) => {
-          const price =
-            tier.name === 'Sovereign'
-              ? tier.monthly
-              : billing === 'annual'
-                ? tier.annualMonthly
-                : tier.monthly;
-          const isFeatured = tier.highlighted;
-
-          return (
-            <article
-              key={tier.name}
-              className={`card-pricing flex flex-col justify-between gap-6 transition-all ${
-                isFeatured
-                  ? 'border-hairline shadow-level-2 ring-1 ring-hairline relative'
-                  : ''
-              }`}
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
-                    {tier.name}
-                  </span>
-                  {isFeatured ? (
-                    <span className="badge-info text-[11px]">
-                      FEATURED
-                    </span>
-                  ) : null}
-                </div>
-
-                <div>
-                  <div className="metric text-3xl font-semibold text-ink">
-                    ${price}
-                    <span className="ml-1 text-sm font-normal text-ink-muted">
-                      / month
-                    </span>
-                  </div>
-                  <div className="mt-1 font-mono text-[11px] text-ink-muted">
-                    {tier.name === 'Sovereign'
-                      ? 'billed annually'
-                      : billing === 'annual' && price > 0
-                        ? 'billed annually · save 20%'
-                        : tier.included === null
-                          ? 'unlimited identifications'
-                          : `${numberFormat.format(tier.included)} included / month`}
-                  </div>
-                </div>
-
-                <p className="min-h-[3rem] text-sm leading-relaxed text-ink-body">
-                  {tier.tagline}
-                </p>
-
-                <div className="rounded-[4px] border border-hairline bg-surface-2 px-3 py-2 font-mono text-[11px] text-ink-muted">
-                  {tier.overage}
-                </div>
-
-                <ul className="space-y-2.5 pt-2 text-sm text-ink-body">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <Check
-                        className="mt-0.5 h-4 w-4 shrink-0 text-accent-green"
-                        aria-hidden="true"
-                      />
-                      <span className="leading-relaxed">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <a
-                href={
-                  tier.name === 'Sovereign'
-                    ? 'mailto:engineering@evenstamp.com?subject=Evenstamp%20Sovereign%20license'
-                    : tier.name === 'Developer'
-                      ? '/login?next=/dashboard'
-                      : '/login?next=/dashboard/billing'
-                }
-                className={
-                  isFeatured
-                    ? 'button-primary w-full text-center'
-                    : 'button-secondary w-full text-center'
-                }
-              >
-                {tier.cta}
-              </a>
-            </article>
-          );
-        })}
-      </div>
-
-      <p className="mt-6 font-mono text-[11px] text-ink-muted">
-        Cloud plans include first-party proxy routes, ECDH P-256 envelopes,
-        single-use nonces, and 99.9% uptime. Sovereign includes a 99.99% SLA and
-        deployment review.
-      </p>
     </SectionFrame>
   );
 }
