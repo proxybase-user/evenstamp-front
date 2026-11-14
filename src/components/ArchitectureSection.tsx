@@ -2,149 +2,187 @@ import {
   Activity,
   Cpu,
   Database,
+  Eye,
   Network,
 } from 'lucide-react';
 import SectionFrame from './SectionFrame';
 
-const PILLARS = [
+const CATEGORY_CARDS = [
   {
-    icon: Network,
-    tone: 'cyan',
+    category: 'category-card-purple',
+    badge: 'L3 · WIRE TELEMETRY',
     title: 'Native SYN wire sniffer',
-    subtitle: 'L3 · TCP TTL + MSS',
-    copy: 'A zero-dependency AF_PACKET listener with a kernel cBPF filter copies only the 60-byte TCP SYN. It infers the client OS from the initial TTL and reads the MSS option to catch WireGuard, OpenVPN, and IPsec encapsulation before user space wakes up.',
-    anchor: 'cBPF → SYN · 96 B → TTL:64 / MSS:1380',
+    subtitle: 'Kernel cBPF · 60 B TCP SYN · TTL & MSS',
+    description:
+      'A zero-dependency AF_PACKET listener with a kernel cBPF filter copies the initial 60-byte TCP SYN. It infers the true client OS from the initial TTL and reads the MSS option to unmask WireGuard, OpenVPN, and IPsec encapsulation before user space runs.',
+    tech: 'cBPF → SYN · 96 B → TTL:64 / MSS:1380',
+    icon: Network,
+    textClass: 'text-white',
+    badgeClass: 'bg-white/20 text-white',
+    colSpan: 'lg:col-span-7',
   },
   {
+    category: 'category-card-pink',
+    badge: 'L1 · SILICON & SHADERS',
+    title: 'WebGPU silicon probes',
+    subtitle: 'WGSL atomic contention · raymarch latency',
+    description:
+      'A 120-iteration fragment shader and a WGSL atomic-contention kernel measure the physical GPU silicon. Spoofed renderer strings cannot fake shader pipeline latency or hypervisor steal-time jitter.',
+    tech: 'clear(400) → raymarch(120) → atomic(16k)',
     icon: Cpu,
-    tone: 'emerald',
-    title: 'Silicon and shader probes',
-    subtitle: 'L1 · WebGL + WebGPU + WASM',
-    copy: 'A 120-iteration fragment shader, a WGSL atomic-contention kernel, and a compiled Rust libm loop measure the physical GPU. A spoofed renderer string cannot fake shader latency, subgroup width, or hypervisor steal-time jitter.',
-    anchor: 'clear(400) → raymarch(120) → atomic(16k) → libm hash',
+    textClass: 'text-white',
+    badgeClass: 'bg-white/20 text-white',
+    colSpan: 'lg:col-span-5',
   },
   {
+    category: 'category-card-blue',
+    badge: 'L2 · CANVAS & RUNTIME',
+    title: 'Canvas integrity traps',
+    subtitle: 'CDP side channels · anti-detect unmasking',
+    description:
+      'Multi-pass sub-pixel canvas rendering, synthetic emoji font metrics, and CDP serializer timing detect browser spoofing engines and headless automation before DOM manipulation begins.',
+    tech: 'Canvas 2D / WebGL2 → CDP serializer → Speech synthesis',
+    icon: Eye,
+    textClass: 'text-white',
+    badgeClass: 'bg-white/20 text-white',
+    colSpan: 'lg:col-span-4',
+  },
+  {
+    category: 'category-card-orange',
+    badge: 'L4 · POLARS KINEMATICS',
+    title: 'Vectorized behavioral engine',
+    subtitle: 'Columnar LazyFrame · motor control',
+    description:
+      'Pointer, keystroke, wheel, and touch events stream into an in-memory Polars LazyFrame. Third-order jerk, path collinearity, flight distributions, and scroll inertia separate human motor control from scripted bot curves.',
+    tech: 'LazyFrame → 3rd-order jerk → dwell/flight → 8D vector',
     icon: Activity,
-    tone: 'emerald',
-    title: 'Polars kinematic biometrics',
-    subtitle: 'L4 · columnar behavior',
-    copy: 'Pointer, keystroke, wheel, and touch events stream into a vectorized Polars LazyFrame. Third-order jerk, path collinearity, dwell and flight distributions, scroll inertia, and touch pressure separate human motor control from scripted curves.',
-    anchor: 'LazyFrame → jerk → collinearity → dwell / flight → 8D vector',
+    textClass: 'text-white',
+    badgeClass: 'bg-white/20 text-white',
+    colSpan: 'lg:col-span-4',
   },
   {
+    category: 'category-card-green',
+    badge: 'STORAGE · IDENTITY GRAPH',
+    title: 'Sovereign SQLite engine',
+    subtitle: 'ECDH P-256 · WAL mode · single binary',
+    description:
+      'Every payload is sealed with ECDH P-256 and AES-256-GCM against single-use nonces consumed via DELETE … RETURNING. Cross-browser devices and sessions live in one sovereign SQLite file. No Redis, no Postgres, no cluster.',
+    tech: 'ECDH P-256 → DELETE … RETURNING → SQLite WAL',
     icon: Database,
-    tone: 'cyan',
-    title: 'Embedded identity graph',
-    subtitle: 'Storage · SQLite WAL',
-    copy: 'Every envelope is sealed with ECDH P-256 and AES-256-GCM against a single-use challenge consumed by DELETE … RETURNING. Devices, browser identities, and sessions live in one SQLite file. No Redis, no Postgres, no cluster.',
-    anchor: 'DELETE … RETURNING → WAL → DeviceID graph',
+    textClass: 'text-ink', // Ink text per DESIGN.md for legibility against green
+    badgeClass: 'bg-black/15 text-ink',
+    colSpan: 'lg:col-span-4',
   },
 ];
 
 const WEIGHTS = [
-  { label: 'GPU profile & limits', value: 0.3 },
-  { label: 'OS, display & fonts', value: 0.25 },
-  { label: 'WASM math invariants', value: 0.15 },
-  { label: 'Behavioral biometrics', value: 0.15 },
-  { label: 'ASN & network', value: 0.15 },
+  { label: 'GPU profile & limits', value: 0.3, accent: 'bg-accent-pink' },
+  { label: 'OS, display & fonts', value: 0.25, accent: 'bg-accent-blue' },
+  { label: 'WASM math invariants', value: 0.15, accent: 'bg-accent-purple' },
+  { label: 'Behavioral biometrics', value: 0.15, accent: 'bg-accent-orange' },
+  { label: 'ASN & network stack', value: 0.15, accent: 'bg-accent-green' },
 ];
 
 export default function ArchitectureSection() {
   return (
     <SectionFrame id="architecture">
+      {/* Header with Eyebrow 15px / 500 / 1.5px tracking and Display-LG 44.8px 600 */}
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Four-layer correlation engine</div>
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-4xl">
-          Spoofing one API is trivial. Forging all four layers at once is
+        <h2 className="text-3xl font-semibold leading-[1.12] tracking-normal sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
+          Spoofing one API is trivial. Forging all five layers at once is
           mathematically infeasible.
         </h2>
-        <p className="max-w-[65ch] text-base leading-relaxed text-ink-secondary">
-          Evenstamp does not compete on the number of JavaScript attributes it
-          collects. It competes on the cost of keeping every layer mutually
-          consistent while a session is live.
+        <p className="max-w-[65ch] text-base leading-relaxed text-ink-body sm:text-lg">
+          Evenstamp does not compete on the number of superficial JavaScript
+          attributes it collects. It competes on the mathematical cost of
+          keeping every forensic layer mutually consistent while a session is live.
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
-        {PILLARS.map((pillar, index) => {
-          const Icon = pillar.icon;
-          const accent =
-            pillar.tone === 'cyan'
-              ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-400'
-              : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400';
+      {/* Signature Five-Stop Chromatic Category Cards Grid per DESIGN.md */}
+      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12">
+        {CATEGORY_CARDS.map((card) => {
+          const Icon = card.icon;
           return (
             <article
-              key={pillar.title}
-              className="surface-card group space-y-4 rounded-xl p-6 transition-colors hover:border-white/[0.14]"
+              key={card.title}
+              className={`${card.category} ${card.colSpan} flex flex-col justify-between transition-transform hover:-translate-y-0.5`}
             >
-              <div className="flex items-start justify-between">
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg border ${accent}`}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span
+                    className={`rounded-[4px] px-2.5 py-1 font-mono text-[11px] font-medium tracking-[0.05em] uppercase ${card.badgeClass}`}
+                  >
+                    {card.badge}
+                  </span>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-black/10">
+                    <Icon className={`h-5 w-5 ${card.textClass}`} aria-hidden="true" />
+                  </div>
+                </div>
+
+                <div>
+                  <h3
+                    className={`text-2xl font-semibold tracking-[-0.01em] ${card.textClass}`}
+                  >
+                    {card.title}
+                  </h3>
+                  <div
+                    className={`mt-1 font-mono text-xs opacity-90 ${card.textClass}`}
+                  >
+                    {card.subtitle}
+                  </div>
+                </div>
+
+                <p
+                  className={`text-sm leading-relaxed opacity-95 ${card.textClass}`}
                 >
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </div>
-                <span className="font-mono text-[11px] text-ink-muted">
-                  0{index + 1}
-                </span>
-              </div>
-              <div className="space-y-1.5">
-                <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-muted">
-                  {pillar.subtitle}
-                </div>
-                <h3 className="text-lg font-semibold tracking-[-0.01em]">
-                  {pillar.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-ink-secondary">
-                  {pillar.copy}
+                  {card.description}
                 </p>
               </div>
-              <div className="overflow-x-auto rounded-md border border-white/[0.06] bg-canvas px-3 py-2 font-mono text-[10px] text-ink-muted scrollbar-thin">
-                {pillar.anchor}
+
+              <div
+                className={`mt-6 border-t border-black/10 pt-4 font-mono text-[11px] opacity-90 ${card.textClass}`}
+              >
+                {card.tech}
               </div>
             </article>
           );
         })}
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 rounded-xl border border-white/[0.07] bg-surface-1 p-6 shadow-specular lg:grid-cols-[1.1fr_1fr] lg:p-8">
-        <div className="space-y-3">
-          <div className="font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
-            Identity resolution
-          </div>
-          <h3 className="text-xl font-semibold tracking-[-0.01em]">
-            Weighted similarity, not a single hash.
-          </h3>
-          <p className="max-w-[52ch] text-sm leading-relaxed text-ink-secondary">
-            BrowserID is exact per browser family. DeviceID is a fuzzy match
-            across the physical machine. A candidate must clear{' '}
-            <span className="font-mono text-ink-primary">0.85</span> similarity
-            and the session must stay below a{' '}
-            <span className="font-mono text-ink-primary">70</span> risk score
-            before the engine auto-links it. High-risk sessions are recorded,
-            never merged.
-          </p>
-          <div className="pt-1 font-mono text-[11px] text-ink-muted">
-            auto_link = similarity ≥ 0.85 ∧ risk &lt; 70
-          </div>
-        </div>
-
-        <div className="space-y-3" style={{ fontVariantNumeric: 'tabular-nums' }}>
-          {WEIGHTS.map((weight) => (
-            <div key={weight.label} className="space-y-1.5">
-              <div className="flex items-center justify-between font-mono text-[11px]">
-                <span className="text-ink-secondary">{weight.label}</span>
-                <span className="text-ink-primary">
-                  {weight.value.toFixed(2)}
-                </span>
-              </div>
-              <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.05]">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-400"
-                  style={{ width: `${weight.value * 100}%` }}
-                />
-              </div>
+      {/* Identity Weights Matrix (Level 1 hairline card) */}
+      <div className="card-feature mt-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-2">
+            <div className="eyebrow-sm text-ink-muted">
+              Fuzzy Match Resolution Matrix
             </div>
-          ))}
+            <h3 className="text-xl font-semibold text-ink">
+              Identity vector weights · 0.85 auto-link threshold
+            </h3>
+            <p className="max-w-xl text-sm leading-relaxed text-ink-body">
+              Signals are weighted across physical hardware, runtime invariants,
+              and network topology. An anomalous score above 70 quarantines the device.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3 min-w-[280px]">
+            {WEIGHTS.map((w) => (
+              <div key={w.label} className="space-y-1">
+                <div className="flex justify-between font-mono text-xs text-ink">
+                  <span>{w.label}</span>
+                  <span className="font-semibold">{Math.round(w.value * 100)}%</span>
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${w.accent}`}
+                    style={{ width: `${w.value * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </SectionFrame>

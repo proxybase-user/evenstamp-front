@@ -51,30 +51,32 @@ export default function IntegrationSection() {
     <SectionFrame id="integration">
       <div className="max-w-3xl space-y-4">
         <div className="eyebrow">// Deployment paths</div>
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-4xl">
+        <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
           Two paths into production. One engine.
         </h2>
-        <p className="max-w-[65ch] text-base leading-relaxed text-ink-secondary">
+        <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
           Run the managed edge, or put the entire Rust binary inside your own
           VPC. The wire contract, anomaly engine, and identity graph are
           identical in both.
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="min-w-0 space-y-4">
+      <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="card-feature space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-500/30 bg-cyan-500/10 text-cyan-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-hairline bg-surface-2 text-accent-blue">
               <Cloud className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <h3 className="font-semibold">Managed cloud · first-party proxy</h3>
-              <p className="font-mono text-[10px] text-ink-muted">
+              <h3 className="text-base font-semibold text-ink">
+                Managed cloud · first-party proxy
+              </h3>
+              <p className="font-mono text-[11px] text-ink-muted">
                 Next.js route handler → Rust engine
               </p>
             </div>
           </div>
-          <p className="text-sm leading-relaxed text-ink-secondary">
+          <p className="text-sm leading-relaxed text-ink-body">
             Privacy extensions block third-party fingerprinting domains. Routing
             through your own origin bypasses those blocklists without weakening
             the ECDH envelope or the single-use nonce.
@@ -86,59 +88,59 @@ export default function IntegrationSection() {
           />
         </div>
 
-        <div className="min-w-0 space-y-4">
+        <div className="card-feature space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-hairline bg-surface-2 text-accent-green">
               <Container className="h-5 w-5" aria-hidden="true" />
             </div>
             <div>
-              <h3 className="font-semibold">Sovereign · single binary</h3>
-              <p className="font-mono text-[10px] text-ink-muted">
+              <h3 className="text-base font-semibold text-ink">
+                Sovereign · single binary
+              </h3>
+              <p className="font-mono text-[11px] text-ink-muted">
                 Docker, bare metal, or your own VPC
               </p>
             </div>
           </div>
-          <p className="text-sm leading-relaxed text-ink-secondary">
-            No external database, queue, or managed cluster. Raw telemetry never
-            leaves your network. SQLite runs in WAL mode; nonces are consumed
-            atomically with DELETE … RETURNING.
+          <p className="text-sm leading-relaxed text-ink-body">
+            Regulated environments cannot egress device telemetry. One sovereign
+            container with zero external dependencies satisfies strict residency
+            and GDPR Article 28 data processor obligations.
           </p>
           <CodeBlock
-            title="deploy/self-host.sh"
+            title="docker run"
             language="Bash"
             code={SELF_HOST_CODE}
           />
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 rounded-xl border border-white/[0.07] bg-surface-1 p-6 shadow-specular lg:grid-cols-[1fr_1.3fr] lg:p-8">
+      {/* Edge Header Contract */}
+      <div className="card-feature mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1.3fr] lg:p-8">
         <div className="space-y-3">
-          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
+          <div className="eyebrow-sm flex items-center gap-2 text-accent-blue">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             Edge header contract
           </div>
-          <h3 className="text-xl font-semibold tracking-[-0.01em]">
+          <h3 className="text-xl font-semibold text-ink">
             The proxy supplies wire facts. The engine supplies the verdict.
           </h3>
-          <p className="text-sm leading-relaxed text-ink-secondary">
+          <p className="text-sm leading-relaxed text-ink-body">
             Headers are honored only when the TCP peer is inside{' '}
-            <span className="font-mono text-ink-primary">FP_TRUSTED_PROXIES</span>.
-            Never use <span className="font-mono text-ink-primary">0.0.0.0/0</span>.
+            <span className="font-mono font-medium text-ink">
+              FP_TRUSTED_PROXIES
+            </span>
+            . Untrusted headers are ignored.
           </p>
         </div>
 
         <div className="grid min-w-0 grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-2">
-          {HEADERS.map(([header, description]) => (
-            <div
-              key={header}
-              className="min-w-0 border-b border-white/[0.05] py-2"
-            >
-              <div className="truncate font-mono text-[11px] text-ink-code">
+          {HEADERS.map(([header, desc]) => (
+            <div key={header} className="min-w-0 border-b border-hairline py-2">
+              <div className="truncate font-mono text-[12px] font-medium text-ink">
                 {header}
               </div>
-              <div className="mt-0.5 text-[10px] text-ink-muted">
-                {description}
-              </div>
+              <div className="mt-0.5 text-[11px] text-ink-muted">{desc}</div>
             </div>
           ))}
         </div>

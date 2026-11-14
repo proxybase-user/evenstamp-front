@@ -51,28 +51,27 @@ export default async function LoginPage({
   return (
     <>
       <SiteHeader />
-      <main className="relative overflow-hidden">
-        <div className="radial-fade pointer-events-none absolute inset-0" />
+      <main className="relative overflow-hidden bg-canvas transition-colors">
         <div className="relative mx-auto flex min-h-[calc(100vh-160px)] max-w-7xl items-center justify-center px-6 py-16 lg:px-8">
           <div className="w-full max-w-md">
             <div className="mb-8 text-center">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-500/40 bg-emerald-500/10">
-                <ShieldCheck className="h-6 w-6 text-emerald-400" aria-hidden="true" />
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-[8px] border border-hairline bg-surface-2 text-accent-green">
+                <ShieldCheck className="h-6 w-6 text-accent-green" aria-hidden="true" />
               </span>
-              <h1 className="mt-5 text-2xl font-semibold tracking-[-0.02em]">
+              <h1 className="mt-5 text-2xl font-semibold tracking-[-0.02em] text-ink">
                 Sign in to Evenstamp
               </h1>
-              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+              <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 Add a website, install the first-party snippet, and review
-                session findings from the Rust engine.
+                session findings from the sovereign Rust engine.
               </p>
             </div>
 
-            <div className="surface-card rounded-xl p-6 shadow-specular">
+            <div className="card-feature shadow-level-2 !p-6">
               {errorMessage ? (
                 <p
                   role="alert"
-                  className="mb-5 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2.5 text-xs leading-relaxed text-rose-200"
+                  className="mb-5 rounded-[4px] border border-accent-red/30 bg-accent-red/10 px-3.5 py-2.5 text-xs leading-relaxed text-accent-red"
                 >
                   {errorMessage}
                 </p>
@@ -81,21 +80,21 @@ export default async function LoginPage({
               {configured ? (
                 <a
                   href={`/api/auth/google/start?next=${encodeURIComponent(next)}`}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-emerald-950 shadow-emerald-glow transition hover:bg-emerald-400"
+                  className="button-primary w-full justify-center"
                 >
                   Continue with Google
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               ) : (
-                <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2.5 text-xs leading-relaxed text-amber-200">
+                <div className="rounded-[4px] border border-accent-yellow/30 bg-accent-yellow/10 px-3.5 py-2.5 text-xs leading-relaxed text-accent-yellow">
                   Google sign-in is not configured. Set{' '}
-                  <span className="font-mono">GOOGLE_CLIENT_ID</span> and{' '}
-                  <span className="font-mono">GOOGLE_CLIENT_SECRET</span>, then
+                  <span className="font-mono font-medium">GOOGLE_CLIENT_ID</span> and{' '}
+                  <span className="font-mono font-medium">GOOGLE_CLIENT_SECRET</span>, then
                   restart the web app.
                 </div>
               )}
 
-              <div className="mt-6 flex items-start gap-2.5 border-t border-white/[0.07] pt-5 text-[11px] leading-relaxed text-ink-muted">
+              <div className="mt-6 flex items-start gap-2.5 border-t border-hairline pt-5 text-[11px] leading-relaxed text-ink-muted">
                 <LockKeyhole
                   className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ink-muted"
                   aria-hidden="true"
@@ -108,7 +107,7 @@ export default async function LoginPage({
               </div>
             </div>
 
-            <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.08em] text-ink-muted">
+            <p className="mt-6 text-center font-mono text-[11px] uppercase tracking-[0.08em] text-ink-muted">
               Google OAuth 2.0 · PKCE · no third-party analytics
             </p>
           </div>

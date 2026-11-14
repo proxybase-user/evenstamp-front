@@ -55,11 +55,11 @@ export default function PrivacyPage() {
       <main>
         <SectionFrame id="privacy">
           <div className="max-w-3xl space-y-5">
-            <div className="eyebrow">// Privacy & data handling</div>
-            <h1 className="text-3xl font-semibold leading-[1.1] tracking-[-0.03em] sm:text-5xl">
+            <div className="eyebrow">// Privacy &amp; data handling</div>
+            <h1 className="text-3xl font-semibold leading-[1.1] sm:text-5xl lg:text-[56px] text-ink">
               What Evenstamp collects, and how to control it.
             </h1>
-            <p className="text-base leading-relaxed text-ink-secondary">
+            <p className="text-base leading-relaxed text-ink-body">
               Evenstamp is device-identity and fraud-detection software. The
               deploying site is the data controller; Evenstamp is the engine.
               This page explains the exact signals, the storage boundaries, and
@@ -74,10 +74,10 @@ export default function PrivacyPage() {
         <SectionFrame id="signals">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Collected signals</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               Signals collected by the browser SDK
             </h2>
-            <p className="text-sm leading-relaxed text-ink-secondary">
+            <p className="text-sm leading-relaxed text-ink-body">
               Collection is bounded and typed. Raw keystrokes, input values,
               page URLs, referrers, form contents, cookies, local storage, and
               clipboard contents are not collected.
@@ -87,12 +87,12 @@ export default function PrivacyPage() {
             {SIGNALS.map((signal) => (
               <article
                 key={signal.title}
-                className="surface-card rounded-xl border border-white/[0.07] p-5"
+                className="card-feature !p-6"
               >
-                <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-emerald-400">
+                <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent-green font-semibold">
                   {signal.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+                <p className="mt-2 text-sm leading-relaxed text-ink-body">
                   {signal.detail}
                 </p>
               </article>
@@ -100,7 +100,7 @@ export default function PrivacyPage() {
           </div>
           <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink-muted">
             WebRTC/STUN is disabled by default. A deploying site can opt in to a
-            first-party <span className="font-mono text-ink-secondary">stunUrl</span>;
+            first-party <span className="font-mono text-ink">stunUrl</span>;
             if it does, that STUN server sees the visitor&apos;s public IP and
             timing. The SDK does not enumerate installed fonts; it measures a
             fixed 11-family list.
@@ -110,53 +110,53 @@ export default function PrivacyPage() {
         <SectionFrame id="storage">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Storage boundaries</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               What is stored, and for how long
             </h2>
           </div>
           <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            <article className="surface-card rounded-xl border border-white/[0.07] p-5">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
+            <article className="card-feature !p-6">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent-blue font-semibold">
                 Challenge binding
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+              <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 The challenge row stores a one-way{' '}
-                <span className="font-mono text-ink-code">HMAC-SHA256</span> of
+                <span className="font-mono font-medium text-ink">HMAC-SHA256</span> of
                 the client IP, not the raw address. It exists for the nonce TTL
                 (60 seconds by default) and is deleted on use or by GC.
               </p>
             </article>
-            <article className="surface-card rounded-xl border border-white/[0.07] p-5">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
+            <article className="card-feature !p-6">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent-blue font-semibold">
                 Network prefix
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+              <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 Long-lived identity rows store a truncated{' '}
-                <span className="font-mono text-ink-code">/24</span> (IPv4) or{' '}
-                <span className="font-mono text-ink-code">/48</span> (IPv6)
+                <span className="font-mono font-medium text-ink">/24</span> (IPv4) or{' '}
+                <span className="font-mono font-medium text-ink">/48</span> (IPv6)
                 prefix plus ASN, never the full client IP.
               </p>
             </article>
-            <article className="surface-card rounded-xl border border-white/[0.07] p-5">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
+            <article className="card-feature !p-6">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent-blue font-semibold">
                 Sessions &amp; devices
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+              <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 Sessions are retained for{' '}
-                <span className="font-mono text-ink-code">FP_SESSION_RETENTION_DAYS</span>{' '}
+                <span className="font-mono font-medium text-ink">FP_SESSION_RETENTION_DAYS</span>{' '}
                 (90 days by default), then removed by a six-hour GC. A device
                 that is still being seen can persist for its device lifetime;
                 the authenticated erase endpoint removes it and its links and
                 sessions immediately.
               </p>
             </article>
-            <article className="surface-card rounded-xl border border-white/[0.07] p-5">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-cyan-400">
+            <article className="card-feature !p-6">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.08em] text-accent-blue font-semibold">
                 Raw payload
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
+              <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 Full raw payload storage is off by default
-                (<span className="font-mono text-ink-code">FP_STORE_RAW_PAYLOAD=false</span>).
+                (<span className="font-mono font-medium text-ink">FP_STORE_RAW_PAYLOAD=false</span>).
                 When disabled, the session stores a redaction marker; the
                 derived device profile, font metrics, behavioral vector, scores,
                 and edge telemetry are still stored. When enabled, the full
@@ -165,8 +165,8 @@ export default function PrivacyPage() {
             </article>
           </div>
           <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink-muted">
-            SQLite uses <span className="font-mono text-ink-secondary">secure_delete=ON</span>{' '}
-            and Unix file mode <span className="font-mono text-ink-secondary">0600</span>.
+            SQLite uses <span className="font-mono font-medium text-ink">secure_delete=ON</span>{' '}
+            and Unix file mode <span className="font-mono font-medium text-ink">0600</span>.
             Deletions are recorded in a separate deletion audit log. Backups,
             WAL checkpoints, load balancers, WAFs, and hosting-provider logs are
             controlled by the deploying operator.
@@ -176,15 +176,15 @@ export default function PrivacyPage() {
         <SectionFrame id="controls">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Export &amp; erase</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               DeviceID controls
             </h2>
-            <p className="text-sm leading-relaxed text-ink-secondary">
+            <p className="text-sm leading-relaxed text-ink-body">
               The SDK returns a DeviceID in its verdict. End users should ask
               the site operator that displayed this notice. Customers and
               operators can use the authenticated engine endpoints with an
               admin bearer token or a tenant API key. Admin tokens can select a
-              tenant with <span className="font-mono text-ink-code">X-Tenant-Id</span>;
+              tenant with <span className="font-mono font-medium text-ink">X-Tenant-Id</span>;
               tenant API keys are scoped to their own tenant.
             </p>
           </div>
@@ -204,16 +204,16 @@ export default function PrivacyPage() {
   https://your-engine.example/api/v1/devices/<device-id>`}
             />
           </div>
-          <div className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-ink-secondary">
+          <div className="mt-6 max-w-3xl space-y-3 text-sm leading-relaxed text-ink-body">
             <p>
-              <span className="font-mono text-ink-code">GET</span> returns the
+              <span className="font-mono font-medium text-ink">GET</span> returns the
               matching device row, browser-to-device links, and sessions,
               including confidence/risk, spoof/automation score, privacy flag,
               anomaly codes, behavioral summary, edge telemetry, and the stored
               raw payload or redaction marker.
             </p>
             <p>
-              <span className="font-mono text-ink-code">DELETE</span> removes the
+              <span className="font-mono font-medium text-ink">DELETE</span> removes the
               device and cascades to its links and sessions. The deletion audit
               log retains tenant, DeviceID, actor type, and timestamp, but not
               the identity payload.
@@ -224,10 +224,10 @@ export default function PrivacyPage() {
         <SectionFrame id="scope">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Scope &amp; responsible use</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               Limits and responsibilities
             </h2>
-            <ul className="space-y-3 text-sm leading-relaxed text-ink-secondary">
+            <ul className="space-y-3 text-sm leading-relaxed text-ink-body">
               <li>
                 Device fingerprinting and behavioral biometrics can be personal
                 data, and behavioral biometrics may be special-category data.

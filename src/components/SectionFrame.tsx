@@ -23,7 +23,7 @@ export default function SectionFrame({
   contentClassName?: string;
 }) {
   return (
-    <section id={id} className={`relative ${className}`}>
+    <section id={id} className={`relative bg-canvas transition-colors ${className}`}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="hairline-frame relative">
           <Crosshairs />

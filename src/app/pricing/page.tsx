@@ -62,34 +62,24 @@ const TIER_MATRIX = [
 
 const PRICING_FAQ = [
   {
-    question: 'Why not price per seat?',
+    question: 'How do you charge less than Fingerprint Pro?',
     answer:
-      'Fraud and security work is cross-functional. Per-seat pricing suppresses adoption and creates procurement friction, so every plan includes unlimited team access.',
+      'We run one Rust binary backed by SQLite and in-memory Polars. There is no Kafka, no Cassandra, and no multi-tenant Elasticsearch cluster to maintain. Those architectural choices remove 80%+ of the operational overhead incumbent pricing must amortize.',
   },
   {
-    question: 'Why is there a hard cap on Developer?',
+    question: 'What happens when I hit the Developer limit?',
     answer:
-      'Predictable free-tier cost and a clean upgrade trigger. Hobby projects never receive a surprise overage bill; Growth removes the cap and bills overage per 10,000 identifications.',
+      'The engine returns a 429 HardCapExceeded error and rejects new challenges until the first of the next UTC month. Paid plans never hard-cap: overage is billed linearly at the published per-10k rate.',
   },
   {
-    question: 'How do card subscriptions work?',
+    question: 'How does sovereign licensing work?',
     answer:
-      'Growth and Scale use an Airwallex hosted billing checkout in subscription mode. After checkout, Airwallex creates the subscription and payment method, and a signed webhook activates the plan in the engine.',
+      'You receive access to the ghcr.io/evenstamp/engine container images, license verification keys, and architecture reviews. The binary runs entirely inside your infrastructure with zero telemetry egress. You can run SQLite locally or mount a network volume.',
   },
   {
-    question: 'How do crypto payments work?',
+    question: 'What payment methods do you accept?',
     answer:
-      'NOWPayments issues a hosted crypto invoice for one monthly or annual term. A confirmed payment extends the account period by that term. Renewal is a new invoice; there is no automatic crypto debit.',
-  },
-  {
-    question: 'Why is Sovereign billed annually?',
-    answer:
-      'Enterprise procurement and deployment review require a committed relationship. Monthly self-serve Sovereign would be a support and compliance risk.',
-  },
-  {
-    question: 'What happens above 10 million identifications?',
-    answer:
-      'Scale overage applies. A custom committed-use contract is available with a volume discount and a dedicated support channel.',
+      'Card subscriptions (Visa, Mastercard, Amex) run through Airwallex in compliant recurring subscription mode. Prepaid terms (monthly or annual) can also be settled via NOWPayments in BTC, ETH, USDT, USDC, and other major cryptocurrencies.',
   },
 ];
 
@@ -118,16 +108,16 @@ export default function PricingPage() {
         <SectionFrame id="pricing-hero">
           <div className="max-w-3xl space-y-5">
             <div className="eyebrow">// Pricing</div>
-            <h1 className="text-3xl font-semibold leading-[1.1] tracking-[-0.03em] sm:text-5xl">
+            <h1 className="text-3xl font-semibold leading-[1.1] sm:text-5xl lg:text-[56px] text-ink">
               Transparent unit economics, no procurement cliff.
             </h1>
-            <p className="text-base leading-relaxed text-ink-secondary">
+            <p className="text-base leading-relaxed text-ink-body">
               Evenstamp runs as one compiled Rust binary with embedded SQLite
               and in-memory Polars. That footprint supports 85–94% gross margins
               while pricing 60%+ below incumbent list prices. Start free at
               25,000 identifications; upgrade when the free cap actually binds.
             </p>
-            <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-secondary">
+            <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-body">
               {[
                 'No credit card on Developer',
                 'Linear, legible overage',
@@ -135,7 +125,7 @@ export default function PricingPage() {
                 'Self-hosted option',
               ].map((item) => (
                 <span key={item} className="inline-flex items-center gap-1.5">
-                  <Check className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
+                  <Check className="h-4 w-4 text-accent-green" aria-hidden="true" />
                   {item}
                 </span>
               ))}
@@ -148,48 +138,48 @@ export default function PricingPage() {
         <SectionFrame id="tier-matrix">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Full tier matrix</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               Every plan, in one table.
             </h2>
-            <p className="text-sm leading-relaxed text-ink-secondary">
-              Cloud plans include the first-party proxy routes, ECDH P-256
+            <p className="text-sm leading-relaxed text-ink-body">
+              Cloud plans include first-party proxy routes, ECDH P-256
               envelopes, single-use nonces, and 99.9% availability. Sovereign
               adds a 99.99% SLA and a deployment review.
             </p>
           </div>
 
-          <div className="mt-8 overflow-x-auto rounded-xl border border-white/[0.07]">
+          <div className="mt-8 overflow-x-auto rounded-[8px] border border-hairline bg-surface-1">
             <table className="w-full min-w-[900px] text-left text-xs">
-              <thead className="border-b border-white/[0.07] bg-surface-2 font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
+              <thead className="border-b border-hairline bg-surface-2 font-mono text-[11px] uppercase tracking-[0.06em] text-ink-muted">
                 <tr>
-                  <th className="px-4 py-3 font-medium">Tier</th>
-                  <th className="px-4 py-3 font-medium">Target</th>
-                  <th className="px-4 py-3 font-medium">Base price</th>
-                  <th className="px-4 py-3 font-medium">Included / month</th>
-                  <th className="px-4 py-3 font-medium">Overage</th>
-                  <th className="px-4 py-3 font-medium">Core capabilities</th>
+                  <th className="px-5 py-3.5 font-medium">Tier</th>
+                  <th className="px-5 py-3.5 font-medium">Target</th>
+                  <th className="px-5 py-3.5 font-medium">Base price</th>
+                  <th className="px-5 py-3.5 font-medium">Included / month</th>
+                  <th className="px-5 py-3.5 font-medium">Overage</th>
+                  <th className="px-5 py-3.5 font-medium">Core capabilities</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-hairline">
                 {TIER_MATRIX.map((row) => (
                   <tr
                     key={row.tier}
-                    className="border-b border-white/[0.05] last:border-b-0"
+                    className="transition-colors hover:bg-surface-2/60"
                   >
-                    <td className="px-4 py-3 font-semibold text-ink-primary">
+                    <td className="px-5 py-4 font-semibold text-ink">
                       {row.tier}
                     </td>
-                    <td className="px-4 py-3 text-ink-secondary">{row.target}</td>
-                    <td className="px-4 py-3 font-mono text-[11px] text-ink-primary">
+                    <td className="px-5 py-4 text-ink-body">{row.target}</td>
+                    <td className="px-5 py-4 font-mono text-[12px] text-ink font-medium">
                       {row.price}
                     </td>
-                    <td className="px-4 py-3 font-mono text-[11px] text-ink-secondary">
+                    <td className="px-5 py-4 font-mono text-[12px] text-ink-body">
                       {row.included}
                     </td>
-                    <td className="px-4 py-3 font-mono text-[11px] text-ink-secondary">
+                    <td className="px-5 py-4 font-mono text-[12px] text-ink-body">
                       {row.overage}
                     </td>
-                    <td className="px-4 py-3 leading-relaxed text-ink-secondary">
+                    <td className="px-5 py-4 leading-relaxed text-ink-body">
                       {row.capabilities}
                     </td>
                   </tr>
@@ -202,10 +192,10 @@ export default function PricingPage() {
         <SectionFrame id="billing">
           <div className="max-w-3xl space-y-4">
             <div className="eyebrow">// Billing paths</div>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-3xl">
+            <h2 className="text-2xl font-semibold sm:text-3xl text-ink">
               Card subscription or crypto prepaid term.
             </h2>
-            <p className="text-sm leading-relaxed text-ink-secondary">
+            <p className="text-sm leading-relaxed text-ink-body">
               Provider credentials stay in the Rust engine. The browser only
               receives a hosted checkout URL.
             </p>
@@ -217,20 +207,20 @@ export default function PricingPage() {
               return (
                 <article
                   key={path.title}
-                  className="surface-card rounded-xl p-5"
+                  className="card-feature !p-6"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/10">
-                      <Icon className="h-4 w-4 text-emerald-400" aria-hidden="true" />
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-[4px] border border-hairline bg-surface-2 text-accent-green">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div>
-                      <h3 className="text-sm font-semibold">{path.title}</h3>
-                      <p className="font-mono text-[10px] text-ink-muted">
+                      <h3 className="text-base font-semibold text-ink">{path.title}</h3>
+                      <p className="font-mono text-[11px] text-ink-muted">
                         {path.provider}
                       </p>
                     </div>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-ink-secondary">
+                  <p className="mt-3 text-sm leading-relaxed text-ink-body">
                     {path.detail}
                   </p>
                 </article>
@@ -242,27 +232,27 @@ export default function PricingPage() {
             {PRICING_FAQ.map((item) => (
               <article
                 key={item.question}
-                className="surface-card rounded-xl p-5"
+                className="card-feature !p-6"
               >
-                <h3 className="text-sm font-semibold">{item.question}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-secondary">
+                <h3 className="text-base font-semibold text-ink">{item.question}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-body">
                   {item.answer}
                 </p>
               </article>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
               href="/login?next=/dashboard/billing"
-              className="inline-flex items-center gap-1.5 rounded-md bg-emerald-500 px-4 py-2.5 text-xs font-semibold text-emerald-950 transition hover:bg-emerald-400"
+              className="button-primary"
             >
               Start free, upgrade later
-              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
             <a
               href="mailto:engineering@evenstamp.com?subject=Evenstamp%20Sovereign%20license"
-              className="inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-white/[0.03] px-4 py-2.5 text-xs font-medium text-ink-primary transition hover:bg-white/[0.07]"
+              className="button-secondary"
             >
               Talk to engineering about Sovereign
             </a>

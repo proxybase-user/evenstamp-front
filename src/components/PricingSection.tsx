@@ -25,19 +25,6 @@ function sliderToEvents(slider: number): number {
 
 const numberFormat = new Intl.NumberFormat('en-US');
 
-function accentClasses(tier: PricingTier) {
-  switch (tier.accent) {
-    case 'cyan':
-      return { label: 'text-cyan-400', border: 'border-white/[0.07]' };
-    case 'emerald':
-      return { label: 'text-emerald-400', border: 'border-emerald-500/45' };
-    case 'amber':
-      return { label: 'text-amber-400', border: 'border-white/[0.07]' };
-    default:
-      return { label: 'text-ink-muted', border: 'border-white/[0.07]' };
-  }
-}
-
 export default function PricingSection() {
   const [billing, setBilling] = useState<BillingCycle>('annual');
   const [slider, setSlider] = useState(50);
@@ -51,18 +38,19 @@ export default function PricingSection() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl space-y-4">
           <div className="eyebrow">// Transparent unit economics</div>
-          <h2 className="text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-4xl">
+          <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
             Cloud API or sovereign self-hosted binary.
           </h2>
-          <p className="max-w-[60ch] text-base leading-relaxed text-ink-secondary">
+          <p className="max-w-[60ch] text-base leading-relaxed text-ink-body">
             Start free at 25,000 identifications. Scale without a platform fee.
             Move the entire engine into your own VPC when regulatory or
             residency requirements demand it.
           </p>
         </div>
 
+        {/* Billing cycle toggle per DESIGN.md: tight 4px radius buttons */}
         <div
-          className="inline-flex shrink-0 items-center rounded-lg border border-white/[0.08] bg-surface-1 p-1 font-mono text-xs"
+          className="inline-flex shrink-0 items-center rounded-[4px] border border-hairline bg-surface-2 p-1 font-mono text-xs"
           role="group"
           aria-label="Billing cycle"
         >
@@ -70,10 +58,10 @@ export default function PricingSection() {
             type="button"
             onClick={() => setBilling('monthly')}
             aria-pressed={billing === 'monthly'}
-            className={`rounded-md px-3.5 py-1.5 transition ${
+            className={`rounded-[4px] px-3.5 py-1.5 font-medium transition ${
               billing === 'monthly'
-                ? 'bg-surface-3 text-ink-primary'
-                : 'text-ink-secondary hover:text-white'
+                ? 'bg-canvas text-ink shadow-sm'
+                : 'text-ink-muted hover:text-ink'
             }`}
           >
             Monthly
@@ -82,20 +70,22 @@ export default function PricingSection() {
             type="button"
             onClick={() => setBilling('annual')}
             aria-pressed={billing === 'annual'}
-            className={`flex items-center gap-1.5 rounded-md px-3.5 py-1.5 transition ${
+            className={`flex items-center gap-1.5 rounded-[4px] px-3.5 py-1.5 font-medium transition ${
               billing === 'annual'
-                ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300'
-                : 'text-ink-secondary hover:text-white'
+                ? 'bg-canvas text-accent-green shadow-sm'
+                : 'text-ink-muted hover:text-ink'
             }`}
           >
             Annual
-            <span className="text-[10px] text-emerald-400">−20%</span>
+            <span className="rounded-[2px] bg-accent-green/15 px-1 text-[10px] text-accent-green">
+              −20%
+            </span>
           </button>
         </div>
       </div>
 
       {/* Volume planner */}
-      <div className="mt-10 rounded-xl border border-white/[0.07] bg-surface-1 p-6 shadow-specular lg:p-8">
+      <div className="card-feature mt-12 !p-8">
         <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
           <div className="min-w-0">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -107,7 +97,7 @@ export default function PricingSection() {
               </label>
               <output
                 htmlFor={sliderId}
-                className="metric font-mono text-2xl font-semibold text-ink-primary"
+                className="metric font-mono text-2xl font-semibold text-ink"
               >
                 {numberFormat.format(monthlyEvents)}
               </output>
@@ -120,10 +110,10 @@ export default function PricingSection() {
               step={1}
               value={slider}
               onChange={(event) => setSlider(Number(event.target.value))}
-              className="mt-4 h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/[0.08] accent-emerald-500"
+              className="mt-4 h-1.5 w-full cursor-pointer appearance-none rounded-full bg-surface-3 accent-primary"
               aria-valuetext={`${numberFormat.format(monthlyEvents)} identifications per month`}
             />
-            <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
+            <div className="mt-2 flex justify-between font-mono text-[11px] text-ink-muted">
               <span>{numberFormat.format(MONTHLY_EVENT_MIN)}</span>
               <span>{numberFormat.format(MONTHLY_EVENT_MAX)}</span>
             </div>
@@ -133,12 +123,12 @@ export default function PricingSection() {
             </p>
           </div>
 
-          <div className="grid min-w-0 grid-cols-3 gap-3 rounded-lg border border-white/[0.06] bg-canvas p-4">
+          <div className="grid min-w-0 grid-cols-3 gap-3 rounded-[8px] border border-hairline bg-surface-2 p-4">
             <div>
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
                 Plan
               </div>
-              <div className="mt-1 text-sm font-semibold text-ink-primary">
+              <div className="mt-1 text-sm font-semibold text-ink">
                 {estimate.tier.name}
               </div>
             </div>
@@ -146,7 +136,7 @@ export default function PricingSection() {
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
                 Invoice
               </div>
-              <div className="metric mt-1 text-xl font-bold text-emerald-400">
+              <div className="metric mt-1 text-xl font-semibold text-accent-green">
                 ${numberFormat.format(Math.round(estimate.total))}
                 <span className="ml-1 text-[10px] font-normal text-ink-muted">
                   /mo
@@ -157,14 +147,14 @@ export default function PricingSection() {
               <div className="font-mono text-[10px] uppercase tracking-[0.06em] text-ink-muted">
                 Effective
               </div>
-              <div className="metric mt-1 text-xl font-bold text-cyan-400">
+              <div className="metric mt-1 text-xl font-semibold text-accent-blue">
                 ${estimate.perThousand.toFixed(2)}
                 <span className="ml-1 text-[10px] font-normal text-ink-muted">
                   /1k
                 </span>
               </div>
             </div>
-            <div className="col-span-3 border-t border-white/[0.06] pt-3 font-mono text-[10px] leading-relaxed text-ink-muted">
+            <div className="col-span-3 border-t border-hairline pt-3 font-mono text-[11px] leading-relaxed text-ink-muted">
               {estimate.overage > 0
                 ? `Includes $${numberFormat.format(
                     Math.round(estimate.overage),
@@ -177,50 +167,49 @@ export default function PricingSection() {
         </div>
       </div>
 
-      {/* Tier cards */}
+      {/* Tier cards per DESIGN.md: card-pricing 8px, 32px padding, Level 2 shadow on featured */}
       <div
-        className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4"
+        className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4"
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
         {PRICING_TIERS.map((tier) => {
-          const accent = accentClasses(tier);
           const price =
             tier.name === 'Sovereign'
               ? tier.monthly
               : billing === 'annual'
                 ? tier.annualMonthly
                 : tier.monthly;
+          const isFeatured = tier.highlighted;
+
           return (
             <article
               key={tier.name}
-              className={`relative flex flex-col justify-between gap-6 rounded-xl border bg-surface-1 p-6 shadow-specular ${
-                tier.highlighted
-                  ? 'border-emerald-500/45 shadow-[0_0_35px_rgba(16,185,129,0.1)]'
-                  : accent.border
+              className={`card-pricing flex flex-col justify-between gap-6 transition-all ${
+                isFeatured
+                  ? 'border-hairline shadow-level-2 ring-1 ring-hairline relative'
+                  : ''
               }`}
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between gap-2">
-                  <span
-                    className={`font-mono text-[11px] uppercase tracking-[0.08em] ${accent.label}`}
-                  >
+                  <span className="font-mono text-[12px] font-semibold uppercase tracking-[0.08em] text-ink">
                     {tier.name}
                   </span>
-                  {tier.highlighted ? (
-                    <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
-                      MOST POPULAR
+                  {isFeatured ? (
+                    <span className="badge-info text-[11px]">
+                      FEATURED
                     </span>
                   ) : null}
                 </div>
 
                 <div>
-                  <div className="metric text-3xl font-bold text-ink-primary">
+                  <div className="metric text-3xl font-semibold text-ink">
                     ${price}
                     <span className="ml-1 text-sm font-normal text-ink-muted">
                       / month
                     </span>
                   </div>
-                  <div className="mt-1 font-mono text-[10px] text-ink-muted">
+                  <div className="mt-1 font-mono text-[11px] text-ink-muted">
                     {tier.name === 'Sovereign'
                       ? 'billed annually'
                       : billing === 'annual' && price > 0
@@ -231,19 +220,19 @@ export default function PricingSection() {
                   </div>
                 </div>
 
-                <p className="min-h-[3rem] text-xs leading-relaxed text-ink-secondary">
+                <p className="min-h-[3rem] text-sm leading-relaxed text-ink-body">
                   {tier.tagline}
                 </p>
 
-                <div className="rounded-md border border-white/[0.06] bg-canvas px-3 py-2 font-mono text-[10px] text-ink-muted">
+                <div className="rounded-[4px] border border-hairline bg-surface-2 px-3 py-2 font-mono text-[11px] text-ink-muted">
                   {tier.overage}
                 </div>
 
-                <ul className="space-y-2.5 pt-1 text-xs text-ink-secondary">
+                <ul className="space-y-2.5 pt-2 text-sm text-ink-body">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
                       <Check
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-accent-green"
                         aria-hidden="true"
                       />
                       <span className="leading-relaxed">{feature}</span>
@@ -260,11 +249,11 @@ export default function PricingSection() {
                       ? '/login?next=/dashboard'
                       : '/login?next=/dashboard/billing'
                 }
-                className={`inline-flex w-full items-center justify-center rounded-md px-4 py-2.5 text-xs font-semibold transition ${
-                  tier.highlighted
-                    ? 'bg-emerald-500 text-emerald-950 hover:bg-emerald-400'
-                    : 'border border-white/15 bg-white/[0.03] text-ink-primary hover:bg-white/[0.07]'
-                }`}
+                className={
+                  isFeatured
+                    ? 'button-primary w-full text-center'
+                    : 'button-secondary w-full text-center'
+                }
               >
                 {tier.cta}
               </a>
@@ -273,7 +262,7 @@ export default function PricingSection() {
         })}
       </div>
 
-      <p className="mt-6 font-mono text-[10px] text-ink-muted">
+      <p className="mt-6 font-mono text-[11px] text-ink-muted">
         Cloud plans include first-party proxy routes, ECDH P-256 envelopes,
         single-use nonces, and 99.9% uptime. Sovereign includes a 99.99% SLA and
         deployment review.

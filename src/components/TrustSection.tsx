@@ -23,31 +23,31 @@ export default function TrustSection() {
   return (
     <SectionFrame id="trust">
       <div className="max-w-3xl space-y-4">
-        <div className="eyebrow">// Trust & operations</div>
-        <h2 className="text-3xl font-semibold leading-[1.15] tracking-[-0.025em] sm:text-4xl">
+        <div className="eyebrow">// Trust &amp; operations</div>
+        <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
           Forensic capability without an uncontrolled data footprint.
         </h2>
-        <p className="max-w-[65ch] text-base leading-relaxed text-ink-secondary">
+        <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
           Device fingerprinting is personal data in most jurisdictions. The
           architecture treats that as a design constraint, not an afterthought.
         </p>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
         {PILLARS.map((pillar) => {
           const Icon = pillar.icon;
           return (
             <article
               key={pillar.title}
-              className="surface-card space-y-3 rounded-xl p-6"
+              className="card-feature space-y-4"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-500/25 bg-emerald-500/[0.08] text-emerald-400">
+              <div className="flex h-10 w-10 items-center justify-center rounded-[4px] border border-hairline bg-surface-2 text-accent-green">
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </div>
-              <h3 className="text-lg font-semibold tracking-[-0.01em]">
+              <h3 className="text-xl font-semibold text-ink">
                 {pillar.title}
               </h3>
-              <p className="text-sm leading-relaxed text-ink-secondary">
+              <p className="text-sm leading-relaxed text-ink-body">
                 {pillar.copy}
               </p>
             </article>

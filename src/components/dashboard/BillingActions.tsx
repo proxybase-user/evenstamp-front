@@ -53,49 +53,49 @@ function PlanCard({
 
   return (
     <article
-      className={`flex flex-col rounded-xl border bg-surface-1 p-5 ${
-        highlighted
-          ? 'border-emerald-500/45 shadow-[0_0_35px_rgba(16,185,129,0.1)]'
-          : 'border-white/[0.07]'
+      className={`card-pricing flex flex-col justify-between ${
+        highlighted ? 'shadow-level-2 ring-1 ring-hairline relative' : ''
       }`}
     >
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-sm font-semibold">{plan.name}</h3>
-        {highlighted ? (
-          <span className="rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
-            MOST POPULAR
-          </span>
-        ) : null}
+      <div>
+        <div className="flex items-baseline justify-between gap-2">
+          <h3 className="text-base font-semibold text-ink">{plan.name}</h3>
+          {highlighted ? (
+            <span className="badge-info text-[10px]">
+              FEATURED
+            </span>
+          ) : null}
+        </div>
+
+        <div className="metric mt-3 text-3xl font-semibold text-ink">
+          {formatMoney(monthlyEquivalent)}
+          <span className="ml-1 text-xs font-normal text-ink-muted">/ month</span>
+        </div>
+        <p className="mt-1 font-mono text-[11px] text-ink-muted">
+          {interval === 'annual'
+            ? `${formatMoney(cents)} billed annually`
+            : 'billed monthly'}
+          {plan.included === null
+            ? ' · unlimited'
+            : ` · ${formatNumber(plan.included)} included`}
+        </p>
+        <p className="mt-1 font-mono text-[11px] text-ink-muted">
+          {plan.overagePer10kCents > 0
+            ? `${formatMoney(plan.overagePer10kCents)} per additional 10,000`
+            : 'hard cap on the free tier'}
+        </p>
+
+        <ul className="mt-4 flex-1 space-y-2 text-xs leading-relaxed text-ink-body">
+          {(FEATURES[plan.key] ?? []).map((feature) => (
+            <li key={feature} className="flex gap-2">
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-green" />
+              {feature}
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <div className="metric mt-3 text-3xl font-bold text-ink-primary">
-        {formatMoney(monthlyEquivalent)}
-        <span className="ml-1 text-xs font-normal text-ink-muted">/ month</span>
-      </div>
-      <p className="mt-1 font-mono text-[10px] text-ink-muted">
-        {interval === 'annual'
-          ? `${formatMoney(cents)} billed annually`
-          : 'billed monthly'}
-        {plan.included === null
-          ? ' · unlimited'
-          : ` · ${formatNumber(plan.included)} included`}
-      </p>
-      <p className="mt-1 font-mono text-[10px] text-ink-muted">
-        {plan.overagePer10kCents > 0
-          ? `${formatMoney(plan.overagePer10kCents)} per additional 10,000`
-          : 'hard cap on the free tier'}
-      </p>
-
-      <ul className="mt-4 flex-1 space-y-1.5 text-[11px] leading-relaxed text-ink-secondary">
-        {(FEATURES[plan.key] ?? []).map((feature) => (
-          <li key={feature} className="flex gap-2">
-            <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400" />
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-5 space-y-2">
+      <div className="mt-6 space-y-2.5">
         <form action={formAction}>
           <input type="hidden" name="plan" value={plan.key} />
           <input type="hidden" name="interval" value={interval} />
@@ -110,11 +110,7 @@ function PlanCard({
                   ? `No Airwallex ${interval} price is configured for ${plan.name}`
                   : 'Airwallex is not configured on this deployment'
             }
-            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-md px-3 py-2 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
-              highlighted
-                ? 'bg-emerald-500 text-emerald-950 hover:bg-emerald-400'
-                : 'border border-white/15 bg-white/[0.03] text-ink-primary hover:bg-white/[0.07]'
-            }`}
+            className="button-primary w-full !text-xs !py-2.5 !min-h-0"
           >
             {pending ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
@@ -137,7 +133,7 @@ function PlanCard({
                 ? `Pay ${formatMoney(cents)} in crypto via NOWPayments`
                 : 'NOWPayments is not configured on this deployment'
             }
-            className="inline-flex w-full items-center justify-center gap-1.5 rounded-md border border-amber-500/25 bg-amber-500/[0.06] px-3 py-2 text-xs font-semibold text-amber-200 transition hover:bg-amber-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+            className="button-secondary w-full !text-xs !py-2.5 !min-h-0"
           >
             {pending ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
@@ -149,7 +145,7 @@ function PlanCard({
         </form>
       </div>
 
-      <p className="mt-2 font-mono text-[9px] leading-relaxed text-ink-muted">
+      <p className="mt-3 font-mono text-[10px] leading-relaxed text-ink-muted">
         {interval === 'annual'
           ? 'Annual term is prepaid for crypto; card renews automatically.'
           : 'Crypto is a prepaid 30-day term. Card renews automatically.'}
@@ -176,16 +172,16 @@ export default function BillingActions({
   );
 
   return (
-    <div>
+    <div className="space-y-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-base font-semibold">Upgrade your plan</h2>
+          <h2 className="text-base font-semibold text-ink">Upgrade your plan</h2>
           <p className="mt-0.5 text-xs text-ink-muted">
             Paid plans remove the hard cap and add overage billing.
           </p>
         </div>
         <div
-          className="inline-flex items-center rounded-lg border border-white/[0.08] bg-surface-1 p-1 font-mono text-xs"
+          className="inline-flex items-center rounded-[4px] border border-hairline bg-surface-2 p-1 font-mono text-xs"
           role="group"
           aria-label="Billing interval"
         >
@@ -193,10 +189,10 @@ export default function BillingActions({
             type="button"
             onClick={() => setInterval('monthly')}
             aria-pressed={interval === 'monthly'}
-            className={`rounded-md px-3 py-1.5 transition ${
+            className={`rounded-[4px] px-3 py-1.5 font-medium transition ${
               interval === 'monthly'
-                ? 'bg-surface-3 text-ink-primary'
-                : 'text-ink-secondary hover:text-white'
+                ? 'bg-canvas text-ink shadow-sm'
+                : 'text-ink-muted hover:text-ink'
             }`}
           >
             Monthly
@@ -205,14 +201,16 @@ export default function BillingActions({
             type="button"
             onClick={() => setInterval('annual')}
             aria-pressed={interval === 'annual'}
-            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 transition ${
+            className={`flex items-center gap-1.5 rounded-[4px] px-3 py-1.5 font-medium transition ${
               interval === 'annual'
-                ? 'border border-emerald-500/30 bg-emerald-500/20 text-emerald-300'
-                : 'text-ink-secondary hover:text-white'
+                ? 'bg-canvas text-accent-green shadow-sm'
+                : 'text-ink-muted hover:text-ink'
             }`}
           >
             Annual
-            <span className="text-[10px] text-emerald-400">−20%</span>
+            <span className="rounded-[2px] bg-accent-green/15 px-1 text-[10px] text-accent-green">
+              −20%
+            </span>
           </button>
         </div>
       </div>
@@ -220,13 +218,13 @@ export default function BillingActions({
       {state.error ? (
         <p
           role="alert"
-          className="mt-4 rounded-md border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-200"
+          className="rounded-[4px] border border-accent-red/30 bg-accent-red/10 px-3.5 py-2 text-xs text-accent-red"
         >
           {state.error}
         </p>
       ) : null}
 
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {purchasable.map((plan) => (
           <PlanCard
             key={plan.key}
@@ -241,19 +239,19 @@ export default function BillingActions({
       </div>
 
       {!providers.airwallex && !providers.nowpayments ? (
-        <p className="mt-4 rounded-md border border-amber-500/25 bg-amber-500/[0.06] px-3 py-2 font-mono text-[10px] leading-relaxed text-amber-200">
+        <p className="rounded-[4px] border border-accent-yellow/30 bg-accent-yellow/10 px-3.5 py-2 font-mono text-[11px] leading-relaxed text-accent-yellow">
           No payment provider is configured. Set AIRWALLEX_* or NOWPAYMENTS_*
           on the backend to enable hosted checkout.
         </p>
       ) : null}
       {providers.airwallex && !providers.airwallexWebhooks ? (
-        <p className="mt-2 rounded-md border border-amber-500/25 bg-amber-500/[0.06] px-3 py-2 font-mono text-[10px] leading-relaxed text-amber-200">
+        <p className="rounded-[4px] border border-accent-yellow/30 bg-accent-yellow/10 px-3.5 py-2 font-mono text-[11px] leading-relaxed text-accent-yellow">
           AIRWALLEX_WEBHOOK_SECRET is missing. Checkout will open, but plans
           will not activate until the signed webhook is accepted.
         </p>
       ) : null}
       {providers.nowpayments && !providers.nowpaymentsWebhooks ? (
-        <p className="mt-2 rounded-md border border-amber-500/25 bg-amber-500/[0.06] px-3 py-2 font-mono text-[10px] leading-relaxed text-amber-200">
+        <p className="rounded-[4px] border border-accent-yellow/30 bg-accent-yellow/10 px-3.5 py-2 font-mono text-[11px] leading-relaxed text-accent-yellow">
           NOWPAYMENTS_IPN_SECRET is missing. Invoices will open, but crypto
           payments will not activate a plan.
         </p>

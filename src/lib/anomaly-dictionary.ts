@@ -601,7 +601,7 @@ export function getExecutiveVerdict(session: {
       recommendedAction:
         'Block, challenge with strong step-up verification (e.g., SMS/authenticator OTP), or flag transaction for manual fraud review.',
       badgeLabel: 'High Risk · Bot / Spoofing',
-      badgeClass: 'border-rose-500/40 bg-rose-500/15 text-rose-300',
+      badgeClass: 'border-rose-500/40 bg-rose-500/15 text-rose-700 dark:text-rose-300',
       borderClass: 'border-rose-500/30',
       bgGlowClass: 'from-rose-500/10 via-rose-500/[0.03] to-transparent',
     };
@@ -626,7 +626,7 @@ export function getExecutiveVerdict(session: {
       recommendedAction:
         'Allow normal browsing; prompt for lightweight verification (e.g., email confirmation) only during sensitive actions like payment or password changes.',
       badgeLabel: 'Moderate Risk · Review Signals',
-      badgeClass: 'border-amber-500/40 bg-amber-500/15 text-amber-300',
+      badgeClass: 'border-amber-500/40 bg-amber-500/15 text-amber-800 dark:text-amber-300',
       borderClass: 'border-amber-500/30',
       bgGlowClass: 'from-amber-500/10 via-amber-500/[0.03] to-transparent',
     };
@@ -641,7 +641,7 @@ export function getExecutiveVerdict(session: {
     recommendedAction:
       'No action needed. Safe to proceed with normal checkout, account creation, or login.',
     badgeLabel: 'Clean Session · Genuine Human',
-    badgeClass: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-300',
+    badgeClass: 'border-emerald-500/40 bg-emerald-500/15 text-emerald-800 dark:text-emerald-300',
     borderClass: 'border-emerald-500/30',
     bgGlowClass: 'from-emerald-500/10 via-emerald-500/[0.03] to-transparent',
   };
@@ -832,14 +832,14 @@ export function interpretNetwork(
 
   // Network Type
   let networkType = 'Standard Consumer Internet (ISP)';
-  let networkBadgeClass = 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10';
+  let networkBadgeClass = 'text-emerald-800 dark:text-emerald-300 border-emerald-500/30 bg-emerald-500/10';
 
   if (anomalySet.has('RESIDENTIAL_PROXY_TCP_TLS_RTT_SPLIT')) {
     networkType = 'Residential Proxy Relay (Traffic forwarded)';
-    networkBadgeClass = 'text-rose-300 border-rose-500/30 bg-rose-500/10';
+    networkBadgeClass = 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10';
   } else if (anomalySet.has('VPN_TUNNEL_MSS_CLAMP_WITH_TTL_SHIFT')) {
     networkType = 'VPN or Encrypted Tunnel (Packet encapsulation)';
-    networkBadgeClass = 'text-amber-300 border-amber-500/30 bg-amber-500/10';
+    networkBadgeClass = 'text-amber-800 dark:text-amber-300 border-amber-500/30 bg-amber-500/10';
   } else if (
     edge.asOrganization &&
     /amazon|google|microsoft|digitalocean|ovh|hetzner|linode|vultr|cloudflare|alibaba|tencent/i.test(
@@ -847,7 +847,7 @@ export function interpretNetwork(
     )
   ) {
     networkType = 'Datacenter / Cloud Server Host';
-    networkBadgeClass = 'text-amber-300 border-amber-500/30 bg-amber-500/10';
+    networkBadgeClass = 'text-amber-800 dark:text-amber-300 border-amber-500/30 bg-amber-500/10';
   }
 
   // OS packet match

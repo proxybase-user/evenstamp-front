@@ -480,46 +480,46 @@ export default function TelemetryHudClient() {
       : velocityHistory;
   const barColor =
     simMode === 'playwright_cdp'
-      ? 'bg-rose-500/70'
+      ? 'bg-accent-red/70'
       : simMode === 'antidetect_proxy'
-        ? 'bg-amber-500/70'
-        : 'bg-emerald-400/70';
+        ? 'bg-accent-yellow/70'
+        : 'bg-accent-green/70';
 
   return (
     <div
       id="forensic-hud"
-      className={`relative min-w-0 overflow-hidden rounded-xl border bg-surface-1 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] transition-colors duration-300 ${
+      className={`relative min-w-0 overflow-hidden rounded-[8px] border bg-surface-1 shadow-level-2 transition-colors duration-300 ${
         isHighRisk
-          ? 'border-rose-500/45 shadow-danger-glow'
-          : 'border-emerald-500/40'
+          ? 'border-accent-red/45 ring-1 ring-accent-red/20'
+          : 'border-hairline'
       }`}
     >
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
-        <div className="h-px w-full animate-scan bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
+        <div className="h-px w-full animate-scan bg-gradient-to-r from-transparent via-accent-green/30 to-transparent" />
       </div>
 
       {/* Header & attack preset switcher */}
-      <div className="relative space-y-3 border-b border-white/[0.07] bg-surface-2 p-4">
+      <div className="relative space-y-3 border-b border-hairline bg-surface-2 p-4">
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2">
             <span
               className={`status-dot shrink-0 animate-pulse-dot ${
-                isHighRisk ? 'bg-rose-500' : 'bg-emerald-400'
+                isHighRisk ? 'bg-accent-red' : 'bg-accent-green'
               }`}
               aria-hidden="true"
             />
-            <span className="truncate font-mono text-xs uppercase tracking-[0.08em] text-ink-secondary">
+            <span className="truncate font-mono text-xs uppercase tracking-[0.08em] text-ink-muted">
               8-layer forensic HUD
             </span>
           </div>
           <span
-            className={`shrink-0 rounded-full border px-2.5 py-0.5 font-mono text-[11px] font-medium ${
+            className={`shrink-0 rounded-[4px] border px-2.5 py-0.5 font-mono text-[11px] font-medium ${
               isHighRisk
-                ? 'border-rose-500/30 bg-rose-500/10 text-rose-400'
-                : 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
+                ? 'border-accent-red/30 bg-accent-red/10 text-accent-red'
+                : 'border-accent-green/30 bg-accent-green/10 text-accent-green'
             }`}
           >
             <span className="sm:hidden">
@@ -532,7 +532,7 @@ export default function TelemetryHudClient() {
         </div>
 
         <div
-          className="grid grid-cols-3 gap-1.5 rounded-lg border border-white/[0.06] bg-canvas p-1 font-mono text-[11px]"
+          className="grid grid-cols-3 gap-1.5 rounded-[4px] border border-hairline bg-surface-1 p-1 font-mono text-[11px]"
           role="group"
           aria-label="Telemetry simulation mode"
         >
@@ -572,14 +572,14 @@ export default function TelemetryHudClient() {
         style={{ fontVariantNumeric: 'tabular-nums' }}
       >
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-          <div className="space-y-1 rounded-lg border border-white/[0.06] bg-canvas p-3 sm:col-span-2">
+          <div className="space-y-1 rounded-[8px] border border-hairline bg-surface-2 p-3 sm:col-span-2">
             <div className="flex items-center justify-between gap-2 text-[11px] text-ink-muted">
               <span className="truncate">CROSS-BROWSER DEVICE ID</span>
-              <span className="shrink-0 text-emerald-400">
+              <span className="shrink-0 text-accent-green font-medium">
                 {telemetry.confidence}% {telemetry.confidenceLabel}
               </span>
             </div>
-            <div className="truncate font-semibold text-ink-primary">
+            <div className="truncate font-semibold text-ink">
               {telemetry.deviceId}
             </div>
             <div className="truncate text-[11px] text-ink-muted">
@@ -588,17 +588,17 @@ export default function TelemetryHudClient() {
           </div>
 
           <div
-            className={`flex flex-col justify-between rounded-lg border p-3 ${
+            className={`flex flex-col justify-between rounded-[8px] border p-3 ${
               isHighRisk
-                ? 'border-rose-500/40 bg-rose-950/20'
-                : 'border-emerald-500/30 bg-emerald-950/20'
+                ? 'border-accent-red/40 bg-accent-red/10'
+                : 'border-accent-green/30 bg-accent-green/10'
             }`}
             aria-live="polite"
           >
             <span className="text-[11px] text-ink-muted">COMPOSITE RISK</span>
             <div
-              className={`text-3xl font-bold ${
-                isHighRisk ? 'text-rose-400' : 'text-emerald-400'
+              className={`text-3xl font-semibold ${
+                isHighRisk ? 'text-accent-red' : 'text-accent-green'
               }`}
             >
               {telemetry.riskScore}
@@ -612,15 +612,15 @@ export default function TelemetryHudClient() {
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <HudCard icon={<Network className="h-3.5 w-3.5" />} label="L3 · WIRE JA4 / TCP">
-            <div className="truncate text-ink-code" title={telemetry.rttDelta}>
+            <div className="truncate text-ink font-medium" title={telemetry.rttDelta}>
               {telemetry.rttDelta}
             </div>
-            <div className="truncate text-[11px] text-ink-secondary">
+            <div className="truncate text-[11px] text-ink-body">
               MSS: {telemetry.tcpMss}
             </div>
             <div
               className={`truncate text-[10px] ${
-                probe.edgeOnline ? 'text-emerald-400' : 'text-amber-400'
+                probe.edgeOnline ? 'text-accent-green' : 'text-accent-yellow'
               }`}
             >
               {probe.edgeOnline
@@ -633,10 +633,10 @@ export default function TelemetryHudClient() {
             icon={<Cpu className="h-3.5 w-3.5" />}
             label="L1 · SILICON & SHADER"
           >
-            <div className="truncate text-ink-code" title={telemetry.gpu}>
+            <div className="truncate text-ink font-medium" title={telemetry.gpu}>
               {telemetry.gpu}
             </div>
-            <div className="truncate text-[11px] text-ink-secondary">
+            <div className="truncate text-[11px] text-ink-body">
               {telemetry.subgroup}
             </div>
             <div className="flex justify-between text-[10px] text-ink-muted">
@@ -660,10 +660,10 @@ export default function TelemetryHudClient() {
             icon={<Eye className="h-3.5 w-3.5" />}
             label="L2 · CANVAS & RUNTIME"
           >
-            <div className="truncate text-ink-code" title={telemetry.canvas}>
+            <div className="truncate text-ink font-medium" title={telemetry.canvas}>
               {telemetry.canvas}
             </div>
-            <div className="truncate text-[11px] text-ink-secondary" title={telemetry.cdp}>
+            <div className="truncate text-[11px] text-ink-body" title={telemetry.cdp}>
               {telemetry.cdp}
             </div>
             <div className="truncate text-[10px] text-ink-muted" title={telemetry.tts}>
@@ -682,14 +682,14 @@ export default function TelemetryHudClient() {
             icon={<Activity className="h-3.5 w-3.5" />}
             label="L4 · POLARS KINEMATICS"
           >
-            <div className="truncate text-ink-code" title={telemetry.kinematics}>
+            <div className="truncate text-ink font-medium" title={telemetry.kinematics}>
               {telemetry.kinematics}
             </div>
             <div className="flex h-6 items-end gap-0.5 pt-1" aria-hidden="true">
               {bars.map((value, index) => (
                 <div
                   key={index}
-                  className={`flex-1 rounded-t transition-all duration-75 ${barColor}`}
+                  className={`flex-1 rounded-[2px] transition-all duration-75 ${barColor}`}
                   style={{ height: `${Math.max(12, Math.min(100, value * 25))}%` }}
                 />
               ))}
@@ -702,13 +702,13 @@ export default function TelemetryHudClient() {
           </HudCard>
         </div>
 
-        <div className="rounded-lg border border-white/[0.06] bg-canvas p-3">
+        <div className="rounded-[8px] border border-hairline bg-surface-2 p-3">
           <div className="mb-2 flex items-center justify-between gap-2 text-[11px] text-ink-muted">
             <span>ANOMALY ENGINE VERDICT</span>
             <span>{telemetry.anomalies.length} FLAGS</span>
           </div>
           {telemetry.anomalies.length === 0 ? (
-            <div className="flex items-center gap-2 text-xs text-emerald-400">
+            <div className="flex items-center gap-2 text-xs text-accent-green">
               <ShieldCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
               <span>
                 Zero hardware, realm, TCP stack, or kinematic contradictions
@@ -720,10 +720,10 @@ export default function TelemetryHudClient() {
               {telemetry.anomalies.map((flag) => (
                 <span
                   key={flag}
-                  className="inline-flex items-center gap-1 rounded border border-rose-500/30 bg-rose-500/15 px-2 py-0.5 text-[10px] text-rose-300"
+                  className="inline-flex items-center gap-1 rounded-[4px] border border-accent-red/30 bg-accent-red/10 px-2 py-0.5 text-[10px] text-accent-red"
                 >
                   <ShieldAlert
-                    className="h-3 w-3 shrink-0 text-rose-400"
+                    className="h-3 w-3 shrink-0 text-accent-red"
                     aria-hidden="true"
                   />
                   {flag}
@@ -763,16 +763,16 @@ function ModeButton({
 }) {
   const activeClass =
     tone === 'emerald'
-      ? 'border border-emerald-500/40 bg-emerald-500/20 text-emerald-300'
-      : 'border border-rose-500/40 bg-rose-500/20 text-rose-300';
+      ? 'border border-hairline bg-surface-1 text-ink font-medium shadow-sm'
+      : 'border border-accent-red/30 bg-accent-red/10 text-accent-red font-medium';
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={active}
       aria-label={fullLabel}
-      className={`truncate rounded px-2 py-1.5 text-center transition ${
-        active ? activeClass : 'text-ink-secondary hover:text-white'
+      className={`truncate rounded-[4px] px-2 py-1.5 text-center transition ${
+        active ? activeClass : 'text-ink-muted hover:text-ink'
       }`}
     >
       {children}
@@ -790,8 +790,8 @@ function HudCard({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-1 rounded-lg border border-white/[0.06] bg-canvas p-3">
-      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.06em] text-cyan-400">
+    <div className="space-y-1 rounded-[8px] border border-hairline bg-surface-2 p-3">
+      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.06em] text-accent-blue">
         {icon}
         <span className="truncate">{label}</span>
       </div>

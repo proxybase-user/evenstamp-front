@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,11 +21,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default:
-      'Evenstamp — Zero-Trust Device Identity, TCP Wire & Behavioral Biometrics',
+      'Evenstamp — Cryptographic Precision & Forensic Telemetry',
     template: '%s · Evenstamp',
   },
   description:
-    'Identify the physical machine across Chrome, Firefox, and Safari. Evenstamp fuses TCP SYN TTL and MSS telemetry, WebGPU silicon probes, canvas integrity traps, CDP side channels, and Polars kinematic biometrics into one risk verdict.',
+    'Identify the physical machine across Chrome, Firefox, and Safari. Evenstamp fuses TCP SYN TTL and MSS wire telemetry, WebGPU silicon probes, canvas integrity traps, and Polars kinematic biometrics into one cryptographic device verdict.',
   keywords: [
     'device fingerprinting',
     'cross-browser device identity',
@@ -59,9 +60,28 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#07090E',
-  colorScheme: 'dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#080808' },
+  ],
+  colorScheme: 'light dark',
 };
+
+const THEME_SCRIPT = `
+(function() {
+  try {
+    var stored = localStorage.getItem('evenstamp-theme');
+    var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) {}
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -72,8 +92,11 @@ export default function RootLayout({
       className={`${inter.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-canvas font-sans text-ink-primary antialiased">
-        {children}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
+      <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
