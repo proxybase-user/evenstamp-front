@@ -1,6 +1,7 @@
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { CheckCircle2, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 import { getSessions, getSites, requireUser } from '@/lib/account';
+import { getAnomalyInfo } from '@/lib/anomaly-dictionary';
 import {
   countryLabel,
   formatNumber,
@@ -204,21 +205,32 @@ export default async function SessionsPage({
                       </td>
                       <td className="px-4 py-3">
                         {session.anomalies.length === 0 ? (
-                          <span className="font-mono text-[10px] text-emerald-400">
-                            clean
+                          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                            <CheckCircle2 className="h-3 w-3" />
+                            Clean
                           </span>
                         ) : (
-                          <span className="inline-flex max-w-[16rem] flex-wrap gap-1">
-                            {session.anomalies.slice(0, 2).map((anomaly) => (
-                              <code
-                                key={anomaly}
-                                className="rounded border border-amber-500/20 bg-amber-500/[0.07] px-1 py-0.5 font-mono text-[9px] text-amber-200"
-                              >
-                                {anomaly}
-                              </code>
-                            ))}
+                          <span className="inline-flex max-w-[18rem] flex-wrap gap-1">
+                            {session.anomalies.slice(0, 2).map((anomaly) => {
+                              const info = getAnomalyInfo(anomaly);
+                              const badgeStyle =
+                                info.severity === 'high'
+                                  ? 'border-rose-500/30 bg-rose-500/10 text-rose-300'
+                                  : info.severity === 'medium'
+                                    ? 'border-amber-500/30 bg-amber-500/10 text-amber-300'
+                                    : 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300';
+                              return (
+                                <span
+                                  key={anomaly}
+                                  title={`${info.title}: ${info.summary}`}
+                                  className={`inline-block rounded border px-1.5 py-0.5 text-[10px] font-medium ${badgeStyle}`}
+                                >
+                                  {info.badge}
+                                </span>
+                              );
+                            })}
                             {session.anomalies.length > 2 ? (
-                              <span className="font-mono text-[9px] text-ink-muted">
+                              <span className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 font-mono text-[9px] text-ink-muted">
                                 +{session.anomalies.length - 2}
                               </span>
                             ) : null}
