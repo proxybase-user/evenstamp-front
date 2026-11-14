@@ -58,7 +58,7 @@ export default function Hero() {
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                 <a
-                  href="#pricing"
+                  href="/pricing"
                   className="button-primary justify-center text-center w-full sm:w-auto"
                 >
                   View Plans

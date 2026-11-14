@@ -105,31 +105,6 @@ export default function PricingPage() {
     <>
       <SiteHeader />
       <main>
-        <SectionFrame id="pricing-hero">
-          <div className="max-w-3xl space-y-5">
-            <div className="eyebrow">// Simple pricing</div>
-            <h1 className="text-3xl font-semibold leading-[1.1] sm:text-5xl lg:text-[56px] text-ink">
-              If Evenstamp blocks two fake trials or one chargeback a month, it pays for itself.
-            </h1>
-            <p className="text-base leading-relaxed text-ink-body">
-              Start with a 14-day trial. Protect your signups, checkout flows, and promo codes from multi-accounters and bot farms, with published overage rates and no platform penalties.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-body">
-              {[
-                '14-day free trial on all plans',
-                'Cancel anytime in one click',
-                'Annual billing saves 20%',
-                'Self-hosted VPC option included',
-              ].map((item) => (
-                <span key={item} className="inline-flex items-center gap-1.5">
-                  <Check className="h-4 w-4 text-accent-green" aria-hidden="true" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </SectionFrame>
-
         <PricingSection />
 
         <SectionFrame id="tier-matrix">

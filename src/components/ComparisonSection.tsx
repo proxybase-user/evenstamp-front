@@ -102,6 +102,14 @@ export default function ComparisonSection() {
           <p className="font-mono text-[11px] text-ink-muted">
             Comparison reflects public pricing and documented capabilities as of Q4 2026.
           </p>
+          <div className="pt-1">
+            <a
+              href="/pricing"
+              className="button-primary !text-xs !py-2 !px-4 inline-flex items-center gap-1.5"
+            >
+              See all plans &amp; pricing &rarr;
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col justify-center space-y-4">

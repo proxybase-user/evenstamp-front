@@ -38,12 +38,25 @@ export default function PricingSection() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl space-y-4">
           <div className="eyebrow">// Simple pricing</div>
-          <h2 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
+          <h1 className="text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[44.8px] lg:leading-[46.6px]">
             If Evenstamp blocks two fake trials or one chargeback a month, it pays for itself.
-          </h2>
+          </h1>
           <p className="max-w-[60ch] text-base leading-relaxed text-ink-body">
-            Start with a 14-day trial. Cancel in one click.
+            Start with a 14-day trial. Cancel in one click anytime.
           </p>
+          <div className="flex flex-wrap gap-3 pt-1 text-xs text-ink-body">
+            {[
+              '14-day free trial on all plans',
+              'Cancel anytime in one click',
+              'Annual billing saves 20%',
+              'Self-hosted VPC option included',
+            ].map((item) => (
+              <span key={item} className="inline-flex items-center gap-1.5">
+                <Check className="h-4 w-4 text-accent-green" aria-hidden="true" />
+                {item}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Billing cycle toggle */}

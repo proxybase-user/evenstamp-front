@@ -4,7 +4,6 @@ import CtaSection from '@/components/CtaSection';
 import FaqSection from '@/components/FaqSection';
 import Hero from '@/components/Hero';
 import IntegrationSection from '@/components/IntegrationSection';
-import PricingSection from '@/components/PricingSection';
 import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
 import TechniquesSection from '@/components/TechniquesSection';
@@ -21,7 +20,6 @@ export default function HomePage() {
         <ArchitectureSection />
         <TechniquesSection />
         <ComparisonSection />
-        <PricingSection />
         <IntegrationSection />
         <TrustSection />
         <FaqSection />
