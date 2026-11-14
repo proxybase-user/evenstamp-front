@@ -21,7 +21,7 @@ const FEATURES: Record<string, string[]> = {
   ],
   scale: [
     '1,000,000 identifications / month',
-    'Polars kinematic biometrics engine',
+    'Rust kinematic biometrics engine',
     'TCP SYN TTL + MSS wire verification',
     'WebGPU subgroup + atomic contention probe',
     '1-year identity graph retention',

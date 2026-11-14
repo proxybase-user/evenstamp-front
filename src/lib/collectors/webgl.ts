@@ -1,5 +1,5 @@
 import type { WebGLSignals } from './types';
-import { sha256Hex, utf8 } from './util';
+import { finiteOr, sha256Hex, utf8 } from './util';
 
 export function emptyWebGLSignals(): WebGLSignals {
   return {
@@ -152,17 +152,29 @@ export async function collectWebGLSignals(): Promise<WebGLSignals> {
       renderer,
       version: String(gl.getParameter(gl.VERSION)),
       shadingLanguageVersion: String(gl.getParameter(gl.SHADING_LANGUAGE_VERSION)),
-      maxTextureSize: Number(gl.getParameter(gl.MAX_TEXTURE_SIZE)),
-      maxCubeMapTextureSize: Number(gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE)),
-      maxRenderBufferSize: Number(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)),
-      maxVertexAttribs: Number(gl.getParameter(gl.MAX_VERTEX_ATTRIBS)),
-      maxViewportDims: [Number(viewport[0]), Number(viewport[1])],
-      aliasedLineWidthRange: [Number(lineWidth[0]), Number(lineWidth[1])],
-      aliasedPointSizeRange: [Number(pointSize[0]), Number(pointSize[1])],
+      maxTextureSize: finiteOr(Number(gl.getParameter(gl.MAX_TEXTURE_SIZE)), 0),
+      maxCubeMapTextureSize: finiteOr(
+        Number(gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE)),
+        0,
+      ),
+      maxRenderBufferSize: finiteOr(Number(gl.getParameter(gl.MAX_RENDERBUFFER_SIZE)), 0),
+      maxVertexAttribs: finiteOr(Number(gl.getParameter(gl.MAX_VERTEX_ATTRIBS)), 0),
+      maxViewportDims: [
+        finiteOr(Number(viewport?.[0]), 0),
+        finiteOr(Number(viewport?.[1]), 0),
+      ],
+      aliasedLineWidthRange: [
+        finiteOr(Number(lineWidth?.[0]), 0),
+        finiteOr(Number(lineWidth?.[1]), 0),
+      ],
+      aliasedPointSizeRange: [
+        finiteOr(Number(pointSize?.[0]), 0),
+        finiteOr(Number(pointSize?.[1]), 0),
+      ],
       highpFloatPrecision,
       extensionsHash,
-      gpuClearTimeMs,
-      shaderCompileTimeMs,
+      gpuClearTimeMs: finiteOr(gpuClearTimeMs, 0),
+      shaderCompileTimeMs: finiteOr(shaderCompileTimeMs, 0),
     };
   } catch {
     return empty;
@@ -177,4 +189,3 @@ export async function collectWebGLSignals(): Promise<WebGLSignals> {
     }
   }
 }
-

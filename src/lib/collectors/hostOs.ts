@@ -1,5 +1,9 @@
 import type { SpeechSynthesisSignals } from './types';
 
+/** The backend accepts at most this many voices before clamping. */
+export const MAX_VOICE_COUNT = 1_024;
+export const MAX_VOICE_FAMILIES = 16;
+
 export interface HostOsSignals {
   speechSynthesis: SpeechSynthesisSignals;
   /** Resolved family for the CSS `font: 16px status-bar` system keyword. */
@@ -35,15 +39,44 @@ export async function collectHostOsSignals(): Promise<HostOsSignals> {
   result.systemFontFamily = readSystemFontFamily();
 
   if ('speechSynthesis' in window) {
-    result.speechSynthesis.available = true;
-    const voices = await readVoices();
-    result.speechSynthesis.voiceCount = voices.length;
-    result.speechSynthesis.voiceFamilies = Array.from(
-      new Set(voices.map(classifyVoiceFamily).filter((family) => family !== '')),
-    ).sort();
+    try {
+      const voices = await readVoices();
+      result.speechSynthesis = summarizeVoices(voices);
+    } catch {
+      // A spoofed/broken speechSynthesis must not fail the whole collector.
+      result.speechSynthesis = {
+        available: true,
+        voiceCount: 0,
+        voiceFamilies: [],
+      };
+    }
   }
 
   return result;
+}
+
+/**
+ * Normalizes a voice inventory to the wire contract. Some hardened or spoofed
+ * browsers return an implausible number of voices (Camoufox/Firefox on hosts
+ * with a large speech-dispatcher inventory); the backend would otherwise
+ * clamp it, so do it at the source and keep the report consistent.
+ */
+export function summarizeVoices(
+  voices: readonly SpeechSynthesisVoice[],
+): SpeechSynthesisSignals {
+  const list = Array.isArray(voices)
+    ? voices.filter((voice) => voice && typeof voice === 'object')
+    : [];
+  const families = Array.from(
+    new Set(list.map(classifyVoiceFamily).filter((family) => family !== '')),
+  )
+    .sort()
+    .slice(0, MAX_VOICE_FAMILIES);
+  return {
+    available: true,
+    voiceCount: Math.min(list.length, MAX_VOICE_COUNT),
+    voiceFamilies: families,
+  };
 }
 
 function matches(query: string): boolean {
@@ -74,7 +107,7 @@ function readVoices(): Promise<SpeechSynthesisVoice[]> {
   return new Promise((resolve) => {
     try {
       const synth = window.speechSynthesis;
-      const initial = synth.getVoices();
+      const initial = normalizeVoiceList(synth.getVoices());
       if (initial.length > 0) {
         resolve(initial);
         return;
@@ -89,7 +122,7 @@ function readVoices(): Promise<SpeechSynthesisVoice[]> {
         } catch {
           // Ignore.
         }
-        resolve(synth.getVoices());
+        resolve(normalizeVoiceList(synth.getVoices()));
       };
       try {
         synth.addEventListener('voiceschanged', finish);
@@ -103,13 +136,23 @@ function readVoices(): Promise<SpeechSynthesisVoice[]> {
   });
 }
 
+function normalizeVoiceList(value: unknown): SpeechSynthesisVoice[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter(
+    (voice): voice is SpeechSynthesisVoice =>
+      Boolean(voice) && typeof voice === 'object',
+  );
+}
+
 /**
  * Maps a voice to the OS vendor that shipped it. Apple and Microsoft voices
  * cannot appear on the other vendor's genuine host.
  */
 export function classifyVoiceFamily(voice: SpeechSynthesisVoice): string {
-  const name = (voice.name ?? '').toLowerCase();
-  const uri = (voice.voiceURI ?? '').toLowerCase();
+  const name =
+    typeof voice?.name === 'string' ? voice.name.toLowerCase() : '';
+  const uri =
+    typeof voice?.voiceURI === 'string' ? voice.voiceURI.toLowerCase() : '';
 
   if (
     uri.includes('com.apple') ||
@@ -130,4 +173,3 @@ export function classifyVoiceFamily(voice: SpeechSynthesisVoice): string {
   }
   return 'other';
 }
-

@@ -155,12 +155,18 @@ export default function PrivacyPage() {
                 Raw payload
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-body">
-                Full raw payload storage is off by default
-                (<span className="font-mono font-medium text-ink">FP_STORE_RAW_PAYLOAD=false</span>).
-                When disabled, the session stores a redaction marker; the
-                derived device profile, font metrics, behavioral vector, scores,
-                and edge telemetry are still stored. When enabled, the full
-                typed payload is stored for the session retention period.
+                Every accepted request is archived in the internal{' '}
+                <span className="font-mono font-medium text-ink">raw_sessions</span>{' '}
+                table with the full sanitized fingerprint payload, request
+                headers (credentials and cookies are stripped), and edge
+                context. Archive rows are retained indefinitely; only an
+                authenticated device deletion removes them.{' '}
+                <span className="font-mono font-medium text-ink">FP_STORE_RAW_PAYLOAD</span>{' '}
+                controls the customer-facing session copy: when disabled
+                (default), the dashboard shows a redaction marker instead of
+                the raw payload. Derived device profiles, font metrics,
+                behavioral vectors, scores, and edge telemetry remain
+                available.
               </p>
             </article>
           </div>
@@ -214,9 +220,10 @@ export default function PrivacyPage() {
             </p>
             <p>
               <span className="font-mono font-medium text-ink">DELETE</span> removes the
-              device and cascades to its links and sessions. The deletion audit
-              log retains tenant, DeviceID, actor type, and timestamp, but not
-              the identity payload.
+              device, cascades to its links and sessions, and deletes the
+              device&apos;s raw archive rows. The deletion audit log retains
+              tenant, DeviceID, actor type, and timestamp, but not the identity
+              payload.
             </p>
           </div>
         </SectionFrame>

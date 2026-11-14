@@ -25,3 +25,15 @@ export async function sha256Hex(data: Uint8Array): Promise<string> {
   return toHex(new Uint8Array(digest));
 }
 
+export function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+export function finiteOr(value: unknown, fallback = 0): number {
+  return isFiniteNumber(value) ? value : fallback;
+}
+
+export function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+

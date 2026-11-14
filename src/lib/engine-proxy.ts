@@ -98,6 +98,37 @@ const WIRE_HEADERS = [
   'x-real-ip',
 ] as const;
 
+/**
+ * Browser header values that are safe to forward and useful for the raw
+ * archive. These are client-controlled fingerprint hints, never credentials.
+ */
+const CLIENT_HEADERS = [
+  'accept',
+  'accept-language',
+  'accept-encoding',
+  'dnt',
+  'referer',
+  'sec-fetch-dest',
+  'sec-fetch-mode',
+  'sec-fetch-site',
+  'sec-fetch-user',
+  'sec-gpc',
+  'sec-ch-ua',
+  'sec-ch-ua-arch',
+  'sec-ch-ua-bitness',
+  'sec-ch-ua-full-version',
+  'sec-ch-ua-full-version-list',
+  'sec-ch-ua-mobile',
+  'sec-ch-ua-model',
+  'sec-ch-ua-platform',
+  'sec-ch-ua-platform-version',
+  'sec-ch-ua-wow64',
+  'sec-ch-prefers-color-scheme',
+  'sec-ch-prefers-reduced-motion',
+  'upgrade-insecure-requests',
+  'user-agent',
+] as const;
+
 export function trustEdgeHeaders(): boolean {
   return process.env.EVENSTAMP_TRUST_EDGE_HEADERS === 'true';
 }
@@ -140,6 +171,11 @@ export function buildUpstreamHeaders(request: NextRequest): Headers {
   // client-controlled hint, not an authentication boundary.
   const origin = request.headers.get('origin');
   if (origin) headers.set('origin', origin);
+
+  for (const name of CLIENT_HEADERS) {
+    const value = request.headers.get(name);
+    if (value) headers.set(name, value);
+  }
 
   const proxySecret = process.env.EVENSTAMP_PROXY_SECRET;
   if (proxySecret) headers.set(PROXY_SECRET_HEADER, proxySecret);

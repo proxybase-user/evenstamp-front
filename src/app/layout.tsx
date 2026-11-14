@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: '%s · Evenstamp',
   },
   description:
-    'Identify the physical machine across Chrome, Firefox, and Safari. Evenstamp fuses TCP SYN TTL and MSS wire telemetry, WebGPU silicon probes, canvas integrity traps, and Polars kinematic biometrics into one cryptographic device verdict.',
+    'Identify the physical machine across Chrome, Firefox, and Safari. Evenstamp fuses TCP SYN TTL and MSS wire telemetry, WebGPU silicon probes, canvas integrity traps, and Rust kinematic biometrics into one cryptographic device verdict.',
   keywords: [
     'device fingerprinting',
     'cross-browser device identity',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Evenstamp — Identify the physical machine',
     description:
-      'TCP wire telemetry, WebGPU silicon probes, canvas integrity traps, and Polars kinematic biometrics in one Rust binary.',
+      'TCP wire telemetry, WebGPU silicon probes, canvas integrity traps, and Rust kinematic biometrics in one Rust binary.',
   },
   robots: {
     index: true,

@@ -1,5 +1,5 @@
 import type { WebGpuSignals } from './types';
-import { sha256Hex, utf8 } from './util';
+import { clamp, finiteOr, sha256Hex, utf8 } from './util';
 
 interface GpuAdapterInfoLike {
   vendor?: string;
@@ -102,10 +102,18 @@ export async function collectWebGpuSignals(): Promise<WebGpuSignals> {
       architecture: String(info.architecture ?? ''),
       device: String(info.device ?? ''),
       description: String(info.description ?? ''),
-      subgroupMinSize: Number(info.subgroupMinSize ?? 0),
-      subgroupMaxSize: Number(info.subgroupMaxSize ?? 0),
+      subgroupMinSize: clamp(
+        finiteOr(Number(info.subgroupMinSize ?? 0), 0),
+        0,
+        65_536,
+      ),
+      subgroupMaxSize: clamp(
+        finiteOr(Number(info.subgroupMaxSize ?? 0), 0),
+        0,
+        65_536,
+      ),
       limitsHash,
-      computeAtomicTimeMs,
+      computeAtomicTimeMs: clamp(finiteOr(computeAtomicTimeMs, 0), 0, 600_000),
     };
   } catch {
     return emptyWebGpuSignals();
@@ -182,4 +190,3 @@ async function runAtomicContentionProbe(adapter: GpuAdapterLike): Promise<number
     }
   }
 }
-

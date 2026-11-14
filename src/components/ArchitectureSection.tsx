@@ -49,11 +49,11 @@ const CATEGORY_CARDS = [
   },
   {
     category: 'category-card-orange',
-    badge: 'L4 · POLARS KINEMATICS',
+    badge: 'L4 · KINEMATICS',
     title: 'Vectorized behavioral engine',
     subtitle: 'Columnar LazyFrame · motor control',
     description:
-      'Pointer, keystroke, wheel, and touch events stream into an in-memory Polars LazyFrame. Third-order jerk, path collinearity, flight distributions, and scroll inertia separate human motor control from scripted bot curves.',
+      'Pointer, keystroke, wheel, and touch events stream into an in-memory behavior engine LazyFrame. Third-order jerk, path collinearity, flight distributions, and scroll inertia separate human motor control from scripted bot curves.',
     tech: 'LazyFrame → 3rd-order jerk → dwell/flight → 8D vector',
     icon: Activity,
     textClass: 'text-white',

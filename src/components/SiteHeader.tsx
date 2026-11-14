@@ -35,7 +35,7 @@ export default function SiteHeader() {
               className="status-dot animate-pulse-dot bg-accent-green"
               aria-hidden="true"
             />
-            RUST + WASM + POLARS
+            RUST + WASM + SQLITE
           </span>
         </div>
 

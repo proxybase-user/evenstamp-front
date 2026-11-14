@@ -680,7 +680,7 @@ export default function TelemetryHudClient() {
 
           <HudCard
             icon={<Activity className="h-3.5 w-3.5" />}
-            label="L4 · POLARS KINEMATICS"
+            label="L4 · KINEMATICS"
           >
             <div className="truncate text-ink font-medium" title={telemetry.kinematics}>
               {telemetry.kinematics}

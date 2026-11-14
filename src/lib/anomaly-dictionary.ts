@@ -509,7 +509,7 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
     whyItMatters:
       'Human users exhibit natural physiological jitter, curved paths, and reaction pauses; automated tools produce mathematical precision.',
     technicalNote:
-      'Composite score penalty contributed by the high-frequency Polars behavioral analysis pipeline.',
+      'Composite score penalty contributed by the high-frequency behavioral analysis pipeline.',
   },
 };
 

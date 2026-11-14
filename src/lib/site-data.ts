@@ -61,7 +61,7 @@ export const PRICING_TIERS: PricingTier[] = [
     overage: '$0.50 per additional 10,000',
     features: [
       '1,000,000 identifications / month',
-      'Polars kinematic biometrics engine',
+      'Rust kinematic biometrics engine',
       'TCP SYN TTL + MSS wire verification',
       'WebGPU subgroup + atomic contention probe',
       'CDP ValueMirror and preload detection',
@@ -75,7 +75,7 @@ export const PRICING_TIERS: PricingTier[] = [
   {
     name: 'Sovereign',
     tagline:
-      'Run the entire Rust + Polars + SQLite + AF_PACKET engine inside your own VPC.',
+      'Run the entire Rust + SQLite + AF_PACKET engine inside your own VPC.',
     monthly: 999,
     annualMonthly: 999,
     included: null,
@@ -84,7 +84,7 @@ export const PRICING_TIERS: PricingTier[] = [
       'Unlimited identifications (4 vCPU nodes)',
       'Single-binary Docker + bare metal',
       'Zero external telemetry egress',
-      'Raw 8D Polars feature-vector export',
+      'Raw 8D feature-vector export',
       'Embedded AF_PACKET wire sniffer',
       'GDPR / HIPAA / PCI deployment review',
       '99.99% availability SLA',
@@ -211,7 +211,7 @@ export const COMPARISON_ROWS = [
     openSource: 'No — breaks across browsers',
   },
   {
-    capability: 'Polars kinematic bot biometrics',
+    capability: 'kinematic bot biometrics',
     evenstamp: 'Built-in — velocity, jerk, dwell',
     fingerprint: 'Not included',
     openSource: 'Not included',
@@ -246,7 +246,7 @@ export const FAQ_ITEMS = [
   {
     question: 'Is Evenstamp a tracking cookie or a data broker?',
     answer:
-      'No cookies are required, and Evenstamp does not sell or broker identity graphs. The identity database stores a /24 or /48 network prefix, not the full client IP; ephemeral challenges bind to a one-way HMAC of the IP. Raw payload storage is off by default. You remain the data controller; the sovereign deployment never sends telemetry to us.',
+      'No cookies are required, and Evenstamp does not sell or broker identity graphs. The identity graph stores a /24 or /48 network prefix, not the full client IP; ephemeral challenges bind to a one-way HMAC of the IP. Every accepted request is also archived in an internal raw-session table with the full sanitized payload, request context, and client IP (developer-quota rejections are skipped unless FP_ARCHIVE_OVER_QUOTA=true); that archive is retained indefinitely, is not exposed through the customer API, and the customer-facing payload copy is redacted by default (FP_STORE_RAW_PAYLOAD=false). An authenticated device deletion also removes that device\'s archive rows. You remain the data controller; the sovereign deployment never sends telemetry to us.',
   },
   {
     question: 'What happens when a privacy extension blocks the SDK?',

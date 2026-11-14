@@ -18,7 +18,7 @@ const LAYERS = [
   { name: 'JA4', color: 'bg-accent-pink text-white' },
   { name: 'WebGPU', color: 'bg-accent-blue text-white' },
   { name: 'Canvas', color: 'bg-accent-orange text-white' },
-  { name: 'Polars', color: 'bg-accent-green text-ink' },
+  { name: 'Rust', color: 'bg-accent-green text-ink' },
 ];
 
 export default function Hero() {
@@ -66,7 +66,7 @@ export default function Hero() {
                 </strong>
                 , and{' '}
                 <strong className="font-semibold text-ink">
-                  Polars kinematic biometrics
+                  Rust kinematic biometrics
                 </strong>{' '}
                 into one deterministic device identity across Chrome, Firefox, and Safari.
               </p>

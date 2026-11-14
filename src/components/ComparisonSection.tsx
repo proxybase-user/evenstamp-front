@@ -34,7 +34,7 @@ export default function ComparisonSection() {
           Built for teams tired of cloud lock-in and $99 / 20k quotas.
         </h2>
         <p className="max-w-[65ch] text-base leading-relaxed text-ink-body">
-          A single compiled Rust binary backed by SQLite and in-memory Polars
+          A single compiled Rust binary backed by SQLite and in-memory behavior engine
           removes the managed-cluster overhead that incumbent SaaS pricing carries.
         </p>
       </div>

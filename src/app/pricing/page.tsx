@@ -47,7 +47,7 @@ const TIER_MATRIX = [
     included: '1,000,000 / month',
     overage: '$0.50 / 10k',
     capabilities:
-      'Polars biometrics, TCP TTL/MSS wire verification, WebGPU probes, CDP traps, first-party CNAME, 1-year retention',
+      'kinematic biometrics, TCP TTL/MSS wire verification, WebGPU probes, CDP traps, first-party CNAME, 1-year retention',
   },
   {
     tier: 'Sovereign',
@@ -64,7 +64,7 @@ const PRICING_FAQ = [
   {
     question: 'How do you charge less than Fingerprint Pro?',
     answer:
-      'We run one Rust binary backed by SQLite and in-memory Polars. There is no Kafka, no Cassandra, and no multi-tenant Elasticsearch cluster to maintain. Those architectural choices remove 80%+ of the operational overhead incumbent pricing must amortize.',
+      'We run one Rust binary backed by SQLite and in-memory behavior engine. There is no Kafka, no Cassandra, and no multi-tenant Elasticsearch cluster to maintain. Those architectural choices remove 80%+ of the operational overhead incumbent pricing must amortize.',
   },
   {
     question: 'What happens when I hit the Developer limit?',
@@ -113,7 +113,7 @@ export default function PricingPage() {
             </h1>
             <p className="text-base leading-relaxed text-ink-body">
               Evenstamp runs as one compiled Rust binary with embedded SQLite
-              and in-memory Polars. That footprint supports 85–94% gross margins
+              and in-memory behavior engine. That footprint supports 85–94% gross margins
               while pricing 60%+ below incumbent list prices. Start free at
               25,000 identifications; upgrade when the free cap actually binds.
             </p>
