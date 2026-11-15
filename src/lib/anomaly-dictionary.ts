@@ -1,3 +1,5 @@
+import { countryLabel } from './format';
+
 export type AnomalySeverity = 'high' | 'medium' | 'low';
 export type AnomalyCategory =
   | 'Automation & Bots'
@@ -810,6 +812,7 @@ export function interpretBehavior(
 export function interpretNetwork(
   edge: {
     country?: string | null;
+    countryName?: string | null;
     city?: string | null;
     asn?: number | null;
     asOrganization?: string | null;
@@ -827,8 +830,7 @@ export function interpretNetwork(
   latencySummary: string;
 } {
   const anomalySet = new Set(anomalies);
-  const locationSummary =
-    [edge.city, edge.country].filter(Boolean).join(', ') || 'Unknown Location';
+  const locationSummary = countryLabel(edge);
 
   // Network Type
   let networkType = 'Standard Consumer Internet (ISP)';

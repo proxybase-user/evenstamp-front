@@ -43,7 +43,17 @@ const COMMON_NAME_TO_CODE: Record<string, string> = {
 
 export function resolveCountryCode(input?: string | null): string | null {
   if (!input || typeof input !== 'string') return null;
-  const trimmed = input.trim();
+  const trimmed = input.trim().replace(/^["']+|["']+$/g, '').trim();
+  if (
+    !trimmed ||
+    trimmed === '""' ||
+    trimmed === "''" ||
+    trimmed.toLowerCase() === 'null' ||
+    trimmed.toLowerCase() === 'undefined' ||
+    trimmed.toLowerCase() === 'unknown'
+  ) {
+    return null;
+  }
   if (/^[A-Za-z]{2}$/.test(trimmed) && trimmed.toUpperCase() !== 'XX') {
     return trimmed.toUpperCase();
   }
@@ -90,7 +100,9 @@ export default function CountryFlag({
   }
 
   const emoji = countryCodeToEmoji(code);
-  const title = countryName || country || code;
+  const cleanCountryName = countryName ? countryName.replace(/^["']+|["']+$/g, '').trim() : '';
+  const cleanCountry = country ? country.replace(/^["']+|["']+$/g, '').trim() : '';
+  const title = cleanCountryName || cleanCountry || code;
 
   const sizeClasses =
     size === 'lg'

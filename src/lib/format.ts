@@ -68,10 +68,70 @@ export function percent(used: number, included: number | null): number {
   return Math.min(100, Math.round((used / included) * 100));
 }
 
-export function countryLabel(edge: {
+const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
+
+export function sanitizeLocationPart(val?: string | null): string | null {
+  if (!val || typeof val !== 'string') return null;
+  const trimmed = val.trim();
+  const unquoted = trimmed.replace(/^["']+|["']+$/g, '').trim();
+  if (
+    !unquoted ||
+    unquoted === '""' ||
+    unquoted === "''" ||
+    unquoted.toLowerCase() === 'null' ||
+    unquoted.toLowerCase() === 'undefined' ||
+    unquoted.toLowerCase() === 'unknown' ||
+    unquoted.toLowerCase() === 'n/a' ||
+    unquoted === '-' ||
+    unquoted === '—'
+  ) {
+    return null;
+  }
+  return unquoted;
+}
+
+export function countryLabel(edge?: {
   country?: string | null;
+  countryName?: string | null;
   city?: string | null;
-}): string {
-  const parts = [edge.city, edge.country].filter(Boolean);
-  return parts.length > 0 ? parts.join(', ') : 'Unknown';
+} | null): string {
+  if (!edge) return 'Unknown';
+
+  const city = sanitizeLocationPart(edge.city);
+  const rawCountryName = sanitizeLocationPart(edge.countryName);
+  const countryCode = sanitizeLocationPart(edge.country);
+
+  let countryName = rawCountryName;
+  if (
+    !countryName &&
+    countryCode &&
+    /^[A-Za-z]{2}$/.test(countryCode) &&
+    countryCode.toUpperCase() !== 'XX'
+  ) {
+    try {
+      countryName =
+        regionNames.of(countryCode.toUpperCase()) || countryCode.toUpperCase();
+    } catch {
+      countryName = countryCode.toUpperCase();
+    }
+  }
+
+  const country = countryName || countryCode;
+
+  if (city && country) {
+    if (city.toLowerCase() === country.toLowerCase()) {
+      return city;
+    }
+    return `${city}, ${country}`;
+  }
+
+  if (city) {
+    return city;
+  }
+
+  if (country) {
+    return country;
+  }
+
+  return 'Unknown';
 }
