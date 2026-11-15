@@ -20,6 +20,7 @@ import {
   Terminal,
 } from 'lucide-react';
 import CopyButton from '@/components/CopyButton';
+import CountryFlag from '@/components/CountryFlag';
 import { getSessionDetail, requireUser } from '@/lib/account';
 import {
   ANOMALY_DICTIONARY,
@@ -146,9 +147,17 @@ export default async function SessionDetailPage({
             <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
               Session Findings Analysis
             </h1>
-            <p className="mt-1 font-mono text-xs text-ink-muted">
-              Recorded {formatTimestamp(session.createdAt)} ·{' '}
-              {networkAnalysis.locationSummary}
+            <p className="mt-1 font-mono text-xs text-ink-muted flex flex-wrap items-center gap-1.5">
+              <span>Recorded {formatTimestamp(session.createdAt)}</span>
+              <span>·</span>
+              <span className="inline-flex items-center gap-1.5 text-ink-secondary">
+                <CountryFlag
+                  country={edge.country}
+                  countryName={edge.countryName}
+                  size="xs"
+                />
+                <span>{networkAnalysis.locationSummary}</span>
+              </span>
             </p>
           </div>
 
@@ -546,8 +555,13 @@ export default async function SessionDetailPage({
               <div className="font-mono text-[10px] uppercase tracking-wider text-ink-muted">
                 Geographic Location & Network
               </div>
-              <div className="mt-1 text-sm font-semibold text-ink">
-                {networkAnalysis.locationSummary}
+              <div className="mt-1 flex items-center gap-2 text-sm font-semibold text-ink sm:text-base">
+                <CountryFlag
+                  country={edge.country}
+                  countryName={edge.countryName}
+                  size="md"
+                />
+                <span>{networkAnalysis.locationSummary}</span>
               </div>
               <div className="mt-0.5 font-mono text-xs text-ink-secondary">
                 {edge.asn ? `AS${edge.asn}` : 'Unreported ASN'}

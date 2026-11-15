@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Menu, ShieldCheck, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { NAV_LINKS } from '@/lib/site-data';
 import ThemeToggle from './ThemeToggle';
@@ -16,18 +16,11 @@ export default function SiteHeader() {
         <div className="flex min-w-0 items-center gap-3">
           <Link
             href="/"
-            className="flex items-center gap-2.5 shrink-0"
+            className="flex items-center shrink-0"
             aria-label="Evenstamp home"
           >
-            <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-hairline bg-surface-2">
-              <ShieldCheck
-                className="h-4 w-4 text-accent-green"
-                aria-hidden="true"
-              />
-            </span>
             <span className="text-[17px] sm:text-[18px] font-semibold tracking-tight text-ink">
-              evenstamp
-              <span className="font-mono text-sm text-accent-green">.com</span>
+              evenstamp.com
             </span>
           </Link>
         </div>

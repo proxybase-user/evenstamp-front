@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { CheckCircle2, ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Filter } from 'lucide-react';
+import CountryFlag from '@/components/CountryFlag';
+import SessionFindingsBadges from '@/components/dashboard/SessionFindingsBadges';
 import { getSessions, getSites, requireUser } from '@/lib/account';
-import { getAnomalyInfo } from '@/lib/anomaly-dictionary';
 import {
   countryLabel,
   formatNumber,
@@ -183,7 +184,13 @@ export default async function SessionsPage({
                         </div>
                       </td>
                       <td className="px-4 py-3 text-ink-body">
-                        {countryLabel(session.edge)}
+                        <div className="inline-flex items-center gap-1.5">
+                          <CountryFlag
+                            country={session.edge.country}
+                            countryName={session.edge.countryName}
+                          />
+                          <span>{countryLabel(session.edge)}</span>
+                        </div>
                         <div className="font-mono text-[10px] text-ink-muted">
                           AS{session.edge.asn ?? '—'}
                         </div>
@@ -204,38 +211,7 @@ export default async function SessionsPage({
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        {session.anomalies.length === 0 ? (
-                          <span className="inline-flex items-center gap-1 rounded-[4px] border border-accent-green/25 bg-accent-green/10 px-2 py-0.5 text-[10px] font-medium text-accent-green">
-                            <CheckCircle2 className="h-3 w-3" />
-                            Clean
-                          </span>
-                        ) : (
-                          <span className="inline-flex max-w-[18rem] flex-wrap gap-1">
-                            {session.anomalies.slice(0, 2).map((anomaly) => {
-                              const info = getAnomalyInfo(anomaly);
-                              const badgeStyle =
-                                info.severity === 'high'
-                                  ? 'border-accent-red/30 bg-accent-red/10 text-accent-red'
-                                  : info.severity === 'medium'
-                                    ? 'border-accent-yellow/30 bg-accent-yellow/10 text-accent-yellow'
-                                    : 'border-accent-blue/30 bg-accent-blue/10 text-accent-blue';
-                              return (
-                                <span
-                                  key={anomaly}
-                                  title={`${info.title}: ${info.summary}`}
-                                  className={`inline-block rounded-[4px] border px-1.5 py-0.5 text-[10px] font-medium ${badgeStyle}`}
-                                >
-                                  {info.badge}
-                                </span>
-                              );
-                            })}
-                            {session.anomalies.length > 2 ? (
-                              <span className="rounded-[4px] border border-hairline bg-surface-2 px-1.5 py-0.5 font-mono text-[9px] text-ink-muted">
-                                +{session.anomalies.length - 2}
-                              </span>
-                            ) : null}
-                          </span>
-                        )}
+                        <SessionFindingsBadges anomalies={session.anomalies} />
                       </td>
                       <td className="px-4 py-3 font-mono text-[11px] text-ink-muted">
                         {timeAgo(session.createdAt)}

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { LogOut, ShieldCheck } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import DashboardNav from '@/components/dashboard/DashboardNav';
 import ThemeToggle from '@/components/ThemeToggle';
 import { requireUser } from '@/lib/account';
@@ -32,20 +32,13 @@ export default async function DashboardLayout({
           <div className="flex min-w-0 items-center gap-3">
             <Link
               href="/dashboard"
-              className="flex shrink-0 items-center gap-2.5"
+              className="flex shrink-0 items-center"
               aria-label="Evenstamp dashboard"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-[4px] border border-hairline bg-surface-2">
-                <ShieldCheck className="h-4 w-4 text-accent-green" aria-hidden="true" />
-              </span>
-              <span className="hidden text-sm font-semibold tracking-tight text-ink sm:inline">
-                evenstamp
-                <span className="font-mono text-xs text-accent-green">.com</span>
+              <span className="text-sm sm:text-base font-semibold tracking-tight text-ink">
+                evenstamp.com
               </span>
             </Link>
-            <span className="hidden rounded-[4px] border border-hairline bg-surface-2 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-muted sm:inline">
-              {me.plan.name} · {me.plan.interval}
-            </span>
           </div>
 
           <div className="flex min-w-0 items-center gap-3">

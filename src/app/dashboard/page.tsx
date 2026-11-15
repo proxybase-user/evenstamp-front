@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CountryFlag from '@/components/CountryFlag';
 import {
   ArrowRight,
   Fingerprint,
@@ -217,7 +218,13 @@ export default async function DashboardOverviewPage() {
                           {session.siteName}
                         </td>
                         <td className="px-4 py-3 text-ink-body">
-                          {countryLabel(session.edge)}
+                          <div className="inline-flex items-center gap-1.5">
+                            <CountryFlag
+                              country={session.edge.country}
+                              countryName={session.edge.countryName}
+                            />
+                            <span>{countryLabel(session.edge)}</span>
+                          </div>
                         </td>
                         <td className="px-4 py-3 font-mono text-[11px] text-ink-body">
                           {session.gpuRenderer ||
