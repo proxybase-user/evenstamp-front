@@ -69,6 +69,8 @@ export default function PricingSection() {
             type="button"
             onClick={() => setBilling('monthly')}
             aria-pressed={billing === 'monthly'}
+            data-umami-event="pricing-billing-toggle"
+            data-umami-event-billing="monthly"
             className={`rounded-[4px] px-3.5 py-1.5 font-medium transition ${
               billing === 'monthly'
                 ? 'bg-canvas text-ink shadow-sm'
@@ -81,6 +83,8 @@ export default function PricingSection() {
             type="button"
             onClick={() => setBilling('annual')}
             aria-pressed={billing === 'annual'}
+            data-umami-event="pricing-billing-toggle"
+            data-umami-event-billing="annual"
             className={`flex items-center gap-1.5 rounded-[4px] px-3.5 py-1.5 font-medium transition ${
               billing === 'annual'
                 ? 'bg-canvas text-accent-green shadow-sm'
@@ -175,6 +179,8 @@ export default function PricingSection() {
               <div className="pt-2">
                 <a
                   href="/login?next=/dashboard/billing"
+                  data-umami-event="pricing-plan-select"
+                  data-umami-event-plan={tier.name}
                   className={
                     isFeatured
                       ? 'button-primary w-full text-center justify-center'
@@ -194,6 +200,7 @@ export default function PricingSection() {
       <div className="mt-8 text-center">
         <Link
           href="/login?next=/dashboard"
+          data-umami-event="pricing-sandbox-click"
           className="inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted hover:text-accent-blue transition-colors"
         >
           Local development: get a free Sandbox API key (1,000 checks/mo, development domains only).

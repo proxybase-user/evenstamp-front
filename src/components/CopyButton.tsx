@@ -36,6 +36,7 @@ export default function CopyButton({
     <button
       type="button"
       onClick={handleCopy}
+      data-umami-event="copy-code-click"
       className={`inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted transition hover:text-ink-primary ${className}`}
       aria-label={copied ? 'Copied to clipboard' : label}
     >

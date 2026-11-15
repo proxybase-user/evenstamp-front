@@ -18,6 +18,7 @@ export default function SiteHeader() {
             href="/"
             className="flex items-center shrink-0"
             aria-label="Evenstamp home"
+            data-umami-event="nav-logo-click"
           >
             <span className="text-[17px] sm:text-[18px] font-semibold tracking-tight text-ink">
               evenstamp.com
@@ -35,6 +36,8 @@ export default function SiteHeader() {
               key={link.href}
               href={link.href}
               className="transition-colors hover:text-ink whitespace-nowrap"
+              data-umami-event="nav-link-click"
+              data-umami-event-target={link.label}
             >
               {link.label}
             </a>
@@ -48,6 +51,7 @@ export default function SiteHeader() {
           <Link
             href="/login"
             className="hidden rounded-[4px] border border-hairline bg-surface-1 px-3 py-1.5 font-mono text-xs text-ink transition hover:bg-surface-2 sm:inline-flex"
+            data-umami-event="header-login-click"
           >
             Log in
           </Link>
@@ -55,6 +59,7 @@ export default function SiteHeader() {
           <Link
             href="/pricing"
             className="button-primary hidden !min-h-0 !px-3.5 sm:!px-4 !py-1.5 !text-xs sm:inline-flex"
+            data-umami-event="header-trial-click"
           >
             <span>Start Free Trial</span>
             <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -66,6 +71,7 @@ export default function SiteHeader() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="button-icon-circular md:hidden"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            data-umami-event="mobile-menu-toggle"
           >
             {mobileMenuOpen ? (
               <X className="h-4 w-4" aria-hidden="true" />
@@ -86,6 +92,8 @@ export default function SiteHeader() {
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-1 transition-colors hover:text-accent-blue"
+                data-umami-event="mobile-nav-link-click"
+                data-umami-event-target={link.label}
               >
                 {link.label}
               </a>
@@ -95,6 +103,7 @@ export default function SiteHeader() {
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-secondary w-full justify-center text-sm"
+                data-umami-event="mobile-login-click"
               >
                 Log in
               </Link>
@@ -102,6 +111,7 @@ export default function SiteHeader() {
                 href="/pricing"
                 onClick={() => setMobileMenuOpen(false)}
                 className="button-primary w-full justify-center text-sm"
+                data-umami-event="mobile-trial-click"
               >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

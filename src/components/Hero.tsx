@@ -60,6 +60,7 @@ export default function Hero() {
                 <a
                   href="/pricing"
                   className="button-primary justify-center text-center w-full sm:w-auto"
+                  data-umami-event="hero-view-plans-click"
                 >
                   View Plans
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -67,6 +68,7 @@ export default function Hero() {
                 <a
                   href="#detection"
                   className="button-secondary justify-center text-center w-full sm:w-auto"
+                  data-umami-event="hero-see-what-we-catch-click"
                 >
                   <ShieldCheck className="h-4 w-4 text-accent-blue" aria-hidden="true" />
                   See What We Catch

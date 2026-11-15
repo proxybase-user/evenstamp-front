@@ -246,6 +246,7 @@ export default function PricingPage() {
             <a
               href="/login?next=/dashboard/billing"
               className="button-primary"
+              data-umami-event="pricing-trial-button-click"
             >
               Start 14-Day Free Trial
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -253,6 +254,7 @@ export default function PricingPage() {
             <a
               href="mailto:engineering@evenstamp.com?subject=Evenstamp%20Sovereign%20license"
               className="button-secondary"
+              data-umami-event="pricing-sovereign-email-click"
             >
               Talk to us about Sovereign VPC
             </a>

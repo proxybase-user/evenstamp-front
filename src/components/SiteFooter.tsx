@@ -92,6 +92,8 @@ function FooterColumn({
             <a
               href={link.href}
               className="text-ink-body transition-colors hover:text-ink"
+              data-umami-event="footer-link-click"
+              data-umami-event-target={link.label}
             >
               {link.label}
             </a>

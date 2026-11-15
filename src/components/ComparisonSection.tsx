@@ -106,6 +106,7 @@ export default function ComparisonSection() {
             <a
               href="/pricing"
               className="button-primary !text-xs !py-2 !px-4 inline-flex items-center gap-1.5"
+              data-umami-event="comparison-view-pricing-click"
             >
               See all plans &amp; pricing &rarr;
             </a>

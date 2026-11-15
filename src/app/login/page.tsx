@@ -81,6 +81,7 @@ export default async function LoginPage({
                 <a
                   href={`/api/auth/google/start?next=${encodeURIComponent(next)}`}
                   className="button-primary w-full justify-center"
+                  data-umami-event="login-google-click"
                 >
                   Continue with Google
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />

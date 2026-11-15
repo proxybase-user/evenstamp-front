@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import JsonLd from '@/components/JsonLd';
 import { ThemeProvider } from '@/components/ThemeProvider';
@@ -136,6 +137,11 @@ export default function RootLayout({
         <JsonLd data={softwareSchema} />
       </head>
       <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
+        <Script
+          src="https://analytics.lemontv.xyz/script.js"
+          data-website-id="86497d60-19b2-44d3-bfd4-bc75a5c56aa9"
+          strategy="afterInteractive"
+        />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-[4px] focus:border focus:border-accent-green focus:bg-surface-2 focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-ink focus:shadow-level-2"

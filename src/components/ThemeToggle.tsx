@@ -30,6 +30,8 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
     <button
       type="button"
       onClick={toggleTheme}
+      data-umami-event="theme-toggle"
+      data-umami-event-to={isDark ? 'light' : 'dark'}
       className={`button-icon-circular shrink-0 text-ink transition-transform hover:scale-105 active:scale-95 ${className}`}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}

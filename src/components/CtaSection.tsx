@@ -42,6 +42,7 @@ export default function CtaSection() {
               <a
                 href="/pricing"
                 className="button-primary justify-center text-center !py-3 !text-sm"
+                data-umami-event="cta-start-trial-click"
               >
                 Start Your 14-Day Free Trial
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

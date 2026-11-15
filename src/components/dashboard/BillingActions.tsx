@@ -118,6 +118,9 @@ function PlanCard({
                   : 'Airwallex is not configured on this deployment'
             }
             className="button-primary w-full !text-xs !py-2.5 !min-h-0"
+            data-umami-event="checkout-card-click"
+            data-umami-event-plan={plan.key}
+            data-umami-event-interval={interval}
           >
             {pending ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden="true" />
@@ -135,6 +138,9 @@ function PlanCard({
           <button
             type="submit"
             disabled={pending || !cryptoReady}
+            data-umami-event="checkout-crypto-click"
+            data-umami-event-plan={plan.key}
+            data-umami-event-interval={interval}
             title={
               cryptoReady
                 ? `Pay ${formatMoney(cents)} in crypto via NOWPayments`
