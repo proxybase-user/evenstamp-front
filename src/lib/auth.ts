@@ -13,7 +13,10 @@ export function appUrl(): string {
     process.env.EVENSTAMP_APP_URL ??
     process.env.NEXT_PUBLIC_APP_URL ??
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined);
-  return (configured ?? 'http://127.0.0.1:3000').replace(/\/+$/, '');
+  return (configured ?? 'http://127.0.0.1:3000')
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/\/+$/, '');
 }
 
 /**
@@ -23,7 +26,8 @@ export function appUrl(): string {
  * engine origin in self-hosted/direct-engine deployments.
  */
 export function snippetOrigin(): string {
-  return (process.env.EVENSTAMP_SNIPPET_ORIGIN ?? appUrl()).replace(/\/+$/, '');
+  const raw = process.env.EVENSTAMP_SNIPPET_ORIGIN || appUrl();
+  return raw.trim().replace(/\s+/g, '').replace(/\/+$/, '');
 }
 
 export function googleConfigured(): boolean {

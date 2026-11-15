@@ -10,7 +10,7 @@ import { formatNumber, timeAgo } from '@/lib/format';
 export default async function SitesPage() {
   await requireUser('/dashboard/sites');
   const sites = await getSites();
-  const origin = snippetOrigin();
+  const origin = snippetOrigin().trim().replace(/\s+/g, '').replace(/\/+$/, '');
 
   return (
     <div className="space-y-6">
