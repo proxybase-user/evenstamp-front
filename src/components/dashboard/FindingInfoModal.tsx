@@ -188,16 +188,6 @@ export default function FindingInfoModal({
             </p>
           </div>
 
-          {/* Technical verification */}
-          <div className="rounded-[6px] border border-hairline bg-surface-2/60 p-3.5">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-ink-muted">
-              Technical check
-            </div>
-            <p className="mt-1 font-mono text-[11px] leading-relaxed text-ink-secondary">
-              {info.technicalNote}
-            </p>
-          </div>
-
           {/* Recommended action */}
           <div className="rounded-[6px] border border-hairline bg-surface-2/60 p-3.5">
             <div className="text-[10px] font-mono uppercase tracking-wider text-accent-blue font-semibold">
