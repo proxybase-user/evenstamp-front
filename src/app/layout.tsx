@@ -1,7 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import JsonLd from '@/components/JsonLd';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import {
+  getBaseUrl,
+  getOrganizationSchema,
+  getSoftwareApplicationSchema,
+  getWebSiteSchema,
+} from '@/lib/seo-schemas';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -15,13 +22,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const siteUrl = 'https://evenstamp.com';
+const siteUrl = getBaseUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default:
-      'Evenstamp: Cross-Browser Fraud & Abuse Protection',
+    default: 'Evenstamp: Cross-Browser Fraud & Abuse Protection',
     template: '%s · Evenstamp',
   },
   description:
@@ -34,27 +40,56 @@ export const metadata: Metadata = {
     'anti-detect browser detection',
     'bot detection',
     'chargeback prevention',
+    'device fingerprinting',
+    'residential proxy unmasking',
+    'behavioral biometrics',
   ],
-  authors: [{ name: 'Evenstamp' }],
+  authors: [{ name: 'Evenstamp', url: siteUrl }],
   creator: 'Evenstamp',
+  publisher: 'Evenstamp',
+  applicationName: 'Evenstamp',
+  category: 'security',
+  classification: 'Fraud Prevention & Device Intelligence',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
+    locale: 'en_US',
     url: siteUrl,
     siteName: 'Evenstamp',
-    title: 'Evenstamp: Stop Multi-Accounting & Bot Abuse',
+    title: 'Evenstamp: Cross-Browser Fraud & Abuse Protection',
     description:
-      'Recognize every visitor, even when they try to hide. Get a fraud risk score and a cross-browser hardware ID.',
+      'Recognize every visitor across browsers, clear cookies, and VPNs. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Evenstamp: Stop Multi-Accounting & Bot Abuse',
+    title: 'Evenstamp: Cross-Browser Fraud & Abuse Protection',
     description:
-      'Recognize every visitor, even when they try to hide. Get a fraud risk score and a cross-browser hardware ID.',
+      'Recognize every visitor across browsers, clear cookies, and VPNs. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
+    creator: '@evenstamp',
+    site: '@evenstamp',
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+  },
+  manifest: '/manifest.webmanifest',
 };
 
 export const viewport: Viewport = {
@@ -84,6 +119,10 @@ const THEME_SCRIPT = `
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const orgSchema = getOrganizationSchema(siteUrl);
+  const websiteSchema = getWebSiteSchema(siteUrl);
+  const softwareSchema = getSoftwareApplicationSchema(siteUrl);
+
   return (
     <html
       lang="en"
@@ -92,8 +131,17 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <JsonLd data={orgSchema} />
+        <JsonLd data={websiteSchema} />
+        <JsonLd data={softwareSchema} />
       </head>
       <body className="min-h-screen bg-canvas font-sans text-ink antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-[4px] focus:border focus:border-accent-green focus:bg-surface-2 focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:text-ink focus:shadow-level-2"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

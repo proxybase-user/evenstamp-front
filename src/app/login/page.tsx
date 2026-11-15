@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Sign in',
   description:
     'Sign in to Evenstamp to manage sites, session findings, and billing.',
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: false, nocache: true },
 };
 
 export const dynamic = 'force-dynamic';
@@ -51,7 +51,7 @@ export default async function LoginPage({
   return (
     <>
       <SiteHeader />
-      <main className="relative overflow-hidden bg-canvas transition-colors">
+      <main id="main-content" className="relative overflow-hidden bg-canvas transition-colors">
         <div className="relative mx-auto flex min-h-[calc(100vh-160px)] max-w-7xl items-center justify-center px-6 py-16 lg:px-8">
           <div className="w-full max-w-md">
             <div className="mb-8 text-center">

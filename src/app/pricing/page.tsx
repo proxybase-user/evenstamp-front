@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import { ArrowRight, Bitcoin, Check, CreditCard } from 'lucide-react';
 import CtaSection from '@/components/CtaSection';
+import JsonLd from '@/components/JsonLd';
 import PricingSection from '@/components/PricingSection';
 import SectionFrame from '@/components/SectionFrame';
 import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
+import { getBaseUrl, getBreadcrumbSchema, getFaqSchema } from '@/lib/seo-schemas';
+
+const siteUrl = getBaseUrl();
+const canonicalUrl = `${siteUrl}/pricing`;
 
 export const metadata: Metadata = {
   title: 'Pricing · Fraud & Abuse Protection',
@@ -18,7 +23,20 @@ export const metadata: Metadata = {
     'promo abuse prevention',
     'self-hosted fraud engine',
   ],
-  alternates: { canonical: 'https://evenstamp.com/pricing' },
+  alternates: { canonical: canonicalUrl },
+  openGraph: {
+    title: 'Pricing · Evenstamp Fraud & Abuse Protection',
+    description:
+      'Simple Evenstamp pricing: Starter at $29/mo, Growth at $79/mo, and Scale / Sovereign at $199/mo. 14-day free trial on all plans.',
+    url: canonicalUrl,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Pricing · Evenstamp Fraud & Abuse Protection',
+    description:
+      'Simple Evenstamp pricing: Starter at $29/mo, Growth at $79/mo, and Scale / Sovereign at $199/mo. 14-day free trial on all plans.',
+  },
 };
 
 const TIER_MATRIX = [
@@ -101,10 +119,18 @@ const BILLING_PATHS = [
 ];
 
 export default function PricingPage() {
+  const faqSchema = getFaqSchema(PRICING_FAQ);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Pricing', path: '/pricing' },
+  ]);
+
   return (
     <>
+      <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <SiteHeader />
-      <main>
+      <main id="main-content">
         <PricingSection />
 
         <SectionFrame id="tier-matrix">

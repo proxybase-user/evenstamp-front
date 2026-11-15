@@ -1,24 +1,28 @@
 import type { MetadataRoute } from 'next';
+import { getBaseUrl } from '@/lib/seo-schemas';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = getBaseUrl();
+  const now = new Date();
+
   return [
     {
-      url: 'https://evenstamp.com',
-      lastModified: new Date(),
+      url: baseUrl,
+      lastModified: now,
       changeFrequency: 'weekly',
-      priority: 1,
+      priority: 1.0,
     },
     {
-      url: 'https://evenstamp.com/pricing',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      url: `${baseUrl}/pricing`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
-      url: 'https://evenstamp.com/privacy',
-      lastModified: new Date(),
+      url: `${baseUrl}/privacy`,
+      lastModified: now,
       changeFrequency: 'monthly',
-      priority: 0.4,
+      priority: 0.5,
     },
   ];
 }

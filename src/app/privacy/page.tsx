@@ -1,13 +1,32 @@
 import type { Metadata } from 'next';
 import CodeBlock from '@/components/CodeBlock';
+import JsonLd from '@/components/JsonLd';
 import SectionFrame from '@/components/SectionFrame';
 import SiteFooter from '@/components/SiteFooter';
 import SiteHeader from '@/components/SiteHeader';
+import { getBaseUrl, getBreadcrumbSchema } from '@/lib/seo-schemas';
+
+const siteUrl = getBaseUrl();
+const canonicalUrl = `${siteUrl}/privacy`;
 
 export const metadata: Metadata = {
-  title: 'Privacy & data handling',
+  title: 'Privacy & Data Handling',
   description:
     'What Evenstamp collects, how device identity is scoped, how long sessions are retained, and how to export or erase a DeviceID.',
+  alternates: { canonical: canonicalUrl },
+  openGraph: {
+    title: 'Privacy & Data Handling · Evenstamp',
+    description:
+      'What Evenstamp collects, how device identity is scoped, how long sessions are retained, and how to export or erase a DeviceID.',
+    url: canonicalUrl,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy & Data Handling · Evenstamp',
+    description:
+      'What Evenstamp collects, how device identity is scoped, how long sessions are retained, and how to export or erase a DeviceID.',
+  },
 };
 
 const SIGNALS = [
@@ -49,10 +68,32 @@ const SIGNALS = [
 ];
 
 export default function PrivacyPage() {
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Privacy', path: '/privacy' },
+  ]);
+
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy & Data Handling · Evenstamp',
+    url: canonicalUrl,
+    description:
+      'What Evenstamp collects, how device identity is scoped, how long sessions are retained, and how to export or erase a DeviceID.',
+    dateModified: '2026-11-07',
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Evenstamp',
+      url: siteUrl,
+    },
+  };
+
   return (
     <>
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={webPageSchema} />
       <SiteHeader />
-      <main>
+      <main id="main-content">
         <SectionFrame id="privacy">
           <div className="max-w-3xl space-y-5">
             <div className="eyebrow">// Privacy &amp; data handling</div>
