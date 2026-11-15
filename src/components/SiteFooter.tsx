@@ -43,6 +43,7 @@ export default function SiteFooter() {
               { label: 'Block Promo Abuse', href: '/#detection' },
               { label: 'Unmask Stealth VPNs', href: '/#architecture' },
               { label: 'Bot Biometrics', href: '/#architecture' },
+              { label: 'AI Agent Detection', href: '/ai-agent-detection' },
               { label: 'Self-Hosted Sovereign', href: '/pricing' },
             ]}
           />

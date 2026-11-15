@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     absolute: 'Evenstamp: Cross-Browser Fraud & Abuse Protection',
   },
   description:
-    'Recognize every visitor, even when they clear cookies, switch browsers, or use a VPN. Stop fake accounts, promo abuse, and bots with cross-browser hardware identification.',
+    'Recognize every visitor across browsers, cookie clears, and VPNs. Stop fake accounts, promo abuse, and bots with cross-browser hardware identity.',
   alternates: {
     canonical: siteUrl,
   },
