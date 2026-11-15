@@ -111,7 +111,7 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
     whyItMatters:
       'Humans naturally move their mouse toward a button before clicking; automated scripts often click directly at target coordinates.',
     technicalNote:
-      'Click event registered with fewer than 3 preceding pointer movement coordinates.',
+      'Mouse or pen click registered with fewer than 3 preceding pointer movement coordinates. Touch taps are excluded because touch input has no hover approach.',
   },
   BOT_SYNTHETIC_SCROLL_STEP_FUNCTION: {
     code: 'BOT_SYNTHETIC_SCROLL_STEP_FUNCTION',
