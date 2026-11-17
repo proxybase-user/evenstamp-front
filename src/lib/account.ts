@@ -66,6 +66,8 @@ export interface EdgeTelemetry {
   region?: string | null;
   asn?: number | null;
   asOrganization?: string | null;
+  asnBad?: boolean | null;
+  asnName?: string | null;
   tcpTtl?: number | null;
   tcpMss?: number | null;
   tcpRttMs?: number | null;

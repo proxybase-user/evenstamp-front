@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Filter } from 'lucide-react';
 import CountryFlag from '@/components/CountryFlag';
+import AsnInfoBadge from '@/components/dashboard/AsnInfoBadge';
 import SessionFindingsBadges from '@/components/dashboard/SessionFindingsBadges';
 import { getSessions, getSites, requireUser } from '@/lib/account';
 import {
@@ -191,8 +192,16 @@ export default async function SessionsPage({
                           />
                           <span>{countryLabel(session.edge)}</span>
                         </div>
-                        <div className="font-mono text-[10px] text-ink-muted">
-                          AS{session.edge.asn ?? '—'}
+                        <div className="mt-1">
+                          <AsnInfoBadge
+                            asn={session.edge.asn ?? null}
+                            name={
+                              session.edge.asnName ??
+                              session.edge.asOrganization ??
+                              null
+                            }
+                            bad={session.edge.asnBad === true}
+                          />
                         </div>
                       </td>
                       <td className="px-4 py-3 text-ink-body">
