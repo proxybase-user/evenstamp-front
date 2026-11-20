@@ -61,6 +61,45 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
     technicalNote:
       'Browser event isTrusted flag returned false for one or more critical user interaction events.',
   },
+  UNTRUSTED_SYNTHETIC_INPUT_ONLY: {
+    code: 'UNTRUSTED_SYNTHETIC_INPUT_ONLY',
+    title: 'Scripted Input Without Any Real Interaction',
+    badge: 'Fully Synthetic',
+    category: 'Automation & Bots',
+    severity: 'high',
+    summary:
+      'Pointer, key, wheel, or touch events were dispatched by script while the page saw no trusted human input at all.',
+    whyItMatters:
+      'A scripted page that never receives a genuine hardware event is strong evidence of an automated session rather than a person.',
+    technicalNote:
+      'untrustedByType non-click total > 0 and trustedEventCount == 0.',
+  },
+  CDP_SERIALIZER_WITH_AUTOMATION: {
+    code: 'CDP_SERIALIZER_WITH_AUTOMATION',
+    title: 'DevTools Serializer Plus Automation Evidence',
+    badge: 'Instrumented Bot',
+    category: 'Automation & Bots',
+    severity: 'high',
+    summary:
+      'A DevTools serializer was active while automation, an injected preload, or bot-like behavior was also present.',
+    whyItMatters:
+      'An open console alone is normal for developers; combined with automation evidence it indicates an instrumented bot.',
+    technicalNote:
+      'CDP console trap corroborated by WebDriver, automation globals, injected preload, or behavioral bot flags.',
+  },
+  INJECTED_PRELOAD_DETECTED: {
+    code: 'INJECTED_PRELOAD_DETECTED',
+    title: 'Injected Preload Script Detected',
+    badge: 'Injected Script',
+    category: 'Automation & Bots',
+    severity: 'high',
+    summary:
+      'Stack frames reference an anonymous injected preload script rather than a normal page script.',
+    whyItMatters:
+      'Anti-detect browsers and automation frameworks inject code before the page loads to rewrite fingerprint APIs.',
+    technicalNote:
+      'Structured CallSite frames with an empty filename and line 1, or <anonymous>:1:.',
+  },
   BOT_CONSTANT_VELOCITY_TRAJECTORY: {
     code: 'BOT_CONSTANT_VELOCITY_TRAJECTORY',
     title: 'Robotic Constant-Speed Cursor Movement',
@@ -138,6 +177,19 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
       'Indicates automated form autofill scripts or automated credential stuffing tools blasting credentials into inputs.',
     technicalNote:
       'Mean keystroke dwell time fell below 12ms or standard deviation of dwell was under 1.5ms.',
+  },
+  SYNTHETIC_TOUCH_CADENCE: {
+    code: 'SYNTHETIC_TOUCH_CADENCE',
+    title: 'Timer-Perfect Synthetic Touch Stream',
+    badge: 'Synthetic Touch',
+    category: 'Behavioral Biometrics',
+    severity: 'medium',
+    summary:
+      'Six or more taps had constant pressure and contact size plus either a timer-identical inter-tap interval or fixed coordinates.',
+    whyItMatters:
+      'Real fingers vary pressure and timing; modern phones legitimately report constant pressure, so this rule requires the synthetic cadence as well.',
+    technicalNote:
+      'Touch downs >= 6, zero pressure/contact-size variance (when reported), and std(inter-tap dt) < 1.5 ms or coordinate jitter < 0.5 px.',
   },
   MOBILE_STATIC_TOUCH_PRESSURE_EMULATOR: {
     code: 'MOBILE_STATIC_TOUCH_PRESSURE_EMULATOR',
@@ -364,6 +416,19 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
     technicalNote:
       'Claimed Apple M-series GPU renderer paired with fewer than 4 hardware CPU cores.',
   },
+  PRIVACY_CLAMPED_CORES: {
+    code: 'PRIVACY_CLAMPED_CORES',
+    title: 'Privacy Browser Clamped CPU Core Count',
+    badge: 'Privacy Clamp',
+    category: 'Privacy Tools',
+    severity: 'low',
+    summary:
+      'Firefox/Tor or another privacy-hardened browser reported two or four cores on an Apple Silicon profile.',
+    whyItMatters:
+      'ResistFingerprinting reduces the reported core count; treating that as a spoofed Apple GPU would punish privacy-conscious users.',
+    technicalNote:
+      'Apple renderer, cores 2 or 4, and Firefox/Tor family or privacy-tool evidence; weighted in the PrivacyTool domain.',
+  },
   APPLE_SILICON_WITHOUT_P3_GAMUT_DISPLAY: {
     code: 'APPLE_SILICON_WITHOUT_P3_GAMUT_DISPLAY',
     title: 'Claimed Apple Mac Lacks Wide Color Screen',
@@ -417,6 +482,45 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
       'Residential proxies (e.g. BrightData, Oxylabs, IPRoyal) are heavily utilized by credential stuffers and fraud rings to disguise cloud attacks as residential home users.',
     technicalNote:
       'Severe divergence between TCP handshake round-trip time and TLS cryptographic handshake round-trip time (>50ms split).',
+  },
+  MSS_CLAMP_OBSERVED: {
+    code: 'MSS_CLAMP_OBSERVED',
+    title: 'Low SYN MSS (Solo Signal)',
+    badge: 'MSS Observation',
+    category: 'Network & Proxy',
+    severity: 'low',
+    summary:
+      'The client SYN advertised an MSS below 1390, which is common on PPPoE, DS-Lite, and corporate VPNs.',
+    whyItMatters:
+      'A solo MSS clamp is not evidence of fraud; it is recorded at low weight and escalates only with another tunnel signal.',
+    technicalNote:
+      'Non-mobile TCP MSS < 1390 without a TTL mismatch, zero-hop TTL, or TCP/TLS RTT split.',
+  },
+  CHALLENGE_IP_DRIFT: {
+    code: 'CHALLENGE_IP_DRIFT',
+    title: 'Same Network, Different Address',
+    badge: 'Address Drift',
+    category: 'Network & Proxy',
+    severity: 'low',
+    summary:
+      'The challenge and ingest requests came from different addresses inside the same bound network.',
+    whyItMatters:
+      'Dual-stack and carrier CGNAT rotate addresses routinely; this is a soft signal, not a rejection.',
+    technicalNote:
+      'Primary network binding verified, exact-IP tag differed; accepted in prefix mode.',
+  },
+  WASM_PROOF_TAMPERED: {
+    code: 'WASM_PROOF_TAMPERED',
+    title: 'Payload Spliced After WASM Probe',
+    badge: 'Proof Mismatch',
+    category: 'Identity & OS Spoofing',
+    severity: 'high',
+    summary:
+      'The WASM payload proof did not match the high-value fields in the decrypted payload.',
+    whyItMatters:
+      'A mismatch means the JSON was edited after the WASM probe ran, a common proxy-injection technique.',
+    technicalNote:
+      'Recomputed canonical payload digest and envelope proof failed against the payload envelopeProof.',
   },
   VPN_TUNNEL_MSS_CLAMP_WITH_TTL_SHIFT: {
     code: 'VPN_TUNNEL_MSS_CLAMP_WITH_TTL_SHIFT',
@@ -575,6 +679,11 @@ export function getExecutiveVerdict(session: {
     riskScore >= 70 ||
     spoofAndAutomationScore >= 70 ||
     codes.has('AUTOMATION_FRAMEWORK_DETECTED') ||
+    codes.has('CDP_SERIALIZER_WITH_AUTOMATION') ||
+    codes.has('INJECTED_PRELOAD_DETECTED') ||
+    codes.has('WASM_PROOF_TAMPERED') ||
+    codes.has('UNTRUSTED_SYNTHETIC_INPUT_ONLY') ||
+    // Historical rows written before the domain rework.
     codes.has('CDP_RUNTIME_VALUE_MIRROR_SERIALIZER_ACTIVE') ||
     codes.has('OS_TCP_TTL_MISMATCH_WINDOWS_ON_UNIX_STACK') ||
     codes.has('IMPOSSIBLE_APPLE_SILICON_CORE_COUNT') ||
@@ -584,6 +693,8 @@ export function getExecutiveVerdict(session: {
       'High-risk automated script, headless browser, or spoofed device environment detected.';
     if (
       codes.has('AUTOMATION_FRAMEWORK_DETECTED') ||
+      codes.has('CDP_SERIALIZER_WITH_AUTOMATION') ||
+      codes.has('INJECTED_PRELOAD_DETECTED') ||
       codes.has('CDP_RUNTIME_VALUE_MIRROR_SERIALIZER_ACTIVE')
     ) {
       specificDetail =
@@ -609,8 +720,13 @@ export function getExecutiveVerdict(session: {
     };
   }
 
-  // Caution: Privacy tools or medium proxy/timing anomalies
-  if (riskScore >= 30 || privacyToolDetected || codes.size > 0) {
+  // Caution: privacy tools or medium/high findings. Low-severity observations
+  // (soft MSS clamp, address drift) stay informational.
+  const hasMediumOrHigh = Array.from(codes).some((code) => {
+    const definition = ANOMALY_DICTIONARY[code];
+    return definition !== undefined && definition.severity !== 'low';
+  });
+  if (riskScore >= 30 || privacyToolDetected || hasMediumOrHigh) {
     let cautionDetail =
       'The visitor appears to be a real user, but is using privacy-enhancing browser tools, VPNs, or proxy relays.';
     if (privacyToolDetected) {
@@ -782,15 +898,28 @@ export function interpretBehavior(
     });
   }
 
-  // Synthetic DOM clicks
-  if (anomalySet.has('UNTRUSTED_SYNTHETIC_DOM_EVENTS')) {
+  // Synthetic DOM events
+  if (
+    anomalySet.has('UNTRUSTED_SYNTHETIC_INPUT_ONLY') ||
+    anomalySet.has('UNTRUSTED_SYNTHETIC_DOM_EVENTS')
+  ) {
     humanScore -= 40;
     insights.push({
       label: 'Event Authenticity',
       value: 'Untrusted Synthetic Events',
       status: 'suspicious',
       explanation:
-        'Clicks were generated directly by JavaScript code rather than genuine hardware user input.',
+        'Pointer, key, wheel, or touch events were generated directly by JavaScript code rather than genuine hardware user input.',
+    });
+  }
+  if (anomalySet.has('SYNTHETIC_TOUCH_CADENCE')) {
+    humanScore -= 20;
+    insights.push({
+      label: 'Touch Dynamics',
+      value: 'Timer-Perfect Touch Stream',
+      status: 'suspicious',
+      explanation:
+        'Tap pressure, contact size, timing, and coordinates were too uniform to come from a physical finger.',
     });
   }
 
@@ -841,6 +970,9 @@ export function interpretNetwork(
     networkBadgeClass = 'text-rose-700 dark:text-rose-300 border-rose-500/30 bg-rose-500/10';
   } else if (anomalySet.has('VPN_TUNNEL_MSS_CLAMP_WITH_TTL_SHIFT')) {
     networkType = 'VPN or Encrypted Tunnel (Packet encapsulation)';
+    networkBadgeClass = 'text-amber-800 dark:text-amber-300 border-amber-500/30 bg-amber-500/10';
+  } else if (anomalySet.has('MSS_CLAMP_OBSERVED')) {
+    networkType = 'Consumer Access with MSS Clamp (PPPoE/DS-Lite)';
     networkBadgeClass = 'text-amber-800 dark:text-amber-300 border-amber-500/30 bg-amber-500/10';
   } else if (
     edge.asOrganization &&

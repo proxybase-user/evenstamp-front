@@ -161,10 +161,12 @@ export default function PrivacyPage() {
                 Challenge binding
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-body">
-                The challenge row stores a one-way{' '}
-                <span className="font-mono font-medium text-ink">HMAC-SHA256</span> of
-                the client IP, not the raw address. It exists for the nonce TTL
-                (60 seconds by default) and is deleted on use or by GC.
+                Challenge binding is a one-way{' '}
+                <span className="font-mono font-medium text-ink">HMAC-SHA256</span>{' '}
+                of the network (ASN or prefix) plus an exact-IP tag used only to
+                report address drift; the raw address is never stored. The
+                binding exists for the nonce TTL (60 seconds by default) and is
+                deleted on use or by GC.
               </p>
             </article>
             <article className="card-feature !p-6">
@@ -185,9 +187,11 @@ export default function PrivacyPage() {
               <p className="mt-2 text-sm leading-relaxed text-ink-body">
                 Sessions are retained for{' '}
                 <span className="font-mono font-medium text-ink">FP_SESSION_RETENTION_DAYS</span>{' '}
-                (90 days by default), then removed by a six-hour GC. A device
-                that is still being seen can persist for its device lifetime;
-                the authenticated erase endpoint removes it and its links and
+                (90 days by default) or the tenant&apos;s own{' '}
+                <span className="font-mono font-medium text-ink">retentionDays</span>{' '}
+                (7–365 days), then removed by a six-hour GC. A device that is
+                still being seen can persist for its device lifetime; the
+                authenticated erase endpoint removes it and its links and
                 sessions immediately.
               </p>
             </article>
@@ -196,25 +200,41 @@ export default function PrivacyPage() {
                 Raw payload
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-body">
-                Every accepted request is archived in the internal{' '}
+                The forensic{' '}
                 <span className="font-mono font-medium text-ink">raw_sessions</span>{' '}
-                table with the full sanitized fingerprint payload, request
-                headers (credentials and cookies are stripped), and edge
-                context. Archive rows are retained indefinitely; only an
-                authenticated device deletion removes them.{' '}
+                archive is disabled by default. When an operator enables{' '}
+                <span className="font-mono font-medium text-ink">FP_FORENSIC_ARCHIVE</span>,
+                it stores the sanitized payload, allow-listed headers
+                (credentials and cookies are stripped), and edge context for at
+                most{' '}
+                <span className="font-mono font-medium text-ink">FP_RAW_ARCHIVE_RETENTION_DAYS</span>{' '}
+                (default 14, never more than 90). The client IP is a one-way
+                HMAC plus prefix unless the operator explicitly opts into the
+                raw address.{' '}
                 <span className="font-mono font-medium text-ink">FP_STORE_RAW_PAYLOAD</span>{' '}
                 controls the customer-facing session copy: when disabled
                 (default), the dashboard shows a redaction marker instead of
-                the raw payload. Derived device profiles, font metrics,
-                behavioral vectors, scores, and edge telemetry remain
-                available.
+                the raw payload.
               </p>
             </article>
           </div>
-          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink-muted">
-            SQLite uses <span className="font-mono font-medium text-ink">secure_delete=ON</span>{' '}
+          <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink-body">
+            <span className="font-medium text-ink">Account email.</span> Google
+            OAuth provides the email address attached to your account. It is
+            used for sign-in and for two transactional messages: a welcome email
+            when the account is created and a usage warning when the account
+            reaches 90% of its plan&apos;s included identifications. Delivery is
+            handled by Resend. No marketing or third-party advertising email is
+            sent.
+          </p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-ink-muted">
+            Sensitive columns (biometric templates, behavioral summaries, stored
+            raw payloads, and archive payloads/headers) are encrypted at rest
+            with AES-256-GCM by default; each ciphertext is bound to its table,
+            column, and tenant. SQLite uses{' '}
+            <span className="font-mono font-medium text-ink">secure_delete=ON</span>{' '}
             and Unix file mode <span className="font-mono font-medium text-ink">0600</span>.
-            Deletions are recorded in a separate deletion audit log. Backups,
+            Deletions and exports are recorded in a security audit log. Backups,
             WAL checkpoints, load balancers, WAFs, and hosting-provider logs are
             controlled by the deploying operator.
           </p>
@@ -294,10 +314,10 @@ export default function PrivacyPage() {
                 basis for punishment.
               </li>
               <li>
-                The visitor playground is a dry run: it computes a report
-                without storing a device or session row, and it redacts the
-                client IP to a prefix or placeholder. It still samples behavior
-                on load and discloses that in its footer.
+                The visitor playground is a strict dry run: it computes a report
+                without writing a device, session, link, or raw archive row, and
+                it redacts the client IP to a prefix or placeholder. It still
+                samples behavior on load and discloses that in its footer.
               </li>
             </ul>
             <p className="pt-2 text-sm text-ink-muted">

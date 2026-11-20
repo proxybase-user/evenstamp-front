@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LogOut } from 'lucide-react';
 import DashboardNav from '@/components/dashboard/DashboardNav';
+import PlanLimitBanner from '@/components/dashboard/PlanLimitBanner';
 import ThemeToggle from '@/components/ThemeToggle';
 import { requireUser } from '@/lib/account';
 
@@ -84,7 +85,10 @@ export default async function DashboardLayout({
       </header>
 
       <main id="main-content" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        {children}
+        <div className="space-y-6">
+          <PlanLimitBanner plan={me.plan} usage={me.usage} />
+          {children}
+        </div>
       </main>
     </div>
   );
