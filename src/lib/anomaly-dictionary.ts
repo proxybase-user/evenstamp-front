@@ -297,6 +297,71 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
     technicalNote:
       'HTTP/2 pseudo-header stream order contradicts claimed User-Agent browser family.',
   },
+  FEATURE_PROBE_API_TAMPERED: {
+    code: 'FEATURE_PROBE_API_TAMPERED',
+    title: 'Browser Feature Checks Faked',
+    badge: 'Feature API Tamper',
+    category: 'Identity & OS Spoofing',
+    severity: 'high',
+    summary:
+      'The browser’s CSS feature-detection API failed native integrity checks, meaning the page can fabricate its reported feature set.',
+    whyItMatters:
+      'Spoofing tools often replace CSS.supports so the browser reports any capabilities the attacker wants, bypassing engine-version checks.',
+    technicalNote:
+      'CSS.supports failed the native-source or invalid-property/selector/true-value canaries in the 55-bit feature probe.',
+  },
+  FEATURE_ENGINE_FAMILY_CONTRADICTION: {
+    code: 'FEATURE_ENGINE_FAMILY_CONTRADICTION',
+    title: 'Feature Set Matches a Different Browser Engine',
+    badge: 'Engine Mismatch',
+    category: 'Identity & OS Spoofing',
+    severity: 'high',
+    summary:
+      'The browser’s actual CSS and JavaScript capabilities match another engine family (Chrome, Firefox, or Safari) far better than the browser it claims to be.',
+    whyItMatters:
+      'A Firefox User-Agent cannot change Blink-only APIs. This catches anti-detect profiles that spoof the UA string but keep the real engine.',
+    technicalNote:
+      'The observed mask had at least two mismatches against the claimed family while an alternative engine family fit with at most one mismatch.',
+  },
+  FEATURE_IMPOSSIBLE_FUTURE_PRESENCE: {
+    code: 'FEATURE_IMPOSSIBLE_FUTURE_PRESENCE',
+    title: 'Browser Exposes Features From a Newer Version',
+    badge: 'Future Features',
+    category: 'Identity & OS Spoofing',
+    severity: 'medium',
+    summary:
+      'The browser reports CSS or JavaScript features that did not exist in the version it claims to be running.',
+    whyItMatters:
+      'An older claimed version with newer capabilities usually means the User-Agent was lowered to bypass version gates while the real browser is newer.',
+    technicalNote:
+      'At least two observed feature bits were unsupported by the claimed engine/version in the pinned Can I Use matrix; a single core-ladder feature scores 20.',
+  },
+  FEATURE_CORE_SYNTAX_ABSENCE: {
+    code: 'FEATURE_CORE_SYNTAX_ABSENCE',
+    title: 'Baseline Browser Features Are Missing',
+    badge: 'Core Features Missing',
+    category: 'Identity & OS Spoofing',
+    severity: 'medium',
+    summary:
+      'The browser is missing core CSS or JavaScript syntax that every browser of its claimed version and family supports.',
+    whyItMatters:
+      'Common in outdated headless builds or stripped-down runtimes given a modern User-Agent to look like a current consumer browser.',
+    technicalNote:
+      'At least two core-ladder or engine-marker features expected by the claimed version were absent from the observed mask.',
+  },
+  FEATURE_VERSION_SKEW_DETECTED: {
+    code: 'FEATURE_VERSION_SKEW_DETECTED',
+    title: 'Feature Set Indicates a Different Browser Version',
+    badge: 'Version Mismatch',
+    category: 'Identity & OS Spoofing',
+    severity: 'medium',
+    summary:
+      'The observed feature set fits a materially different version range than the one the browser claims.',
+    whyItMatters:
+      'Version strings are trivial to edit, but the engine version that actually executes the page reveals the real release range.',
+    technicalNote:
+      'Claimed version fell outside the inferred range by more than one Safari/iOS major or five Chrome/Firefox/Edge majors.',
+  },
   OS_SPEECH_SYNTHESIS_VOICE_CONTRADICTION: {
     code: 'OS_SPEECH_SYNTHESIS_VOICE_CONTRADICTION',
     title: 'System Voices Contradict Claimed OS',
@@ -428,6 +493,19 @@ export const ANOMALY_DICTIONARY: Record<string, AnomalyDefinition> = {
       'ResistFingerprinting reduces the reported core count; treating that as a spoofed Apple GPU would punish privacy-conscious users.',
     technicalNote:
       'Apple renderer, cores 2 or 4, and Firefox/Tor family or privacy-tool evidence; weighted in the PrivacyTool domain.',
+  },
+  FEATURE_OPTIONAL_API_RESTRICTED: {
+    code: 'FEATURE_OPTIONAL_API_RESTRICTED',
+    title: 'Optional Browser APIs Restricted',
+    badge: 'Optional APIs Off',
+    category: 'Privacy Tools',
+    severity: 'low',
+    summary:
+      'Several permission-gated or privacy-sensitive browser APIs (such as WebGPU, Bluetooth, or SharedArrayBuffer) were unavailable while core browser features were intact.',
+    whyItMatters:
+      'Typical of privacy-hardened browsers, extensions, or enterprise policies. This is intentionally informational and does not count as spoofing.',
+    technicalNote:
+      'No impossible-presence or core-absence mismatch, but at least two secure-context optional APIs were absent; weighted 10 in the PrivacyTool domain.',
   },
   APPLE_SILICON_WITHOUT_P3_GAMUT_DISPLAY: {
     code: 'APPLE_SILICON_WITHOUT_P3_GAMUT_DISPLAY',
